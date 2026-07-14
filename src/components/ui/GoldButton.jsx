@@ -1,9 +1,8 @@
 import { motion } from "framer-motion";
-import { Link } from "react-router-dom";
 
 export default function GoldButton({ children, to, href, onClick, variant = "primary", className = "", icon }) {
   const baseClasses =
-    "inline-flex items-center gap-2 px-8 py-3.5 text-sm font-semibold tracking-widest uppercase rounded-lg transition-all duration-300 cursor-pointer";
+    "inline-flex items-center justify-center gap-2 min-h-11 px-6 sm:px-8 py-3.5 text-xs sm:text-sm font-semibold tracking-widest uppercase rounded-lg transition-all duration-300 cursor-pointer";
 
   const variants = {
     primary:
@@ -27,7 +26,7 @@ export default function GoldButton({ children, to, href, onClick, variant = "pri
 
   if (to) {
     return (
-      <Link to={to}>
+      <a href={to}>
         <MotionComponent
           whileHover={{ scale: 1.02 }}
           whileTap={{ scale: 0.98 }}
@@ -35,7 +34,7 @@ export default function GoldButton({ children, to, href, onClick, variant = "pri
         >
           {content}
         </MotionComponent>
-      </Link>
+      </a>
     );
   }
 

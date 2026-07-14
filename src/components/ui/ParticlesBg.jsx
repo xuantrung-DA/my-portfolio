@@ -25,13 +25,27 @@ export default function ParticlesBg() {
     if (!canvas) return;
 
     const ctx = canvas.getContext("2d");
-    let width = (canvas.width = window.innerWidth);
-    let height = (canvas.height = window.innerHeight);
+    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const finePointer = window.matchMedia("(pointer: fine)").matches;
+    let width = window.innerWidth;
+    let height = window.innerHeight;
+
+    const setCanvasSize = () => {
+      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      width = window.innerWidth;
+      height = window.innerHeight;
+      canvas.width = Math.round(width * dpr);
+      canvas.height = Math.round(height * dpr);
+      canvas.style.width = `${width}px`;
+      canvas.style.height = `${height}px`;
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    };
+
+    setCanvasSize();
     particlesRef.current = createParticles(width, height);
 
     const handleResize = () => {
-      width = canvas.width = window.innerWidth;
-      height = canvas.height = window.innerHeight;
+      setCanvasSize();
       particlesRef.current = createParticles(width, height);
     };
 
@@ -40,7 +54,7 @@ export default function ParticlesBg() {
     };
 
     window.addEventListener("resize", handleResize);
-    window.addEventListener("mousemove", handleMouseMove);
+    if (finePointer) window.addEventListener("mousemove", handleMouseMove);
 
     const animate = () => {
       ctx.clearRect(0, 0, width, height);
@@ -87,7 +101,7 @@ export default function ParticlesBg() {
         }
       }
 
-      animationRef.current = requestAnimationFrame(animate);
+      if (!reducedMotion) animationRef.current = requestAnimationFrame(animate);
     };
 
     animate();
@@ -95,7 +109,7 @@ export default function ParticlesBg() {
     return () => {
       cancelAnimationFrame(animationRef.current);
       window.removeEventListener("resize", handleResize);
-      window.removeEventListener("mousemove", handleMouseMove);
+      if (finePointer) window.removeEventListener("mousemove", handleMouseMove);
     };
   }, [createParticles]);
 

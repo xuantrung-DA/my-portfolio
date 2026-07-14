@@ -57,9 +57,9 @@ function TypingText({ texts }) {
 
 export default function HomePage() {
   return (
-    <>
+    <div id="home" className="scroll-mt-16 sm:scroll-mt-20">
       {/* Hero Section */}
-      <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
+      <section className="relative min-h-[calc(100svh-4rem)] sm:min-h-[calc(100svh-5rem)] flex items-center justify-center overflow-hidden py-12 sm:py-16">
         <ParticlesBg />
 
         {/* Gradient overlays */}
@@ -70,17 +70,17 @@ export default function HomePage() {
           variants={containerVariants}
           initial="hidden"
           animate="visible"
-          className="relative z-10 text-center px-6 max-w-4xl mx-auto"
+          className="relative z-10 text-center px-4 sm:px-6 max-w-6xl w-full mx-auto"
         >
-          {/* Gold frame */}
+          {/* Glass hero card */}
           <motion.div
             variants={childVariants}
-            className="gold-border-frame p-10 md:p-16 rounded-sm"
+            className="px-5 py-9 sm:p-10 md:px-12 md:py-14 lg:px-16 lg:py-16 rounded-[32px] bg-[rgba(255,255,255,0.02)] border border-[rgba(255,255,255,0.08)] backdrop-blur-xl shadow-[0_24px_80px_rgba(0,0,0,0.28)]"
           >
             {/* Greeting */}
             <motion.p
               variants={childVariants}
-              className="text-gold text-sm md:text-base tracking-[0.3em] uppercase mb-6"
+              className="text-gold text-xs sm:text-sm md:text-base tracking-[0.2em] sm:tracking-[0.3em] uppercase mb-5 sm:mb-6"
             >
               Welcome to my portfolio
             </motion.p>
@@ -88,7 +88,7 @@ export default function HomePage() {
             {/* Name */}
             <motion.h1
               variants={childVariants}
-              className="font-heading text-5xl md:text-7xl lg:text-8xl font-bold text-text-primary mb-4 text-shadow-gold"
+              className="font-heading text-[clamp(1.55rem,7vw,7rem)] font-bold text-text-primary mb-4 tracking-[-0.035em] leading-[0.95] whitespace-nowrap"
             >
               {personalInfo.name}
             </motion.h1>
@@ -96,7 +96,7 @@ export default function HomePage() {
             {/* Typing tagline */}
             <motion.div
               variants={childVariants}
-              className="text-xl md:text-2xl lg:text-3xl font-heading mb-8 h-10"
+              className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-heading mb-7 sm:mb-8 min-h-14 sm:min-h-10"
             >
               <TypingText texts={personalInfo.taglines} />
             </motion.div>
@@ -115,10 +115,10 @@ export default function HomePage() {
               variants={childVariants}
               className="flex flex-col sm:flex-row gap-4 justify-center"
             >
-              <GoldButton to="/projects" icon={<FaArrowRight />}>
+              <GoldButton to="#projects" icon={<FaArrowRight />}>
                 View Projects
               </GoldButton>
-              <GoldButton to="/contact" variant="outline">
+              <GoldButton to="#contact" variant="outline">
                 Get In Touch
               </GoldButton>
             </motion.div>
@@ -130,7 +130,7 @@ export default function HomePage() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 2 }}
-          className="absolute bottom-10 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center gap-2"
+          className="absolute bottom-4 sm:bottom-8 left-1/2 -translate-x-1/2 z-10 hidden sm:flex flex-col items-center gap-2"
         >
           <span className="text-text-muted text-xs tracking-widest uppercase">
             Scroll
@@ -145,10 +145,10 @@ export default function HomePage() {
       </section>
 
       {/* Stats Section */}
-      <section className="py-24 bg-bg-secondary relative">
+      <section className="py-16 sm:py-20 lg:py-24 bg-bg-secondary relative">
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(201,168,76,0.03)_0%,transparent_50%)]" />
-        <div className="max-w-7xl mx-auto px-6 lg:px-8 relative">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+          <div className="grid grid-cols-1 min-[360px]:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
             {stats.map((stat, i) => (
               <motion.div
                 key={stat.label}
@@ -157,8 +157,8 @@ export default function HomePage() {
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: i * 0.1 }}
               >
-                <Card gold className="text-center py-8">
-                  <div className="text-3xl md:text-4xl font-heading font-bold gold-gradient-text mb-2">
+                <Card gold className="text-center !p-5 sm:!p-8">
+                  <div className="text-2xl sm:text-3xl md:text-4xl font-heading font-bold gold-gradient-text mb-2 break-words">
                     {stat.value}
                   </div>
                   <div className="text-text-secondary text-sm tracking-widest uppercase">
@@ -170,6 +170,6 @@ export default function HomePage() {
           </div>
         </div>
       </section>
-    </>
+    </div>
   );
 }

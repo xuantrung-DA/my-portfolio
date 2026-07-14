@@ -9,9 +9,9 @@ export default function SectionTitle({ title, subtitle, align = "center" }) {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-50px" }}
       transition={{ duration: 0.6 }}
-      className={`mb-16 ${alignClass}`}
+      className={`mb-10 sm:mb-12 lg:mb-16 ${alignClass}`}
     >
-      <h2 className="font-heading text-4xl md:text-5xl font-bold text-text-primary mb-4">
+      <h2 className="font-heading text-3xl sm:text-4xl md:text-5xl font-bold text-text-primary mb-4 break-words">
         {title}
       </h2>
       {/* Gold ornament line */}
@@ -21,7 +21,7 @@ export default function SectionTitle({ title, subtitle, align = "center" }) {
         <div className="h-px w-12 bg-gradient-to-l from-transparent to-gold" />
       </div>
       {subtitle && (
-        <p className="text-text-secondary mt-6 max-w-2xl mx-auto text-lg leading-relaxed">
+        <p className="text-text-secondary mt-6 max-w-2xl mx-auto text-base sm:text-lg leading-relaxed">
           {subtitle}
         </p>
       )}

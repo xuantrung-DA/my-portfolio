@@ -1,106 +1,96 @@
-// ============================================
-// PORTFOLIO DATA - Edit this file to update content
-// ============================================
+// Central source of truth for portfolio content.
+// Content is based on Nguyen Xuan Trung's CV and supplied certificates.
 
 export const personalInfo = {
   name: "Nguyễn Xuân Trung",
   title: "AI Engineer",
   taglines: [
-    "Machine Learning Engineer",
-    "Deep Learning Specialist",
-    "AI Solutions Architect",
-    "Data Science Enthusiast",
+    "Applied AI Engineer",
+    "Computer Vision Practitioner",
+    "LLM & Agentic AI Builder",
+    "MLOps & Backend Developer",
   ],
-  bio: `Passionate AI Engineer with expertise in building intelligent systems 
-    and machine learning solutions. I specialize in developing cutting-edge 
-    AI applications that solve real-world problems, from computer vision to 
-    natural language processing. My goal is to leverage artificial intelligence 
-    to create impactful, scalable solutions.`,
-  location: "Vietnam",
-  email: "xuantrung@example.com",
-  phone: "+84 xxx xxx xxx",
+  bio: `AI undergraduate at FPT University (GPA: 3.75/4.0) with hands-on
+    experience in computer vision, LLM-powered workflows, and backend API
+    development. I build AI applications and production-oriented pipelines
+    using PyTorch, FastAPI, Docker, and AWS EC2, and I am interested in AI
+    Engineer and Applied AI opportunities.`,
+  location: "Phu Huu, Ho Chi Minh City",
+  email: "nxt276651@gmail.com",
+  phone: "0785656734",
   socials: {
-    github: "https://github.com/yourusername",
-    linkedin: "https://linkedin.com/in/yourusername",
-    facebook: "https://facebook.com/yourusername",
+    github: "https://github.com/xuantrung-DA",
+    linkedin: "https://www.linkedin.com/in/trung-nguyen-3932b4265/",
   },
 };
 
 export const stats = [
-  { label: "Projects", value: "15+" },
-  { label: "Technologies", value: "20+" },
-  { label: "Awards", value: "5+" },
-  { label: "Experience", value: "2+ Years" },
+  { label: "Current GPA", value: "3.75/4.0" },
+  { label: "Featured Projects", value: "3" },
+  { label: "Accepted Papers", value: "2" },
+  { label: "Expected Graduation", value: "06/2027" },
 ];
 
 export const experience = [
   {
-    role: "AI Engineer",
-    company: "Tech Company",
-    period: "2024 - Present",
+    role: "AI Intern",
+    company: "ECE Technology Co., Ltd.",
+    period: "01/2026 – 04/2026",
+    project: "AI FOR ECOM",
     description:
-      "Developing and deploying machine learning models for production systems. Building end-to-end ML pipelines and optimizing model performance.",
-    highlights: ["Model Development", "MLOps", "Data Pipeline"],
-  },
-  {
-    role: "Machine Learning Intern",
-    company: "AI Startup",
-    period: "2023 - 2024",
-    description:
-      "Worked on computer vision and NLP projects. Contributed to research and development of AI-powered products.",
-    highlights: ["Computer Vision", "NLP", "Research"],
+      "Built AI and data services for e-commerce analytics, market intelligence, and internal automation workflows.",
+    responsibilities: [
+      "Built a product performance classification module using MiniBatch K-Means with RFM features.",
+      "Designed 30-day performance and rule-based velocity labels for product movement analysis.",
+      "Built an LLM-powered market intelligence workflow using SerpAPI and Gemini API.",
+      "Automated SQL Server-to-PostgreSQL ETL pipelines and developed FastAPI services.",
+      "Containerized services with Docker and deployed API services on AWS EC2.",
+    ],
+    highlights: ["MiniBatch K-Means", "FastAPI", "Docker", "AWS EC2"],
   },
 ];
 
 export const education = [
   {
-    degree: "Bachelor of Science in Computer Science",
-    school: "University Name",
-    period: "2020 - 2024",
-    description: "Specialized in Artificial Intelligence and Machine Learning.",
-    gpa: "3.5/4.0",
+    degree: "Bachelor of Science in Artificial Intelligence",
+    school: "FPT University",
+    period: "2023 – Present",
+    description:
+      "Relevant coursework: Computer Vision, Natural Language Processing, Machine Learning, and Deep Learning.",
+    gpa: "3.75/4.0",
+    expectedGraduation: "06/2027",
   },
 ];
 
 export const skills = [
   {
-    category: "AI / Machine Learning",
-    items: [
-      { name: "TensorFlow / Keras", level: 90 },
-      { name: "PyTorch", level: 85 },
-      { name: "Scikit-learn", level: 88 },
-      { name: "Computer Vision (OpenCV)", level: 82 },
-      { name: "NLP / Transformers", level: 80 },
-      { name: "MLOps / MLflow", level: 75 },
-    ],
+    category: "Programming Languages",
+    items: ["Python", "SQL"],
   },
   {
-    category: "Programming",
-    items: [
-      { name: "Python", level: 95 },
-      { name: "JavaScript", level: 78 },
-      { name: "SQL", level: 82 },
-      { name: "C/C++", level: 70 },
-      { name: "Java", level: 65 },
-    ],
+    category: "AI & Machine Learning",
+    items: ["PyTorch", "Scikit-learn", "NLP", "Computer Vision", "ASR"],
   },
   {
-    category: "Frameworks & Tools",
-    items: [
-      { name: "FastAPI / Flask", level: 85 },
-      { name: "React", level: 72 },
-      { name: "Docker", level: 80 },
-      { name: "Git / GitHub", level: 90 },
-      { name: "Linux", level: 78 },
-    ],
+    category: "LLM & Agentic AI",
+    items: ["LangChain", "LangGraph", "RAG", "LLM Applications", "Agentic AI"],
   },
   {
-    category: "Data & Cloud",
+    category: "Backend & Data Engineering",
+    items: ["FastAPI", "RESTful APIs", "PostgreSQL", "Data Pipelines", "System Design"],
+  },
+  {
+    category: "DevOps & MLOps",
+    items: ["Docker", "Git", "GitHub", "Postman", "AWS EC2"],
+  },
+  {
+    category: "Professional Skills",
     items: [
-      { name: "Pandas / NumPy", level: 92 },
-      { name: "PostgreSQL / MongoDB", level: 80 },
-      { name: "AWS / GCP", level: 70 },
-      { name: "Apache Spark", level: 65 },
+      "English",
+      "Analytical Thinking",
+      "Problem Solving",
+      "Research",
+      "Cross-functional Communication",
     ],
   },
 ];
@@ -108,120 +98,151 @@ export const skills = [
 export const projects = [
   {
     id: 1,
-    title: "AI Chatbot Assistant",
+    title: "AI Career Agent",
+    role: "Personal Project",
+    period: "In Progress",
     description:
-      "An intelligent conversational AI chatbot built using Transformer architecture and fine-tuned on custom datasets. Features include context awareness, multi-turn conversation, and sentiment analysis.",
-    tags: ["Python", "PyTorch", "Transformers", "FastAPI"],
+      "A personal AI career assistant that evaluates the match between a candidate's CV and a job description, identifies skill gaps, and builds a personalized optimization roadmap for career development.",
+    highlights: [
+      "CV–JD matching analysis",
+      "Skill-gap identification",
+      "Personalized career roadmap",
+    ],
+    tags: ["AI Career Guidance", "CV–JD Matching", "Personalization"],
     category: "AI/ML",
-    github: "https://github.com/yourusername/ai-chatbot",
-    demo: "https://demo.example.com/chatbot",
+    github: "",
+    demo: "",
     featured: true,
   },
   {
     id: 2,
-    title: "Object Detection System",
+    title: "Flux AI — AI Personal Financial Coach",
+    role: "AI Engineer",
+    period: "04/2026 – Present",
     description:
-      "Real-time object detection system using YOLOv8 for industrial quality inspection. Achieves 98% accuracy with optimized inference pipeline running at 30+ FPS.",
-    tags: ["Python", "YOLOv8", "OpenCV", "Docker"],
+      "A multi-step AI financial advisory workflow that provides personalized financial recommendations for Gen Z users.",
+    highlights: [
+      "Developing FastAPI services and LLM orchestration for personalized recommendations.",
+      "Implementing specialized agents for transaction analysis, market signals, and product recommendations.",
+      "Collaborating with AI, Business, and Marketing teammates.",
+    ],
+    tags: ["FastAPI", "LLM Orchestration", "Agentic AI"],
     category: "AI/ML",
-    github: "https://github.com/yourusername/object-detection",
+    github: "",
     demo: "",
     featured: true,
   },
   {
     id: 3,
-    title: "Sentiment Analysis Dashboard",
+    title: "Secure Login System",
+    role: "Project Leader",
+    period: "08/2025 – 11/2025",
     description:
-      "Full-stack web application for real-time sentiment analysis of social media data. Includes interactive visualizations and automated reporting.",
-    tags: ["Python", "NLP", "React", "PostgreSQL"],
-    category: "Web",
-    github: "https://github.com/yourusername/sentiment-dashboard",
-    demo: "https://demo.example.com/sentiment",
+      "An end-to-end secure login authentication pipeline combining face anti-spoofing and face recognition.",
+    highlights: [
+      "Optimized a CDCN-based face anti-spoofing module to 96.9% accuracy with an ACER of 0.032.",
+      "Integrated face anti-spoofing with a face recognition system achieving 95.8% accuracy.",
+      "Evaluated and refined model performance for secure authentication requirements.",
+    ],
+    tags: ["PyTorch", "OpenCV", "Face Recognition", "Computer Vision"],
+    category: "Computer Vision",
+    github: "",
+    demo: "",
     featured: true,
-  },
-  {
-    id: 4,
-    title: "Image Classification API",
-    description:
-      "RESTful API for image classification using transfer learning with EfficientNet. Deployed on AWS with auto-scaling capabilities.",
-    tags: ["TensorFlow", "FastAPI", "AWS", "Docker"],
-    category: "AI/ML",
-    github: "https://github.com/yourusername/image-classifier",
-    demo: "",
-    featured: false,
-  },
-  {
-    id: 5,
-    title: "Data Pipeline Framework",
-    description:
-      "Automated ETL pipeline framework for processing large-scale datasets. Supports batch and stream processing with monitoring dashboard.",
-    tags: ["Python", "Apache Spark", "Airflow", "PostgreSQL"],
-    category: "Data",
-    github: "https://github.com/yourusername/data-pipeline",
-    demo: "",
-    featured: false,
-  },
-  {
-    id: 6,
-    title: "Portfolio Website",
-    description:
-      "Personal portfolio website built with React, Vite, and Tailwind CSS featuring dark luxury design, smooth animations, and responsive layout.",
-    tags: ["React", "Tailwind CSS", "Framer Motion", "Vite"],
-    category: "Web",
-    github: "https://github.com/yourusername/portfolio",
-    demo: "",
-    featured: false,
   },
 ];
 
 export const honors = [
   {
-    title: "Best AI Innovation Award",
-    organization: "National Tech Competition",
-    year: "2024",
-    description:
-      "First place for developing an innovative AI-powered solution for healthcare diagnostics at the national technology competition.",
-    type: "competition",
-  },
-  {
-    title: "Outstanding Graduate",
-    organization: "University Name",
-    year: "2024",
-    description:
-      "Recognized as one of the top graduates in the Computer Science department for academic excellence and research contributions.",
+    title: "Top 100 Excellent Students",
+    organization: "FPT University",
+    year: "2025",
+    description: "Recognized among the Top 100 Excellent Students in both the Summer and Fall semesters.",
     type: "academic",
   },
   {
-    title: "Hackathon Winner",
-    organization: "Google Developer Student Clubs",
-    year: "2023",
+    title: "Accepted Paper — Springer LNAI (Scopus Q2)",
+    organization: "Springer",
+    year: "2025",
     description:
-      "Won first prize at the regional hackathon for building an AI-powered accessibility tool that helps visually impaired users navigate websites.",
-    type: "competition",
-  },
-  {
-    title: "Research Paper Published",
-    organization: "IEEE Conference",
-    year: "2023",
-    description:
-      "Published research paper on efficient deep learning model compression techniques for edge devices at IEEE international conference.",
+      '“Weather Forecasting System ‘Four Seasons in One Day’ and Shelter Suggestion for Sydney and Melbourne and Canberra.”',
     type: "research",
   },
   {
-    title: "Dean's List",
-    organization: "University Name",
-    year: "2022 - 2024",
+    title: "Accepted Paper — Springer LNEE (Scopus Q4)",
+    organization: "Springer",
+    year: "2025",
     description:
-      "Consistently maintained a GPA above 3.5, earning a place on the Dean's List for academic excellence throughout the program.",
-    type: "academic",
+      '“Optimizing YOLOv11n for Real-Time Object Detection: Leveraging Quantization and Model Optimization.”',
+    type: "research",
+  },
+];
+
+export const activities = [
+  {
+    title: "LotusHacks × HackHarvard × GenAI Fund Vietnam Hackathon",
+    role: "Participant",
+    period: "20/03/2026 – 22/03/2026",
+    description:
+      "Developed an AI-powered livestream support platform with script generation, live customer response assistance, and post-livestream analysis.",
+  },
+  {
+    title: "FPTU AI & Robotics Challenge 2025",
+    role: "Organizing Committee — AI",
+    period: "05/2025 – 08/2025",
+    description:
+      "Supported AI competition segments through participant assistance, technical coordination, and event execution.",
+  },
+];
+
+export const certifications = [
+  {
+    title: "Natural Language Processing",
+    issuer: "DeepLearning.AI",
+    date: "04/2026",
+    credentialUrl:
+      "https://www.coursera.org/account/accomplishments/specialization/1V0NB10PQJ8Z?utm_source=link&utm_medium=certificate&utm_content=cert_image&utm_campaign=sharing_cta&utm_product=s12n",
+  },
+  {
+    title: "Neural Networks and Deep Learning",
+    issuer: "DeepLearning.AI",
+    date: "11/2025",
+    credentialUrl:
+      "https://www.coursera.org/account/accomplishments/verify/W5FF12EC0BE1?utm_source=link&utm_medium=certificate&utm_content=cert_image&utm_campaign=sharing_cta&utm_product=course",
+  },
+  {
+    title: "Introduction to Containers w/ Docker, Kubernetes & OpenShift",
+    issuer: "IBM",
+    date: "10/2025",
+    credentialUrl:
+      "https://www.coursera.org/account/accomplishments/verify/HLMM0JU7X2LQ?utm_source=link&utm_medium=certificate&utm_content=cert_image&utm_campaign=sharing_cta&utm_product=course",
+  },
+  {
+    title: "Project Management Principles and Practices",
+    issuer: "University of California, Irvine",
+    date: "11/07/2026",
+    credentialUrl:
+      "https://coursera.org/share/ec56a968914753e9ae5ded937fceaf2b",
+  },
+  {
+    title: "Gradient to Production: MLOps & Model Serving Specialization",
+    issuer: "Coursera",
+    date: "11/07/2026",
+    credentialUrl: "https://coursera.org/verify/specialization/4ZEFB8QBVQ3H",
+  },
+  {
+    title: "AI Engineer Professional Specialization",
+    issuer: "Coursera",
+    date: "11/07/2026",
+    credentialUrl: "https://coursera.org/verify/specialization/6J4SFXR6XNEH",
   },
 ];
 
 export const navLinks = [
-  { label: "Home", path: "/" },
-  { label: "About", path: "/about" },
-  { label: "Skills", path: "/skills" },
-  { label: "Projects", path: "/projects" },
-  { label: "Honors", path: "/honors" },
-  { label: "Contact", path: "/contact" },
+  { label: "Home", path: "#home" },
+  { label: "About", path: "#about" },
+  { label: "Skills", path: "#skills" },
+  { label: "Projects", path: "#projects" },
+  { label: "Honors", path: "#honors" },
+  { label: "Contact", path: "#contact" },
 ];

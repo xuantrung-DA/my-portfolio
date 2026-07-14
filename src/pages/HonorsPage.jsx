@@ -1,8 +1,8 @@
 import { motion } from "framer-motion";
 import SectionTitle from "../components/ui/SectionTitle";
 import Card from "../components/ui/Card";
-import { honors } from "../data/portfolio";
-import { FaTrophy, FaMedal, FaAward, FaBookOpen } from "react-icons/fa";
+import { honors, certifications } from "../data/portfolio";
+import { FaTrophy, FaMedal, FaAward, FaBookOpen, FaCertificate, FaExternalLinkAlt } from "react-icons/fa";
 
 const typeIcons = {
   competition: <FaTrophy size={24} />,
@@ -25,11 +25,11 @@ const typeLabels = {
 
 export default function HonorsPage() {
   return (
-    <div className="min-h-screen">
+    <div id="honors" className="scroll-mt-16 sm:scroll-mt-20">
       {/* Header */}
-      <section className="relative py-32 bg-bg-secondary overflow-hidden">
+      <section className="relative py-16 sm:py-20 lg:py-24 bg-bg-secondary overflow-hidden">
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(201,168,76,0.06)_0%,transparent_60%)]" />
-        <div className="max-w-7xl mx-auto px-6 lg:px-8 relative">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
           <SectionTitle
             title="Honors & Awards"
             subtitle="Recognition and achievements that highlight my dedication and expertise in AI and technology."
@@ -40,21 +40,17 @@ export default function HonorsPage() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.3 }}
-            className="flex justify-center gap-12 mt-8"
+            className="grid grid-cols-1 min-[360px]:grid-cols-3 gap-5 sm:gap-8 max-w-2xl mx-auto mt-8"
           >
             {[
-              { label: "Total Awards", value: honors.length },
+              { label: "Recognitions", value: honors.length },
               {
-                label: "Competitions",
-                value: honors.filter((h) => h.type === "competition").length,
-              },
-              {
-                label: "Academic",
-                value: honors.filter((h) => h.type === "academic").length,
-              },
-              {
-                label: "Research",
+                label: "Accepted Papers",
                 value: honors.filter((h) => h.type === "research").length,
+              },
+              {
+                label: "Certificates",
+                value: certifications.length,
               },
             ].map((stat) => (
               <div key={stat.label} className="text-center">
@@ -71,9 +67,9 @@ export default function HonorsPage() {
       </section>
 
       {/* Awards Grid */}
-      <section className="py-24">
-        <div className="max-w-7xl mx-auto px-6 lg:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <section className="py-16 sm:py-20 lg:py-24">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
             {honors.map((honor, i) => (
               <motion.div
                 key={i}
@@ -133,14 +129,62 @@ export default function HonorsPage() {
         </div>
       </section>
 
+      {/* Certifications */}
+      <section className="py-16 sm:py-20 lg:py-24 bg-bg-secondary">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <SectionTitle
+            title="Certifications"
+            subtitle="Continued learning across deep learning, AI engineering, and production MLOps."
+          />
+          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5 sm:gap-6">
+            {certifications.map((certificate, index) => (
+              <motion.div
+                key={certificate.title}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: index * 0.08 }}
+              >
+                <Card gold className="h-full !p-6 flex flex-col">
+                  <div className="flex items-start justify-between gap-4 mb-5">
+                    <div className="w-12 h-12 rounded-xl bg-gold/10 border border-gold/20 flex items-center justify-center text-gold shrink-0">
+                      <FaCertificate size={22} />
+                    </div>
+                    <span className="text-gold text-xs tracking-widest uppercase text-right">
+                      {certificate.date}
+                    </span>
+                  </div>
+                  <h3 className="font-heading text-lg text-text-primary mb-2">
+                    {certificate.title}
+                  </h3>
+                  <p className="text-text-secondary text-sm mb-5">
+                    {certificate.issuer}
+                  </p>
+                  {certificate.credentialUrl && (
+                    <a
+                      href={certificate.credentialUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="mt-auto inline-flex items-center gap-2 text-gold hover:text-gold-light text-sm transition-colors"
+                    >
+                      Verify credential <FaExternalLinkAlt size={11} />
+                    </a>
+                  )}
+                </Card>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* CTA */}
-      <section className="py-24 bg-bg-secondary">
-        <div className="max-w-3xl mx-auto px-6 lg:px-8 text-center">
+      <section className="py-16 sm:py-20 lg:py-24">
+        <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="gold-border-frame p-12 rounded-sm"
+            className="gold-border-frame p-6 sm:p-10 lg:p-12 rounded-sm"
           >
             <FaTrophy className="text-gold mx-auto mb-6" size={40} />
             <h3 className="font-heading text-2xl text-text-primary mb-4">
@@ -151,7 +195,7 @@ export default function HonorsPage() {
               boundaries of AI technology.
             </p>
             <a
-              href="/contact"
+              href="#contact"
               className="inline-flex items-center gap-2 px-8 py-3.5 text-sm font-semibold tracking-widest uppercase rounded-lg bg-gradient-to-r from-gold to-gold-dark text-bg-primary hover:shadow-[0_0_30px_rgba(201,168,76,0.3)] transition-all duration-300"
             >
               Let's Connect

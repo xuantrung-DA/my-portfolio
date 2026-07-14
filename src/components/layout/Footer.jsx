@@ -1,5 +1,4 @@
-import { Link } from "react-router-dom";
-import { FaGithub, FaLinkedinIn, FaFacebookF, FaEnvelope } from "react-icons/fa";
+import { FaGithub, FaEnvelope } from "react-icons/fa";
 import { personalInfo, navLinks } from "../../data/portfolio";
 
 export default function Footer() {
@@ -10,18 +9,18 @@ export default function Footer() {
       {/* Gold line accent */}
       <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-gold/30 to-transparent" />
 
-      <div className="max-w-7xl mx-auto px-6 lg:px-8 py-16">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
           {/* Brand */}
           <div>
-            <Link to="/" className="inline-flex items-center gap-3 mb-4">
+            <a href="#home" className="inline-flex items-center gap-3 mb-4">
               <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-gold to-gold-dark flex items-center justify-center font-heading text-bg-primary font-bold text-lg">
                 T
               </div>
               <span className="font-heading text-xl tracking-wider">
                 TRUNG<span className="text-gold">.</span>
               </span>
-            </Link>
+            </a>
             <p className="text-text-secondary text-sm leading-relaxed mt-3">
               {personalInfo.title} passionate about building intelligent systems
               and creating impactful AI solutions.
@@ -35,13 +34,13 @@ export default function Footer() {
             </h4>
             <div className="grid grid-cols-2 gap-2">
               {navLinks.map((link) => (
-                <Link
+                <a
                   key={link.path}
-                  to={link.path}
+                  href={link.path}
                   className="text-text-secondary hover:text-gold text-sm py-1 transition-colors duration-300"
                 >
                   {link.label}
-                </Link>
+                </a>
               ))}
             </div>
           </div>
@@ -54,8 +53,6 @@ export default function Footer() {
             <div className="flex gap-3">
               {[
                 { icon: <FaGithub size={18} />, url: personalInfo.socials.github, label: "GitHub" },
-                { icon: <FaLinkedinIn size={18} />, url: personalInfo.socials.linkedin, label: "LinkedIn" },
-                { icon: <FaFacebookF size={18} />, url: personalInfo.socials.facebook, label: "Facebook" },
                 { icon: <FaEnvelope size={18} />, url: `mailto:${personalInfo.email}`, label: "Email" },
               ].map((social) => (
                 <a
@@ -70,7 +67,7 @@ export default function Footer() {
                 </a>
               ))}
             </div>
-            <p className="text-text-muted text-sm mt-4">
+            <p className="text-text-muted text-sm mt-4 break-all">
               {personalInfo.email}
             </p>
           </div>

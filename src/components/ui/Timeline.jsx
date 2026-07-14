@@ -4,7 +4,7 @@ export default function Timeline({ items, renderContent }) {
   return (
     <div className="relative">
       {/* Vertical line */}
-      <div className="absolute left-4 md:left-1/2 top-0 bottom-0 w-px bg-gradient-to-b from-gold/50 via-border to-transparent" />
+      <div className="absolute left-3 sm:left-4 md:left-1/2 top-0 bottom-0 w-px bg-gradient-to-b from-gold/50 via-border to-transparent" />
 
       <div className="space-y-12">
         {items.map((item, index) => {
@@ -22,10 +22,10 @@ export default function Timeline({ items, renderContent }) {
               }`}
             >
               {/* Dot */}
-              <div className="absolute left-4 md:left-1/2 w-3 h-3 -translate-x-1/2 rounded-full bg-gold shadow-[0_0_12px_rgba(201,168,76,0.4)] z-10 mt-6 md:mt-0" />
+              <div className="absolute left-3 sm:left-4 md:left-1/2 w-3 h-3 -translate-x-1/2 rounded-full bg-gold shadow-[0_0_12px_rgba(201,168,76,0.4)] z-10 mt-6 md:mt-0" />
 
               {/* Content */}
-              <div className={`ml-12 md:ml-0 md:w-[calc(50%-2rem)] ${isLeft ? "md:pr-8 md:text-right" : "md:pl-8"}`}>
+              <div className={`ml-8 sm:ml-12 md:ml-0 min-w-0 md:w-[calc(50%-2rem)] ${isLeft ? "md:pr-8 md:text-right" : "md:pl-8"}`}>
                 {renderContent(item, index)}
               </div>
 

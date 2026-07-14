@@ -7,7 +7,6 @@ import { personalInfo } from "../data/portfolio";
 import {
   FaGithub,
   FaLinkedinIn,
-  FaFacebookF,
   FaEnvelope,
   FaMapMarkerAlt,
   FaPhone,
@@ -37,19 +36,14 @@ const contactInfo = [
 
 const socials = [
   {
-    icon: <FaGithub size={22} />,
-    label: "GitHub",
-    url: personalInfo.socials.github,
-  },
-  {
     icon: <FaLinkedinIn size={22} />,
     label: "LinkedIn",
     url: personalInfo.socials.linkedin,
   },
   {
-    icon: <FaFacebookF size={22} />,
-    label: "Facebook",
-    url: personalInfo.socials.facebook,
+    icon: <FaGithub size={22} />,
+    label: "GitHub",
+    url: personalInfo.socials.github,
   },
 ];
 
@@ -68,18 +62,21 @@ export default function ContactPage() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // For now, just show success state
-    // TODO: Integrate with Formspree, EmailJS, or custom backend
+    const subject = encodeURIComponent(formData.subject);
+    const body = encodeURIComponent(
+      `Hi Trung,\n\n${formData.message}\n\nFrom: ${formData.name} (${formData.email})`,
+    );
+    window.location.href = `mailto:${personalInfo.email}?subject=${subject}&body=${body}`;
     setSubmitted(true);
     setTimeout(() => setSubmitted(false), 4000);
   };
 
   return (
-    <div className="min-h-screen">
+    <div id="contact" className="scroll-mt-16 sm:scroll-mt-20">
       {/* Header */}
-      <section className="relative py-32 bg-bg-secondary overflow-hidden">
+      <section className="relative py-16 sm:py-20 lg:py-24 bg-bg-secondary overflow-hidden">
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom,rgba(201,168,76,0.05)_0%,transparent_60%)]" />
-        <div className="max-w-7xl mx-auto px-6 lg:px-8 relative">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
           <SectionTitle
             title="Get In Touch"
             subtitle="Have a project in mind or want to collaborate? I'd love to hear from you."
@@ -88,9 +85,9 @@ export default function ContactPage() {
       </section>
 
       {/* Contact Content */}
-      <section className="py-24">
-        <div className="max-w-7xl mx-auto px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-5 gap-12">
+      <section className="py-16 sm:py-20 lg:py-24">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 lg:grid-cols-5 gap-10 lg:gap-12">
             {/* Contact Info Side */}
             <motion.div
               initial={{ opacity: 0, x: -30 }}
@@ -112,19 +109,19 @@ export default function ContactPage() {
                       <div className="w-12 h-12 rounded-xl bg-gold/10 border border-gold/20 flex items-center justify-center text-gold flex-shrink-0">
                         {info.icon}
                       </div>
-                      <div>
+                      <div className="min-w-0">
                         <p className="text-text-muted text-xs tracking-widest uppercase mb-1">
                           {info.label}
                         </p>
                         {info.href ? (
                           <a
                             href={info.href}
-                            className="text-text-primary hover:text-gold transition-colors text-sm"
+                            className="text-text-primary hover:text-gold transition-colors text-sm break-all"
                           >
                             {info.value}
                           </a>
                         ) : (
-                          <p className="text-text-primary text-sm">{info.value}</p>
+                          <p className="text-text-primary text-sm break-words">{info.value}</p>
                         )}
                       </div>
                     </div>
@@ -163,9 +160,9 @@ export default function ContactPage() {
               viewport={{ once: true }}
               className="lg:col-span-3"
             >
-              <Card gold className="!p-8 md:!p-10">
+              <Card gold className="!p-5 sm:!p-8 md:!p-10">
                 <h3 className="font-heading text-2xl text-text-primary mb-8">
-                  Send a Message
+                  Interested in Working Together?
                 </h3>
 
                 <form onSubmit={handleSubmit} className="space-y-6">
@@ -181,7 +178,7 @@ export default function ContactPage() {
                         onChange={handleChange}
                         required
                         className="w-full px-4 py-3.5 bg-bg-tertiary border border-border rounded-lg text-text-primary text-sm placeholder-text-muted focus:border-gold/50 focus:outline-none focus:shadow-[0_0_15px_rgba(201,168,76,0.1)] transition-all duration-300"
-                        placeholder="John Doe"
+                        placeholder="Full Name"
                       />
                     </div>
                     <div>
@@ -195,7 +192,7 @@ export default function ContactPage() {
                         onChange={handleChange}
                         required
                         className="w-full px-4 py-3.5 bg-bg-tertiary border border-border rounded-lg text-text-primary text-sm placeholder-text-muted focus:border-gold/50 focus:outline-none focus:shadow-[0_0_15px_rgba(201,168,76,0.1)] transition-all duration-300"
-                        placeholder="john@example.com"
+                        placeholder="Work Email"
                       />
                     </div>
                   </div>
@@ -211,7 +208,7 @@ export default function ContactPage() {
                       onChange={handleChange}
                       required
                       className="w-full px-4 py-3.5 bg-bg-tertiary border border-border rounded-lg text-text-primary text-sm placeholder-text-muted focus:border-gold/50 focus:outline-none focus:shadow-[0_0_15px_rgba(201,168,76,0.1)] transition-all duration-300"
-                      placeholder="Project Collaboration"
+                      placeholder="Subject (e.g. Interview, Opportunity, Question)"
                     />
                   </div>
 
@@ -226,7 +223,7 @@ export default function ContactPage() {
                       required
                       rows={5}
                       className="w-full px-4 py-3.5 bg-bg-tertiary border border-border rounded-lg text-text-primary text-sm placeholder-text-muted focus:border-gold/50 focus:outline-none focus:shadow-[0_0_15px_rgba(201,168,76,0.1)] transition-all duration-300 resize-none"
-                      placeholder="Tell me about your project or idea..."
+                      placeholder="Feel free to introduce yourself, ask a question, or discuss an opportunity."
                     />
                   </div>
 
@@ -238,7 +235,7 @@ export default function ContactPage() {
                       className="text-center py-4 rounded-lg bg-gold/10 border border-gold/30"
                     >
                       <p className="text-gold text-sm font-semibold">
-                        ✓ Message sent successfully!
+                        Opening your email client…
                       </p>
                     </motion.div>
                   ) : (
@@ -247,7 +244,7 @@ export default function ContactPage() {
                       icon={<FaPaperPlane />}
                       className="w-full justify-center"
                     >
-                      Send Message
+                      Start Conversation
                     </GoldButton>
                   )}
                 </form>
