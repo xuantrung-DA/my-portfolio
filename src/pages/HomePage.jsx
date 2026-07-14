@@ -1,0 +1,175 @@
+import { useState, useEffect } from "react";
+import { motion } from "framer-motion";
+import { FaArrowRight, FaChevronDown } from "react-icons/fa";
+import ParticlesBg from "../components/ui/ParticlesBg";
+import GoldButton from "../components/ui/GoldButton";
+import Card from "../components/ui/Card";
+import { personalInfo, stats } from "../data/portfolio";
+
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: { staggerChildren: 0.15, delayChildren: 0.3 },
+  },
+};
+
+const childVariants = {
+  hidden: { opacity: 0, y: 30 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } },
+};
+
+function TypingText({ texts }) {
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [displayText, setDisplayText] = useState("");
+  const [isDeleting, setIsDeleting] = useState(false);
+
+  useEffect(() => {
+    const current = texts[currentIndex];
+    const timeout = setTimeout(
+      () => {
+        if (!isDeleting) {
+          setDisplayText(current.slice(0, displayText.length + 1));
+          if (displayText.length === current.length) {
+            setTimeout(() => setIsDeleting(true), 2000);
+          }
+        } else {
+          setDisplayText(current.slice(0, displayText.length - 1));
+          if (displayText.length === 0) {
+            setIsDeleting(false);
+            setCurrentIndex((prev) => (prev + 1) % texts.length);
+          }
+        }
+      },
+      isDeleting ? 40 : 80
+    );
+
+    return () => clearTimeout(timeout);
+  }, [displayText, isDeleting, currentIndex, texts]);
+
+  return (
+    <span className="gold-gradient-text">
+      {displayText}
+      <span className="inline-block w-[3px] h-[1em] bg-gold ml-1 animate-pulse align-middle" />
+    </span>
+  );
+}
+
+export default function HomePage() {
+  return (
+    <>
+      {/* Hero Section */}
+      <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
+        <ParticlesBg />
+
+        {/* Gradient overlays */}
+        <div className="absolute inset-0 bg-gradient-to-b from-bg-primary/50 via-transparent to-bg-primary z-[1]" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(201,168,76,0.05)_0%,transparent_70%)] z-[1]" />
+
+        <motion.div
+          variants={containerVariants}
+          initial="hidden"
+          animate="visible"
+          className="relative z-10 text-center px-6 max-w-4xl mx-auto"
+        >
+          {/* Gold frame */}
+          <motion.div
+            variants={childVariants}
+            className="gold-border-frame p-10 md:p-16 rounded-sm"
+          >
+            {/* Greeting */}
+            <motion.p
+              variants={childVariants}
+              className="text-gold text-sm md:text-base tracking-[0.3em] uppercase mb-6"
+            >
+              Welcome to my portfolio
+            </motion.p>
+
+            {/* Name */}
+            <motion.h1
+              variants={childVariants}
+              className="font-heading text-5xl md:text-7xl lg:text-8xl font-bold text-text-primary mb-4 text-shadow-gold"
+            >
+              {personalInfo.name}
+            </motion.h1>
+
+            {/* Typing tagline */}
+            <motion.div
+              variants={childVariants}
+              className="text-xl md:text-2xl lg:text-3xl font-heading mb-8 h-10"
+            >
+              <TypingText texts={personalInfo.taglines} />
+            </motion.div>
+
+            {/* Bio */}
+            <motion.p
+              variants={childVariants}
+              className="text-text-secondary text-base md:text-lg max-w-2xl mx-auto mb-10 leading-relaxed"
+            >
+              Crafting intelligent solutions with cutting-edge AI technology.
+              Transforming complex data into meaningful insights.
+            </motion.p>
+
+            {/* CTA Buttons */}
+            <motion.div
+              variants={childVariants}
+              className="flex flex-col sm:flex-row gap-4 justify-center"
+            >
+              <GoldButton to="/projects" icon={<FaArrowRight />}>
+                View Projects
+              </GoldButton>
+              <GoldButton to="/contact" variant="outline">
+                Get In Touch
+              </GoldButton>
+            </motion.div>
+          </motion.div>
+        </motion.div>
+
+        {/* Scroll indicator */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 2 }}
+          className="absolute bottom-10 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center gap-2"
+        >
+          <span className="text-text-muted text-xs tracking-widest uppercase">
+            Scroll
+          </span>
+          <motion.div
+            animate={{ y: [0, 8, 0] }}
+            transition={{ duration: 1.5, repeat: Infinity }}
+          >
+            <FaChevronDown className="text-gold/50" />
+          </motion.div>
+        </motion.div>
+      </section>
+
+      {/* Stats Section */}
+      <section className="py-24 bg-bg-secondary relative">
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(201,168,76,0.03)_0%,transparent_50%)]" />
+        <div className="max-w-7xl mx-auto px-6 lg:px-8 relative">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+            {stats.map((stat, i) => (
+              <motion.div
+                key={stat.label}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: i * 0.1 }}
+              >
+                <Card gold className="text-center py-8">
+                  <div className="text-3xl md:text-4xl font-heading font-bold gold-gradient-text mb-2">
+                    {stat.value}
+                  </div>
+                  <div className="text-text-secondary text-sm tracking-widest uppercase">
+                    {stat.label}
+                  </div>
+                </Card>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+    </>
+  );
+}
