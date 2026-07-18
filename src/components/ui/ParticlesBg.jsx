@@ -5,16 +5,19 @@ export default function ParticlesBg() {
   const canvasRef = useRef(null);
   const animationRef = useRef(null);
   const particlesRef = useRef([]);
-  const mouseRef = useRef({ x: 0, y: 0 });
 
-  const createParticles = useCallback((width, height) => {
-    const count = Math.min(Math.floor((width * height) / 12000), 80);
+  const createParticles = useCallback((width, height, isMobile) => {
+    const maxCount = isMobile ? 20 : 80;
+    const density = isMobile ? 16000 : 12000;
+    const speed = isMobile ? 0.2 : 0.4;
+    const count = Math.min(Math.floor((width * height) / density), maxCount);
+
     return Array.from({ length: count }, () => ({
       x: Math.random() * width,
       y: Math.random() * height,
       size: Math.random() * 2 + 0.5,
-      speedX: (Math.random() - 0.5) * 0.4,
-      speedY: (Math.random() - 0.5) * 0.4,
+      speedX: (Math.random() - 0.5) * speed,
+      speedY: (Math.random() - 0.5) * speed,
       opacity: Math.random() * 0.5 + 0.1,
       gold: Math.random() > 0.6,
     }));
@@ -26,12 +29,16 @@ export default function ParticlesBg() {
 
     const ctx = canvas.getContext("2d");
     const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    const finePointer = window.matchMedia("(pointer: fine)").matches;
+    const mobileQuery = window.matchMedia("(max-width: 767px), (pointer: coarse)");
+    let isMobile = mobileQuery.matches;
     let width = window.innerWidth;
     let height = window.innerHeight;
+    let lastFrameTime = Number.NEGATIVE_INFINITY;
 
     const setCanvasSize = () => {
-      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      isMobile = mobileQuery.matches;
+      const maxDpr = isMobile ? 1.25 : 2;
+      const dpr = Math.min(window.devicePixelRatio || 1, maxDpr);
       width = window.innerWidth;
       height = window.innerHeight;
       canvas.width = Math.round(width * dpr);
@@ -42,21 +49,24 @@ export default function ParticlesBg() {
     };
 
     setCanvasSize();
-    particlesRef.current = createParticles(width, height);
+    particlesRef.current = createParticles(width, height, isMobile);
 
     const handleResize = () => {
       setCanvasSize();
-      particlesRef.current = createParticles(width, height);
-    };
-
-    const handleMouseMove = (e) => {
-      mouseRef.current = { x: e.clientX, y: e.clientY };
+      particlesRef.current = createParticles(width, height, isMobile);
     };
 
     window.addEventListener("resize", handleResize);
-    if (finePointer) window.addEventListener("mousemove", handleMouseMove);
 
-    const animate = () => {
+    const animate = (timestamp = 0) => {
+      const frameInterval = isMobile ? 1000 / 30 : 0;
+
+      if (timestamp - lastFrameTime < frameInterval) {
+        animationRef.current = requestAnimationFrame(animate);
+        return;
+      }
+
+      lastFrameTime = timestamp;
       ctx.clearRect(0, 0, width, height);
       const particles = particlesRef.current;
 
@@ -79,24 +89,26 @@ export default function ParticlesBg() {
         ctx.fill();
       });
 
-      // Draw connections
-      for (let i = 0; i < particles.length; i++) {
-        for (let j = i + 1; j < particles.length; j++) {
-          const dx = particles[i].x - particles[j].x;
-          const dy = particles[i].y - particles[j].y;
-          const dist = Math.sqrt(dx * dx + dy * dy);
+      // Pairwise connection checks are intentionally skipped on mobile.
+      if (!isMobile) {
+        for (let i = 0; i < particles.length; i++) {
+          for (let j = i + 1; j < particles.length; j++) {
+            const dx = particles[i].x - particles[j].x;
+            const dy = particles[i].y - particles[j].y;
+            const dist = Math.sqrt(dx * dx + dy * dy);
 
-          if (dist < 120) {
-            ctx.beginPath();
-            ctx.moveTo(particles[i].x, particles[i].y);
-            ctx.lineTo(particles[j].x, particles[j].y);
-            const alpha = (1 - dist / 120) * 0.15;
-            ctx.strokeStyle =
-              particles[i].gold || particles[j].gold
-                ? `rgba(201, 168, 76, ${alpha})`
-                : `rgba(255, 255, 255, ${alpha * 0.5})`;
-            ctx.lineWidth = 0.5;
-            ctx.stroke();
+            if (dist < 120) {
+              ctx.beginPath();
+              ctx.moveTo(particles[i].x, particles[i].y);
+              ctx.lineTo(particles[j].x, particles[j].y);
+              const alpha = (1 - dist / 120) * 0.15;
+              ctx.strokeStyle =
+                particles[i].gold || particles[j].gold
+                  ? `rgba(201, 168, 76, ${alpha})`
+                  : `rgba(255, 255, 255, ${alpha * 0.5})`;
+              ctx.lineWidth = 0.5;
+              ctx.stroke();
+            }
           }
         }
       }
@@ -109,7 +121,6 @@ export default function ParticlesBg() {
     return () => {
       cancelAnimationFrame(animationRef.current);
       window.removeEventListener("resize", handleResize);
-      if (finePointer) window.removeEventListener("mousemove", handleMouseMove);
     };
   }, [createParticles]);
 

@@ -1,6 +1,13 @@
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import { FaArrowRight, FaChevronDown, FaFilePdf } from "react-icons/fa";
+import {
+  FaArrowRight,
+  FaBriefcase,
+  FaChevronDown,
+  FaFilePdf,
+  FaGraduationCap,
+  FaMapMarkerAlt,
+} from "react-icons/fa";
 import ParticlesBg from "../components/ui/ParticlesBg";
 import GoldButton from "../components/ui/GoldButton";
 import Card from "../components/ui/Card";
@@ -104,11 +111,42 @@ export default function HomePage() {
             {/* Bio */}
             <motion.p
               variants={childVariants}
-              className="text-text-secondary text-base md:text-lg max-w-2xl mx-auto mb-10 leading-relaxed"
+              className="text-text-secondary text-base md:text-lg max-w-2xl mx-auto mb-7 leading-relaxed"
             >
               Applied AI candidate with hands-on experience in computer vision,
               LLM workflows, backend APIs, and production-oriented deployment.
             </motion.p>
+
+            {/* Recruiter summary */}
+            <motion.div variants={childVariants} className="mb-8">
+              <p className="text-text-muted text-[11px] tracking-[0.2em] uppercase mb-3">
+                Target Roles
+              </p>
+              <div className="flex flex-wrap justify-center gap-2 mb-5">
+                {personalInfo.targetRoles.map((role) => (
+                  <span
+                    key={role}
+                    className="px-3 py-1.5 rounded-full border border-gold/25 bg-gold/5 text-gold text-xs font-medium"
+                  >
+                    {role}
+                  </span>
+                ))}
+              </div>
+              <div className="flex flex-col md:flex-row flex-wrap items-center justify-center gap-2.5 md:gap-5 text-xs sm:text-sm text-text-secondary">
+                <span className="inline-flex items-center justify-center gap-2">
+                  <FaMapMarkerAlt className="text-gold shrink-0" />
+                  {personalInfo.portfolioLocation}
+                </span>
+                <span className="inline-flex items-center justify-center gap-2">
+                  <FaBriefcase className="text-gold shrink-0" />
+                  {personalInfo.availability}
+                </span>
+                <span className="inline-flex items-center justify-center gap-2">
+                  <FaGraduationCap className="text-gold shrink-0" />
+                  Expected Graduation: {personalInfo.expectedGraduation}
+                </span>
+              </div>
+            </motion.div>
 
             {/* CTA Buttons */}
             <motion.div

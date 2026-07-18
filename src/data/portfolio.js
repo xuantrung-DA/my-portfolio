@@ -16,6 +16,11 @@ export const personalInfo = {
     using PyTorch, FastAPI, Docker, and AWS EC2, and I am interested in AI
     Engineer and Applied AI opportunities.`,
   location: "Phu Huu, Ho Chi Minh City",
+  portfolioLocation: "Ho Chi Minh City",
+  targetRoles: ["AI Engineer", "Applied AI Engineer"],
+  availability:
+    "Open to AI Engineer opportunities — Internship & Part-time",
+  expectedGraduation: "June 2027",
   email: "nxt276651@gmail.com",
   phone: "0785656734",
   cvUrl: "/cv/NguyenXuanTrung_AI_Engineer_CV.pdf",
