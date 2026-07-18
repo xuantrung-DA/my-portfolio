@@ -25,7 +25,7 @@ export default function AboutPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
           <SectionTitle
             title="About Me"
-            subtitle="Learn more about my journey, experience, and what drives me in the world of AI."
+            subtitle="A concise overview of my background, practical experience, and fit for Applied AI roles."
           />
         </div>
       </section>
@@ -137,7 +137,7 @@ export default function AboutPage() {
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
           <SectionTitle
             title="Experience"
-            subtitle="My professional journey in the world of AI and technology."
+            subtitle="Professional experience and delivery responsibilities relevant to AI engineering."
           />
 
           <Timeline
@@ -192,7 +192,7 @@ export default function AboutPage() {
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
           <SectionTitle
             title="Education"
-            subtitle="Academic foundation that shaped my expertise."
+            subtitle="Academic training supporting my work in machine learning and software engineering."
           />
 
           <div className="max-w-2xl mx-auto">
@@ -238,7 +238,7 @@ export default function AboutPage() {
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
           <SectionTitle
             title="Activities"
-            subtitle="Technical communities and collaborative events I have contributed to."
+            subtitle="Technical events and community roles that demonstrate teamwork and initiative."
           />
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {activities.map((activity, index) => (

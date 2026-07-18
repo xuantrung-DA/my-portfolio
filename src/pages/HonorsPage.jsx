@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import SectionTitle from "../components/ui/SectionTitle";
 import Card from "../components/ui/Card";
-import { honors, certifications } from "../data/portfolio";
+import { honors, certifications, personalInfo } from "../data/portfolio";
 import { FaTrophy, FaMedal, FaAward, FaBookOpen, FaCertificate, FaExternalLinkAlt } from "react-icons/fa";
 
 const typeIcons = {
@@ -31,8 +31,8 @@ export default function HonorsPage() {
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(201,168,76,0.06)_0%,transparent_60%)]" />
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
           <SectionTitle
-            title="Honors & Awards"
-            subtitle="Recognition and achievements that highlight my dedication and expertise in AI and technology."
+            title="Honors & Research Credentials"
+            subtitle="Verified academic recognition, peer-reviewed publications, and professional certifications."
           />
 
           {/* Stats row */}
@@ -45,7 +45,7 @@ export default function HonorsPage() {
             {[
               { label: "Recognitions", value: honors.length },
               {
-                label: "Accepted Papers",
+                label: "Published Papers",
                 value: honors.filter((h) => h.type === "research").length,
               },
               {
@@ -121,6 +121,29 @@ export default function HonorsPage() {
                     <p className="text-text-secondary text-sm leading-relaxed flex-1">
                       {honor.description}
                     </p>
+
+                    {honor.authors && (
+                      <p className="text-text-muted text-xs leading-relaxed mt-4">
+                        Authors: {honor.authors}
+                      </p>
+                    )}
+
+                    {honor.publishedDate && (
+                      <p className="text-text-muted text-xs mt-2">
+                        Published: {honor.publishedDate}
+                      </p>
+                    )}
+
+                    {honor.credentialUrl && (
+                      <a
+                        href={honor.credentialUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="mt-5 inline-flex items-center gap-2 text-gold hover:text-gold-light text-sm transition-colors break-all"
+                      >
+                        DOI: {honor.doi} <FaExternalLinkAlt size={11} className="shrink-0" />
+                      </a>
+                    )}
                   </div>
                 </Card>
               </motion.div>
@@ -188,17 +211,19 @@ export default function HonorsPage() {
           >
             <FaTrophy className="text-gold mx-auto mb-6" size={40} />
             <h3 className="font-heading text-2xl text-text-primary mb-4">
-              Interested in Collaboration?
+              Considering Me for an AI Role?
             </h3>
             <p className="text-text-secondary mb-8">
-              I'm always looking for new challenges and opportunities to push the
-              boundaries of AI technology.
+              My CV summarizes the experience, projects, publications, and technical
+              skills most relevant to AI Engineer and Applied AI opportunities.
             </p>
             <a
-              href="#contact"
+              href={personalInfo.cvUrl}
+              target="_blank"
+              rel="noopener noreferrer"
               className="inline-flex items-center gap-2 px-8 py-3.5 text-sm font-semibold tracking-widest uppercase rounded-lg bg-gradient-to-r from-gold to-gold-dark text-bg-primary hover:shadow-[0_0_30px_rgba(201,168,76,0.3)] transition-all duration-300"
             >
-              Let's Connect
+              Review My CV
             </a>
           </motion.div>
         </div>

@@ -22,8 +22,8 @@ export default function Footer() {
               </span>
             </a>
             <p className="text-text-secondary text-sm leading-relaxed mt-3">
-              {personalInfo.title} passionate about building intelligent systems
-              and creating impactful AI solutions.
+              {personalInfo.title} candidate with experience in applied AI,
+              computer vision, backend APIs, and deployment workflows.
             </p>
           </div>
 
@@ -45,10 +45,10 @@ export default function Footer() {
             </div>
           </div>
 
-          {/* Connect */}
+          {/* Professional links */}
           <div>
             <h4 className="font-heading text-sm tracking-widest uppercase text-gold mb-6">
-              Connect
+              Professional Links
             </h4>
             <div className="flex gap-3">
               {[

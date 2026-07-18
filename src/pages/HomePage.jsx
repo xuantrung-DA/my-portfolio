@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import { FaArrowRight, FaChevronDown } from "react-icons/fa";
+import { FaArrowRight, FaChevronDown, FaFilePdf } from "react-icons/fa";
 import ParticlesBg from "../components/ui/ParticlesBg";
 import GoldButton from "../components/ui/GoldButton";
 import Card from "../components/ui/Card";
@@ -82,7 +82,7 @@ export default function HomePage() {
               variants={childVariants}
               className="text-gold text-xs sm:text-sm md:text-base tracking-[0.2em] sm:tracking-[0.3em] uppercase mb-5 sm:mb-6"
             >
-              Welcome to my portfolio
+              AI Engineer Candidate Portfolio
             </motion.p>
 
             {/* Name */}
@@ -106,8 +106,8 @@ export default function HomePage() {
               variants={childVariants}
               className="text-text-secondary text-base md:text-lg max-w-2xl mx-auto mb-10 leading-relaxed"
             >
-              Crafting intelligent solutions with cutting-edge AI technology.
-              Transforming complex data into meaningful insights.
+              Applied AI candidate with hands-on experience in computer vision,
+              LLM workflows, backend APIs, and production-oriented deployment.
             </motion.p>
 
             {/* CTA Buttons */}
@@ -115,11 +115,11 @@ export default function HomePage() {
               variants={childVariants}
               className="flex flex-col sm:flex-row gap-4 justify-center"
             >
-              <GoldButton to="#projects" icon={<FaArrowRight />}>
-                View Projects
+              <GoldButton href={personalInfo.cvUrl} icon={<FaFilePdf />}>
+                View CV
               </GoldButton>
-              <GoldButton to="#contact" variant="outline">
-                Get In Touch
+              <GoldButton to="#projects" variant="outline" icon={<FaArrowRight />}>
+                Review Projects
               </GoldButton>
             </motion.div>
           </motion.div>

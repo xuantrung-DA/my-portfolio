@@ -42,7 +42,7 @@ export default function ProjectsPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
           <SectionTitle
             title="Projects"
-            subtitle="Showcasing my work in AI, machine learning, and software development."
+            subtitle="Selected work demonstrating my approach to AI engineering, evaluation, and production-oriented development."
           />
         </div>
       </section>

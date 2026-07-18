@@ -18,6 +18,7 @@ export const personalInfo = {
   location: "Phu Huu, Ho Chi Minh City",
   email: "nxt276651@gmail.com",
   phone: "0785656734",
+  cvUrl: "/cv/NguyenXuanTrung_AI_Engineer_CV.pdf",
   socials: {
     github: "https://github.com/xuantrung-DA",
     linkedin: "https://www.linkedin.com/in/trung-nguyen-3932b4265/",
@@ -27,7 +28,7 @@ export const personalInfo = {
 export const stats = [
   { label: "Current GPA", value: "3.75/4.0" },
   { label: "Featured Projects", value: "3" },
-  { label: "Accepted Papers", value: "2" },
+  { label: "Published Papers", value: "2" },
   { label: "Expected Graduation", value: "06/2027" },
 ];
 
@@ -161,19 +162,29 @@ export const honors = [
     type: "academic",
   },
   {
-    title: "Accepted Paper — Springer LNAI (Scopus Q2)",
-    organization: "Springer",
-    year: "2025",
+    title: "Published Paper — Springer LNCS / LNAI",
+    organization: "AI 2025: Advances in Artificial Intelligence · Volume 16370",
+    year: "2026",
     description:
       '“Weather Forecasting System ‘Four Seasons in One Day’ and Shelter Suggestion for Sydney and Melbourne and Canberra.”',
+    authors: "My, N.H.; Trung, N.X.; Phong, P.N.M.; Thu, L.V.M.",
+    publishedDate: "25 November 2025",
+    doi: "10.1007/978-981-95-4969-6_33",
+    credentialUrl:
+      "https://link.springer.com/chapter/10.1007/978-981-95-4969-6_33",
     type: "research",
   },
   {
-    title: "Accepted Paper — Springer LNEE (Scopus Q4)",
-    organization: "Springer",
-    year: "2025",
+    title: "Published Paper — Springer LNEE",
+    organization: "EIDT 2025: Explainable Intelligence in Digital Twins · Volume 1531",
+    year: "2026",
     description:
       '“Optimizing YOLOv11n for Real-Time Object Detection: Leveraging Quantization and Model Optimization.”',
+    authors: "Minh, P.A.; Phat, N.T.; Kiet, T.V.; Trung, N.X.; Le, P.N.",
+    publishedDate: "1 May 2026",
+    doi: "10.1007/978-981-95-6111-7_13",
+    credentialUrl:
+      "https://link.springer.com/chapter/10.1007/978-981-95-6111-7_13",
     type: "research",
   },
 ];

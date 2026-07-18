@@ -23,7 +23,7 @@ export default function SkillsPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
           <SectionTitle
             title="Skills & Technologies"
-            subtitle="A comprehensive overview of my technical expertise and the tools I use to build intelligent systems."
+            subtitle="Technologies I have used across AI projects, backend services, data pipelines, and deployment."
           />
         </div>
       </section>

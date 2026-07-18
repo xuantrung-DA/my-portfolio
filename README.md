@@ -65,7 +65,7 @@ The portfolio uses a **Dark Luxury** design language inspired by premium busines
 - 🪟 **Glassmorphism** — Frosted glass navbar with backdrop blur
 - ✨ **Particle background** — Canvas-based gold particle animation on hero
 - 🔤 **Typing animation** — Auto-cycling role titles
-- 🎞 **Page transitions** — Smooth fade & slide between routes
+- 🧭 **Section navigation** — Smooth one-page navigation with active-section tracking
 - 📜 **Scroll reveals** — Elements animate in on scroll (Framer Motion)
 - 📱 **Fully responsive** — Mobile-first with hamburger navigation
 
@@ -74,12 +74,15 @@ The portfolio uses a **Dark Luxury** design language inspired by premium busines
 ## 📁 Project Structure
 
 ```
+public/
+└── cv/
+    └── NguyenXuanTrung_AI_Engineer_CV.pdf  # Public CV used by View CV buttons
 src/
 ├── components/
 │   ├── layout/
 │   │   ├── Navbar.jsx          # Responsive nav + glassmorphism
 │   │   ├── Footer.jsx          # Social links & quick links
-│   │   └── Layout.jsx          # Page transition wrapper
+│   │   └── Layout.jsx          # Shared one-page layout
 │   └── ui/
 │       ├── GoldButton.jsx      # Primary/outline/ghost CTA buttons
 │       ├── SectionTitle.jsx    # Section heading with gold ornament
@@ -88,17 +91,17 @@ src/
 │       ├── Timeline.jsx        # Alternating timeline with gold dots
 │       └── ParticlesBg.jsx     # Canvas-based particle effect
 ├── pages/
-│   ├── HomePage.jsx            # Hero + particle bg + stats
+│   ├── HomePage.jsx            # Hero + CV CTA + particle bg + stats
 │   ├── AboutPage.jsx           # Bio + experience + education
 │   ├── SkillsPage.jsx          # Skill bars + tech cloud
 │   ├── ProjectsPage.jsx        # Filterable grid + detail modal
-│   ├── HonorsPage.jsx          # Awards cards + stats counter
-│   └── ContactPage.jsx         # Contact form + info cards
+│   ├── HonorsPage.jsx          # Awards, verified papers + certifications
+│   └── ContactPage.jsx         # Recruitment contact form + info cards
 ├── data/
 │   └── portfolio.js            # 📌 All content lives here
 ├── hooks/
 │   └── useScrollAnimation.js   # IntersectionObserver hook
-├── App.jsx                     # Router + animated routes
+├── App.jsx                     # One-page section composition + hash handling
 ├── main.jsx                    # Entry point
 └── index.css                   # Tailwind v4 theme + utilities
 ```
@@ -147,13 +150,19 @@ All portfolio content is centralized in **one single file**: [`src/data/portfoli
 
 ```js
 // Edit these exports to update your portfolio:
-export const personalInfo = { name, title, bio, socials, ... }
+export const personalInfo = { name, title, bio, cvUrl, socials, ... }
 export const skills       = [{ category, items: [{ name, level }] }]
 export const projects     = [{ title, description, tags, github, demo }]
 export const honors       = [{ title, organization, year, type }]
 export const experience   = [{ role, company, period, description }]
 export const education    = [{ degree, school, period, gpa }]
 ```
+
+### Update Your CV
+
+Replace `public/cv/NguyenXuanTrung_AI_Engineer_CV.pdf` with the latest PDF while
+keeping the same filename. To use another filename, update `personalInfo.cvUrl`
+in `src/data/portfolio.js`.
 
 ### Add Your Photo
 
@@ -162,7 +171,8 @@ export const education    = [{ degree, school, period, gpa }]
 
 ### Integrate Contact Form
 
-The contact form is UI-only by default. To make it functional:
+The contact form currently opens the visitor's email client with a prepared
+`mailto:` message. For direct form delivery without an email client, integrate:
 
 - **[Formspree](https://formspree.io/)** — Add your form endpoint
 - **[EmailJS](https://www.emailjs.com/)** — Client-side email sending

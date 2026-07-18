@@ -7,6 +7,7 @@ export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState("home");
+  const [pendingPath, setPendingPath] = useState(null);
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 50);
@@ -43,12 +44,31 @@ export default function Navbar() {
     };
   }, [isOpen]);
 
+  useEffect(() => {
+    if (isOpen || !pendingPath) return undefined;
+
+    const frame = window.requestAnimationFrame(() => {
+      const section = document.getElementById(pendingPath.slice(1));
+      section?.scrollIntoView({ behavior: "smooth", block: "start" });
+      window.history.pushState(null, "", pendingPath);
+      setPendingPath(null);
+    });
+
+    return () => window.cancelAnimationFrame(frame);
+  }, [isOpen, pendingPath]);
+
   const handleNavigation = (event, path) => {
     event.preventDefault();
+
+    if (isOpen) {
+      setPendingPath(path);
+      setIsOpen(false);
+      return;
+    }
+
     const section = document.getElementById(path.slice(1));
     section?.scrollIntoView({ behavior: "smooth", block: "start" });
     window.history.pushState(null, "", path);
-    setIsOpen(false);
   };
 
   return (

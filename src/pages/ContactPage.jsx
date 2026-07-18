@@ -78,8 +78,8 @@ export default function ContactPage() {
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom,rgba(201,168,76,0.05)_0%,transparent_60%)]" />
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
           <SectionTitle
-            title="Get In Touch"
-            subtitle="Have a project in mind or want to collaborate? I'd love to hear from you."
+            title="Recruitment Contact"
+            subtitle="If my background aligns with an AI Engineer, Applied AI, or related opportunity, I would be glad to discuss the role with your team."
           />
         </div>
       </section>
@@ -132,7 +132,7 @@ export default function ContactPage() {
               {/* Social Links */}
               <div className="pt-4">
                 <h4 className="text-text-muted text-xs tracking-widest uppercase mb-4">
-                  Follow Me
+                  Professional Profiles
                 </h4>
                 <div className="flex gap-3">
                   {socials.map((social) => (
@@ -162,7 +162,7 @@ export default function ContactPage() {
             >
               <Card gold className="!p-5 sm:!p-8 md:!p-10">
                 <h3 className="font-heading text-2xl text-text-primary mb-8">
-                  Interested in Working Together?
+                  Discuss a Role or Interview
                 </h3>
 
                 <form onSubmit={handleSubmit} className="space-y-6">
@@ -178,7 +178,7 @@ export default function ContactPage() {
                         onChange={handleChange}
                         required
                         className="w-full px-4 py-3.5 bg-bg-tertiary border border-border rounded-lg text-text-primary text-sm placeholder-text-muted focus:border-gold/50 focus:outline-none focus:shadow-[0_0_15px_rgba(201,168,76,0.1)] transition-all duration-300"
-                        placeholder="Full Name"
+                        placeholder="Recruiter or hiring manager name"
                       />
                     </div>
                     <div>
@@ -192,7 +192,7 @@ export default function ContactPage() {
                         onChange={handleChange}
                         required
                         className="w-full px-4 py-3.5 bg-bg-tertiary border border-border rounded-lg text-text-primary text-sm placeholder-text-muted focus:border-gold/50 focus:outline-none focus:shadow-[0_0_15px_rgba(201,168,76,0.1)] transition-all duration-300"
-                        placeholder="Work Email"
+                        placeholder="Company email"
                       />
                     </div>
                   </div>
@@ -208,7 +208,7 @@ export default function ContactPage() {
                       onChange={handleChange}
                       required
                       className="w-full px-4 py-3.5 bg-bg-tertiary border border-border rounded-lg text-text-primary text-sm placeholder-text-muted focus:border-gold/50 focus:outline-none focus:shadow-[0_0_15px_rgba(201,168,76,0.1)] transition-all duration-300"
-                      placeholder="Subject (e.g. Interview, Opportunity, Question)"
+                      placeholder="e.g. AI Engineer opportunity at your company"
                     />
                   </div>
 
@@ -223,7 +223,7 @@ export default function ContactPage() {
                       required
                       rows={5}
                       className="w-full px-4 py-3.5 bg-bg-tertiary border border-border rounded-lg text-text-primary text-sm placeholder-text-muted focus:border-gold/50 focus:outline-none focus:shadow-[0_0_15px_rgba(201,168,76,0.1)] transition-all duration-300 resize-none"
-                      placeholder="Feel free to introduce yourself, ask a question, or discuss an opportunity."
+                      placeholder="Please share the role, interview details, or any questions about my experience."
                     />
                   </div>
 
@@ -244,7 +244,7 @@ export default function ContactPage() {
                       icon={<FaPaperPlane />}
                       className="w-full justify-center"
                     >
-                      Start Conversation
+                      Send Recruitment Email
                     </GoldButton>
                   )}
                 </form>
