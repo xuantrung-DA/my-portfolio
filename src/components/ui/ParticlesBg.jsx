@@ -69,6 +69,9 @@ export default function ParticlesBg() {
       lastFrameTime = timestamp;
       ctx.clearRect(0, 0, width, height);
       const particles = particlesRef.current;
+      const isLightTheme = document.documentElement.dataset.theme === "light";
+      const goldRgb = isLightTheme ? "139, 103, 24" : "201, 168, 76";
+      const neutralRgb = isLightTheme ? "73, 64, 50" : "255, 255, 255";
 
       particles.forEach((p) => {
         p.x += p.speedX;
@@ -84,8 +87,8 @@ export default function ParticlesBg() {
         ctx.beginPath();
         ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
         ctx.fillStyle = p.gold
-          ? `rgba(201, 168, 76, ${p.opacity})`
-          : `rgba(255, 255, 255, ${p.opacity * 0.5})`;
+          ? `rgba(${goldRgb}, ${p.opacity})`
+          : `rgba(${neutralRgb}, ${p.opacity * 0.5})`;
         ctx.fill();
       });
 
@@ -104,8 +107,8 @@ export default function ParticlesBg() {
               const alpha = (1 - dist / 120) * 0.15;
               ctx.strokeStyle =
                 particles[i].gold || particles[j].gold
-                  ? `rgba(201, 168, 76, ${alpha})`
-                  : `rgba(255, 255, 255, ${alpha * 0.5})`;
+                  ? `rgba(${goldRgb}, ${alpha})`
+                  : `rgba(${neutralRgb}, ${alpha * 0.5})`;
               ctx.lineWidth = 0.5;
               ctx.stroke();
             }

@@ -1,4 +1,4 @@
-# ✨ Dark Luxury Portfolio — Nguyễn Xuân Trung
+# ✨ Luxury Portfolio — Nguyễn Xuân Trung
 
 <div align="center">
 
@@ -8,7 +8,7 @@
 ![Framer Motion](https://img.shields.io/badge/Framer_Motion-12-FF0055?style=for-the-badge&logo=framer&logoColor=white)
 ![Vercel](https://img.shields.io/badge/Deployed_on-Vercel-000000?style=for-the-badge&logo=vercel&logoColor=white)
 
-**A premium dark-themed personal portfolio built with modern web technologies.**
+**A premium dark/light personal portfolio built with modern web technologies.**
 
 [Live Demo](#) · [Report Bug](https://github.com/xuantrung-DA/my-portfolio/issues) · [Request Feature](https://github.com/xuantrung-DA/my-portfolio/issues)
 
@@ -40,7 +40,7 @@
 
 ## 🎨 Design System
 
-The portfolio uses a **Dark Luxury** design language inspired by premium business presentation themes.
+The portfolio uses an adaptive **Dark/Light Luxury** design language inspired by premium business presentation themes.
 
 ### Color Palette
 
@@ -54,6 +54,9 @@ The portfolio uses a **Dark Luxury** design language inspired by premium busines
 | ⬜ `text-primary` | `#ffffff` | Headings & body |
 | 🩶 `text-secondary` | `#b0b0b0` | Descriptions |
 
+Light mode uses an ivory background (`#f7f3e9`), warm neutral surfaces, dark text,
+and a deeper gold accent (`#8b6718`) for accessible contrast.
+
 ### Typography
 
 - **Headings:** [Playfair Display](https://fonts.google.com/specimen/Playfair+Display) — Elegant serif font
@@ -63,6 +66,7 @@ The portfolio uses a **Dark Luxury** design language inspired by premium busines
 
 - 🌟 **Gold border frames** — Signature accent borders around key sections
 - 🪟 **Glassmorphism** — Frosted glass navbar with backdrop blur
+- 🌓 **Theme switcher** — Persistent dark/light mode on desktop and mobile
 - ✨ **Particle background** — Canvas-based gold particle animation on hero
 - 🔤 **Typing animation** — Auto-cycling role titles
 - 🧭 **Section navigation** — Smooth one-page navigation with active-section tracking

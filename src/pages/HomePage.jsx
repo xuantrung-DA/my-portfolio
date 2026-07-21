@@ -82,7 +82,7 @@ export default function HomePage() {
           {/* Glass hero card */}
           <motion.div
             variants={childVariants}
-            className="px-5 py-9 sm:p-10 md:px-12 md:py-14 lg:px-16 lg:py-16 rounded-[32px] bg-[rgba(255,255,255,0.02)] border border-[rgba(255,255,255,0.08)] backdrop-blur-xl shadow-[0_24px_80px_rgba(0,0,0,0.28)]"
+            className="hero-panel px-5 py-9 sm:p-10 md:px-12 md:py-14 lg:px-16 lg:py-16 rounded-[32px] backdrop-blur-xl"
           >
             {/* Greeting */}
             <motion.p

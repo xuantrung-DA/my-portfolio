@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 /* ============================================
-   DARK LUXURY THEME - CSS-first Tailwind v4
+   DARK / LIGHT LUXURY THEME - CSS-first Tailwind v4
    ============================================ */
 
 @theme {
@@ -15,6 +15,7 @@
   --color-gold: #c9a84c;
   --color-gold-light: #d4b85a;
   --color-gold-dark: #b8963e;
+  --color-on-gold: #0d0d0d;
 
   /* === Text Colors === */
   --color-text-primary: #ffffff;
@@ -35,6 +36,38 @@
   --animate-glow: glow 2s ease-in-out infinite alternate;
   --animate-shimmer: shimmer 3s ease-in-out infinite;
   --animate-float: float 6s ease-in-out infinite;
+}
+
+:root {
+  color-scheme: dark;
+  --surface-glass-card: rgba(26, 26, 26, 0.7);
+  --surface-glass-nav: rgba(13, 13, 13, 0.85);
+  --surface-hero: rgba(255, 255, 255, 0.02);
+  --hero-border: rgba(255, 255, 255, 0.08);
+  --hero-shadow: 0 24px 80px rgba(0, 0, 0, 0.28);
+  --nav-shadow: 0 10px 28px rgba(0, 0, 0, 0.3);
+}
+
+html[data-theme="light"] {
+  color-scheme: light;
+  --color-bg-primary: #f7f3e9;
+  --color-bg-secondary: #eee7d9;
+  --color-bg-tertiary: #ded4c1;
+  --color-bg-elevated: #fffdf8;
+  --color-gold: #8b6718;
+  --color-gold-light: #a77b20;
+  --color-gold-dark: #6f500f;
+  --color-text-primary: #1a1712;
+  --color-text-secondary: #554e43;
+  --color-text-muted: #6f675a;
+  --color-border: #cfc4b1;
+  --color-border-gold: rgba(139, 103, 24, 0.35);
+  --surface-glass-card: rgba(255, 253, 248, 0.78);
+  --surface-glass-nav: rgba(247, 243, 233, 0.9);
+  --surface-hero: rgba(255, 253, 248, 0.64);
+  --hero-border: rgba(111, 80, 15, 0.18);
+  --hero-shadow: 0 24px 70px rgba(73, 58, 34, 0.14);
+  --nav-shadow: 0 10px 28px rgba(73, 58, 34, 0.14);
 }
 
 /* ============================================
@@ -180,14 +213,14 @@
 }
 
 @utility glass-card {
-  background: rgba(26, 26, 26, 0.7);
+  background: var(--surface-glass-card);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
   border: 1px solid rgba(201, 168, 76, 0.15);
 }
 
 @utility glass-nav {
-  background: rgba(13, 13, 13, 0.85);
+  background: var(--surface-glass-nav);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
   border-bottom: 1px solid rgba(201, 168, 76, 0.1);
@@ -199,6 +232,22 @@
 
 /* Classes with pseudo-elements (can't use @utility for these) */
 @layer utilities {
+  .hero-panel {
+    background: var(--surface-hero);
+    border: 1px solid var(--hero-border);
+    box-shadow: var(--hero-shadow);
+  }
+
+  .theme-nav-shadow {
+    box-shadow: var(--nav-shadow);
+  }
+
+  .theme-toggle {
+    background: var(--surface-glass-card);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+  }
+
   .gold-border-frame {
     border: 1px solid rgba(201, 168, 76, 0.3);
     position: relative;
@@ -236,5 +285,12 @@
     width: 60px;
     height: 2px;
     background: linear-gradient(90deg, #c9a84c, transparent);
+  }
+
+  html[data-theme="light"] .gold-gradient-text {
+    background: linear-gradient(135deg, #6f500f, #8b6718, #a77b20, #6f500f);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
   }
 }

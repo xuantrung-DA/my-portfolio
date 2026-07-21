@@ -6,7 +6,7 @@ export default function GoldButton({ children, to, href, onClick, variant = "pri
 
   const variants = {
     primary:
-      "bg-gradient-to-r from-gold to-gold-dark text-bg-primary hover:shadow-[0_0_30px_rgba(201,168,76,0.3)] hover:scale-[1.02] active:scale-[0.98]",
+      "bg-gradient-to-r from-gold to-gold-dark text-on-gold hover:shadow-[0_0_30px_rgba(201,168,76,0.3)] hover:scale-[1.02] active:scale-[0.98]",
     outline:
       "border border-gold/40 text-gold hover:bg-gold/10 hover:border-gold hover:shadow-[0_0_20px_rgba(201,168,76,0.15)]",
     ghost:

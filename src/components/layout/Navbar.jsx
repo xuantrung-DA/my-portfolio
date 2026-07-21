@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { HiMenuAlt3, HiX } from "react-icons/hi";
+import { FaMoon, FaSun } from "react-icons/fa";
 import { navLinks } from "../../data/portfolio";
 
 export default function Navbar() {
@@ -8,6 +9,26 @@ export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState("home");
   const [pendingPath, setPendingPath] = useState(null);
+  const [theme, setTheme] = useState(() =>
+    document.documentElement.dataset.theme === "light" ? "light" : "dark",
+  );
+
+  useEffect(() => {
+    const root = document.documentElement;
+    const themeColor = document.querySelector('meta[name="theme-color"]');
+
+    root.dataset.theme = theme;
+    root.style.colorScheme = theme;
+    try {
+      window.localStorage.setItem("portfolio-theme", theme);
+    } catch {
+      // Theme switching still works when browser storage is unavailable.
+    }
+
+    if (themeColor) {
+      themeColor.setAttribute("content", theme === "light" ? "#f7f3e9" : "#0d0d0d");
+    }
+  }, [theme]);
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 50);
@@ -77,7 +98,7 @@ export default function Navbar() {
       animate={{ y: 0 }}
       transition={{ duration: 0.6, ease: "easeOut" }}
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-        scrolled ? "glass-nav shadow-lg shadow-black/30" : "bg-transparent"
+        scrolled ? "glass-nav theme-nav-shadow" : "bg-transparent"
       }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -89,7 +110,7 @@ export default function Navbar() {
             className="group flex items-center gap-3"
             aria-label="Go to home section"
           >
-            <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-gold to-gold-dark flex items-center justify-center font-heading text-bg-primary font-bold text-lg group-hover:shadow-[0_0_20px_rgba(201,168,76,0.4)] transition-shadow duration-300">
+            <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-gold to-gold-dark flex items-center justify-center font-heading text-on-gold font-bold text-lg group-hover:shadow-[0_0_20px_rgba(201,168,76,0.4)] transition-shadow duration-300">
               T
             </div>
             <span className="font-heading text-lg tracking-wider text-text-primary hidden sm:block">
@@ -97,44 +118,59 @@ export default function Navbar() {
             </span>
           </a>
 
-          {/* Desktop Nav */}
-          <div className="hidden lg:flex items-center gap-1">
-            {navLinks.map((link) => {
-              const isActive = activeSection === link.path.slice(1);
-              return (
-              <a
-                key={link.path}
-                href={link.path}
-                onClick={(event) => handleNavigation(event, link.path)}
-                className={`relative px-3 xl:px-4 py-2 text-xs xl:text-sm tracking-widest uppercase transition-all duration-300 ${
-                    isActive
-                      ? "text-gold"
-                      : "text-text-secondary hover:text-text-primary"
-                  }`}
-                aria-current={isActive ? "page" : undefined}
-              >
-                {link.label}
-                {isActive && (
-                  <motion.span
-                    layoutId="activeLink"
-                    className="absolute bottom-0 left-3 right-3 xl:left-4 xl:right-4 h-[2px] bg-gradient-to-r from-gold to-gold-dark"
-                    transition={{ type: "spring", stiffness: 380, damping: 30 }}
-                  />
-                )}
-              </a>
-            )})}
-          </div>
+          <div className="flex items-center gap-1 sm:gap-2">
+            {/* Desktop Nav */}
+            <div className="hidden lg:flex items-center gap-1">
+              {navLinks.map((link) => {
+                const isActive = activeSection === link.path.slice(1);
+                return (
+                <a
+                  key={link.path}
+                  href={link.path}
+                  onClick={(event) => handleNavigation(event, link.path)}
+                  className={`relative px-3 xl:px-4 py-2 text-xs xl:text-sm tracking-widest uppercase transition-all duration-300 ${
+                      isActive
+                        ? "text-gold"
+                        : "text-text-secondary hover:text-text-primary"
+                    }`}
+                  aria-current={isActive ? "page" : undefined}
+                >
+                  {link.label}
+                  {isActive && (
+                    <motion.span
+                      layoutId="activeLink"
+                      className="absolute bottom-0 left-3 right-3 xl:left-4 xl:right-4 h-[2px] bg-gradient-to-r from-gold to-gold-dark"
+                      transition={{ type: "spring", stiffness: 380, damping: 30 }}
+                    />
+                  )}
+                </a>
+              )})}
+            </div>
 
-          {/* Mobile Toggle */}
-          <button
-            onClick={() => setIsOpen(!isOpen)}
-            className="lg:hidden min-w-11 min-h-11 text-text-primary p-2 hover:text-gold transition-colors flex items-center justify-center"
-            aria-label="Toggle menu"
-            aria-expanded={isOpen}
-            aria-controls="mobile-navigation"
-          >
-            {isOpen ? <HiX size={28} /> : <HiMenuAlt3 size={28} />}
-          </button>
+            {/* Theme Toggle */}
+            <motion.button
+              type="button"
+              whileTap={{ scale: 0.9 }}
+              onClick={() => setTheme((current) => current === "dark" ? "light" : "dark")}
+              className="theme-toggle min-w-11 min-h-11 rounded-lg border border-border text-text-primary hover:text-gold hover:border-gold/50 transition-colors flex items-center justify-center"
+              aria-label={`Switch to ${theme === "dark" ? "light" : "dark"} theme`}
+              title={`Switch to ${theme === "dark" ? "light" : "dark"} theme`}
+            >
+              {theme === "dark" ? <FaSun size={18} /> : <FaMoon size={17} />}
+            </motion.button>
+
+            {/* Mobile Toggle */}
+            <button
+              type="button"
+              onClick={() => setIsOpen(!isOpen)}
+              className="lg:hidden min-w-11 min-h-11 text-text-primary p-2 hover:text-gold transition-colors flex items-center justify-center"
+              aria-label="Toggle menu"
+              aria-expanded={isOpen}
+              aria-controls="mobile-navigation"
+            >
+              {isOpen ? <HiX size={28} /> : <HiMenuAlt3 size={28} />}
+            </button>
+          </div>
         </div>
       </div>
 
@@ -163,7 +199,7 @@ export default function Navbar() {
                     className={`block min-h-11 py-3 px-4 text-sm tracking-widest uppercase rounded-lg transition-all duration-300 ${
                         activeSection === link.path.slice(1)
                           ? "text-gold bg-gold/5 border-l-2 border-gold"
-                          : "text-text-secondary hover:text-text-primary hover:bg-white/5"
+                          : "text-text-secondary hover:text-text-primary hover:bg-text-primary/5"
                       }`}
                   >
                     {link.label}

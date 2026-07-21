@@ -14,7 +14,7 @@ export default function Footer() {
           {/* Brand */}
           <div>
             <a href="#home" className="inline-flex items-center gap-3 mb-4">
-              <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-gold to-gold-dark flex items-center justify-center font-heading text-bg-primary font-bold text-lg">
+              <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-gold to-gold-dark flex items-center justify-center font-heading text-on-gold font-bold text-lg">
                 T
               </div>
               <span className="font-heading text-xl tracking-wider">

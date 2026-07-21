@@ -221,7 +221,7 @@ export default function HonorsPage() {
               href={personalInfo.cvUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-8 py-3.5 text-sm font-semibold tracking-widest uppercase rounded-lg bg-gradient-to-r from-gold to-gold-dark text-bg-primary hover:shadow-[0_0_30px_rgba(201,168,76,0.3)] transition-all duration-300"
+              className="inline-flex items-center gap-2 px-8 py-3.5 text-sm font-semibold tracking-widest uppercase rounded-lg bg-gradient-to-r from-gold to-gold-dark text-on-gold hover:shadow-[0_0_30px_rgba(201,168,76,0.3)] transition-all duration-300"
             >
               Review My CV
             </a>
