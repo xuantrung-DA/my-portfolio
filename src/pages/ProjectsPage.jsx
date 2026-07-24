@@ -121,6 +121,13 @@ export default function ProjectsPage() {
                       <p className="text-text-muted text-xs mb-3">
                         {project.role} · {project.period}
                       </p>
+                      {project.status && (
+                        <div className="mb-3">
+                          <span className="inline-flex rounded-full border border-gold/25 bg-gold/10 px-2.5 py-1 text-[11px] text-gold">
+                            {project.status}
+                          </span>
+                        </div>
+                      )}
                       <p className="text-text-secondary text-sm leading-relaxed mb-4 flex-1 line-clamp-3">
                         {project.description}
                       </p>
@@ -164,6 +171,18 @@ export default function ProjectsPage() {
                             className="flex items-center gap-2 text-text-secondary hover:text-gold text-xs transition-colors"
                           >
                             <FaExternalLinkAlt size={12} /> Demo
+                          </a>
+                        )}
+                        {project.researchUrl && (
+                          <a
+                            href={project.researchUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            onClick={(e) => e.stopPropagation()}
+                            className="flex items-center gap-2 text-text-secondary hover:text-gold text-xs transition-colors"
+                          >
+                            <FaExternalLinkAlt size={12} />
+                            {project.researchLabel || "Research"}
                           </a>
                         )}
                       </div>
@@ -212,9 +231,46 @@ export default function ProjectsPage() {
               <h2 className="font-heading text-2xl sm:text-3xl text-text-primary mb-2 pr-10">
                 {selectedProject.title}
               </h2>
-              <p className="text-text-muted text-sm mb-4">
-                {selectedProject.role} · {selectedProject.period}
-              </p>
+
+              {/* Project metadata */}
+              <dl className="grid grid-cols-1 sm:grid-cols-2 gap-3 my-5">
+                <div className="rounded-lg border border-border bg-bg-tertiary/60 px-4 py-3">
+                  <dt className="text-[10px] uppercase tracking-widest text-text-muted">
+                    Role
+                  </dt>
+                  <dd className="mt-1 text-sm text-text-primary">
+                    {selectedProject.role}
+                  </dd>
+                </div>
+                <div className="rounded-lg border border-border bg-bg-tertiary/60 px-4 py-3">
+                  <dt className="text-[10px] uppercase tracking-widest text-text-muted">
+                    Period
+                  </dt>
+                  <dd className="mt-1 text-sm text-text-primary">
+                    {selectedProject.period}
+                  </dd>
+                </div>
+                {selectedProject.teamSize && (
+                  <div className="rounded-lg border border-border bg-bg-tertiary/60 px-4 py-3">
+                    <dt className="text-[10px] uppercase tracking-widest text-text-muted">
+                      Team size
+                    </dt>
+                    <dd className="mt-1 text-sm text-text-primary">
+                      {selectedProject.teamSize}
+                    </dd>
+                  </div>
+                )}
+                {selectedProject.status && (
+                  <div className="rounded-lg border border-gold/20 bg-gold/5 px-4 py-3">
+                    <dt className="text-[10px] uppercase tracking-widest text-text-muted">
+                      Status
+                    </dt>
+                    <dd className="mt-1 text-sm text-gold">
+                      {selectedProject.status}
+                    </dd>
+                  </div>
+                )}
+              </dl>
 
               {/* Description */}
               <p className="text-text-secondary leading-relaxed mb-6">
@@ -258,6 +314,15 @@ export default function ProjectsPage() {
                     icon={<FaExternalLinkAlt />}
                   >
                     Live Demo
+                  </GoldButton>
+                )}
+                {selectedProject.researchUrl && (
+                  <GoldButton
+                    href={selectedProject.researchUrl}
+                    variant="outline"
+                    icon={<FaExternalLinkAlt />}
+                  >
+                    {selectedProject.researchLabel || "Research"}
                   </GoldButton>
                 )}
               </div>
