@@ -90,12 +90,30 @@ export default function ProjectsPage() {
                       className="relative h-48 bg-bg-tertiary overflow-hidden"
                       onClick={() => setSelectedProject(project)}
                     >
-                      <div className="absolute inset-0 bg-gradient-to-br from-gold/5 to-transparent" />
-                      <div className="absolute inset-0 flex items-center justify-center">
-                        <span className="font-heading text-5xl text-gold/10 group-hover:text-gold/20 transition-colors duration-500">
-                          {project.title.charAt(0)}
-                        </span>
-                      </div>
+                      {project.visualImage ? (
+                        <img
+                          src={project.visualImage}
+                          alt={project.visualAlt}
+                          width={project.visualWidth}
+                          height={project.visualHeight}
+                          loading="lazy"
+                          decoding="async"
+                          className={`h-full w-full object-contain p-2 ${
+                            project.visualTheme === "dark"
+                              ? "bg-bg-primary"
+                              : "bg-white"
+                          }`}
+                        />
+                      ) : (
+                        <>
+                          <div className="absolute inset-0 bg-gradient-to-br from-gold/5 to-transparent" />
+                          <div className="absolute inset-0 flex items-center justify-center">
+                            <span className="font-heading text-5xl text-gold/10 group-hover:text-gold/20 transition-colors duration-500">
+                              {project.title.charAt(0)}
+                            </span>
+                          </div>
+                        </>
+                      )}
                       {project.featured && (
                         <div className="absolute top-3 right-3 flex items-center gap-1 px-3 py-1 rounded-full bg-gold/20 border border-gold/30 text-gold text-xs">
                           <FaStar size={10} />
@@ -210,7 +228,7 @@ export default function ProjectsPage() {
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.9, y: 30 }}
               transition={{ duration: 0.3 }}
-              className="glass-card rounded-2xl max-w-2xl w-full max-h-[90svh] overflow-y-auto p-5 sm:p-8 relative"
+              className="glass-card rounded-2xl max-w-5xl w-full max-h-[90svh] overflow-y-auto p-5 sm:p-8 relative"
               onClick={(e) => e.stopPropagation()}
             >
               {/* Close button */}
@@ -276,6 +294,37 @@ export default function ProjectsPage() {
               <p className="text-text-secondary leading-relaxed mb-6">
                 {selectedProject.description}
               </p>
+
+              {selectedProject.visualImage && (
+                <figure
+                  className={`mb-7 overflow-hidden rounded-xl border border-border ${
+                    selectedProject.visualTheme === "dark"
+                      ? "bg-bg-primary"
+                      : "bg-white"
+                  }`}
+                >
+                  <a
+                    href={selectedProject.visualImage}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    title="Open the full-size project visual"
+                  >
+                    <img
+                      src={selectedProject.visualImage}
+                      alt={selectedProject.visualAlt}
+                      width={selectedProject.visualWidth}
+                      height={selectedProject.visualHeight}
+                      loading="lazy"
+                      decoding="async"
+                      className="h-auto w-full object-contain"
+                    />
+                  </a>
+                  <figcaption className="border-t border-border bg-bg-tertiary px-4 py-3 text-center text-xs text-text-secondary">
+                    {selectedProject.visualCaption} — open image for full-size
+                    view
+                  </figcaption>
+                </figure>
+              )}
 
               {selectedProject.highlights?.length > 0 && (
                 <ul className="text-text-secondary text-sm leading-relaxed mb-6 space-y-2 list-disc pl-5">

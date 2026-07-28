@@ -130,6 +130,14 @@ export const projects = [
       "https://github.com/xuantrung-DA/bearing-rul-multimodal-eidt-2026",
     researchUrl: "https://www.simc-conf.org/home",
     researchLabel: "SIMC 2026",
+    visualImage:
+      "/images/projects/bearing-rul-wca-gru-architecture.webp",
+    visualAlt:
+      "WCA-GRU architecture combining wavelet vibration features and temperature features through cross-attention before GRU-based RUL prediction",
+    visualCaption:
+      "WCA-GRU multimodal architecture",
+    visualWidth: 1993,
+    visualHeight: 789,
     demo: "",
     featured: true,
   },
@@ -160,6 +168,14 @@ export const projects = [
     ],
     category: "Speech Processing",
     github: "https://github.com/KietIT/SLP",
+    visualImage:
+      "/images/projects/vietnamese-asr-tone-aware-lora-wer-ablation.webp",
+    visualAlt:
+      "Six-panel WER ablation comparing the ordinary model with tone-aware LoRA objectives under clean, 20 dB, 10 dB, 5 dB, 0 dB, and aggregated noisy conditions",
+    visualCaption:
+      "Tone-aware LoRA WER ablation across clean and noisy conditions",
+    visualWidth: 1681,
+    visualHeight: 936,
     demo: "",
     featured: false,
   },
@@ -189,6 +205,15 @@ export const projects = [
     ],
     category: "Agentic AI",
     github: "https://github.com/xuantrung-DA/AI-CAREER-AGENT",
+    visualImage:
+      "/images/projects/ai-career-agent-langgraph-pipeline.webp",
+    visualAlt:
+      "AI Career Intelligence Agent pipeline from CV and job description inputs through context optimization, skill extraction, deterministic matching, conditional LangGraph routing, and the React results dashboard",
+    visualCaption:
+      "LangGraph career-analysis workflow with deterministic scoring and conditional planning",
+    visualWidth: 1672,
+    visualHeight: 941,
+    visualTheme: "dark",
     demo: "",
     featured: true,
   },
@@ -219,6 +244,14 @@ export const projects = [
     ],
     category: "Computer Vision",
     github: "https://github.com/xuantrung-DA/Face-Anti-Spoofing",
+    visualImage:
+      "/images/projects/secure-login-cdcn-spatial-attention-architecture.webp",
+    visualAlt:
+      "CDCN with Spatial Attention architecture using three feature blocks, multi-scale spatial-attention branches, multi-scale fusion, and a live-versus-spoof classification head",
+    visualCaption:
+      "CDCN + Spatial Attention face anti-spoofing architecture",
+    visualWidth: 1619,
+    visualHeight: 972,
     demo: "",
     featured: true,
   },
@@ -250,6 +283,15 @@ export const projects = [
     ],
     category: "Computer Vision",
     github: "https://github.com/xuantrung-DA/DAT301-SU26",
+    visualImage:
+      "/images/projects/uav-conditional-routing-system-overview.webp",
+    visualAlt:
+      "Learned conditional-routing architecture that sends each UAV frame to one of three specialist YOLO11n detectors, with router, low-light detection, ExDark, and TensorRT deployment results",
+    visualCaption:
+      "Learned conditional routing architecture and multi-domain evaluation",
+    visualWidth: 1672,
+    visualHeight: 941,
+    visualTheme: "dark",
     demo: "",
     featured: false,
   },
@@ -284,6 +326,14 @@ export const projects = [
     github: "https://github.com/xuantrung-DA/Paper-2026",
     researchUrl: "https://www.carvs-icarcv.org/",
     researchLabel: "ICARCV 2026",
+    visualImage:
+      "/images/projects/aqb-fas-architecture.webp",
+    visualAlt:
+      "AQB-FAS split-computing architecture with a MobileNetV3 encoder, bottleneck projector, uniform quantizer, receiver MLP, and multi-task prediction heads",
+    visualCaption:
+      "AQB-FAS quality–bitrate adaptive split-computing architecture",
+    visualWidth: 1491,
+    visualHeight: 1055,
     demo: "",
     featured: true,
   },
