@@ -1,8 +1,16 @@
 import { motion } from "framer-motion";
 import SectionTitle from "../components/ui/SectionTitle";
 import Card from "../components/ui/Card";
+import CertificationExplorer from "../components/certifications/CertificationExplorer";
 import { honors, certifications, personalInfo } from "../data/portfolio";
-import { FaTrophy, FaMedal, FaAward, FaBookOpen, FaCertificate, FaExternalLinkAlt } from "react-icons/fa";
+import {
+  FaTrophy,
+  FaMedal,
+  FaAward,
+  FaBookOpen,
+  FaExternalLinkAlt,
+  FaStar,
+} from "react-icons/fa";
 
 const typeIcons = {
   competition: <FaTrophy size={24} />,
@@ -122,6 +130,41 @@ export default function HonorsPage() {
                       {honor.description}
                     </p>
 
+                    {honor.academicHighlights?.length > 0 && (
+                      <div className="mt-5 space-y-3">
+                        {honor.academicHighlights.map((highlight) => (
+                          <div
+                            key={highlight.label}
+                            className="rounded-lg border border-border bg-bg-primary/35 p-3.5"
+                          >
+                            <div className="flex flex-wrap items-center justify-between gap-2">
+                              <div className="flex items-center gap-2 text-sm font-medium text-text-primary">
+                                <FaStar
+                                  size={11}
+                                  className="shrink-0 text-gold"
+                                  aria-hidden="true"
+                                />
+                                {highlight.label}
+                              </div>
+                              <span className="text-[10px] uppercase tracking-widest text-gold">
+                                {highlight.count}
+                              </span>
+                            </div>
+                            <div className="mt-3 flex flex-wrap gap-1.5">
+                              {highlight.semesters.map((semester) => (
+                                <span
+                                  key={semester}
+                                  className="rounded-md border border-gold/15 bg-gold/5 px-2 py-1 text-[10px] text-text-secondary"
+                                >
+                                  {semester}
+                                </span>
+                              ))}
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    )}
+
                     {honor.authors && (
                       <p className="text-text-muted text-xs leading-relaxed mt-4">
                         Authors: {honor.authors}
@@ -159,44 +202,7 @@ export default function HonorsPage() {
             title="Certifications"
             subtitle="Continued learning across deep learning, AI engineering, and production MLOps."
           />
-          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5 sm:gap-6">
-            {certifications.map((certificate, index) => (
-              <motion.div
-                key={certificate.title}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: index * 0.08 }}
-              >
-                <Card gold className="h-full !p-6 flex flex-col">
-                  <div className="flex items-start justify-between gap-4 mb-5">
-                    <div className="w-12 h-12 rounded-xl bg-gold/10 border border-gold/20 flex items-center justify-center text-gold shrink-0">
-                      <FaCertificate size={22} />
-                    </div>
-                    <span className="text-gold text-xs tracking-widest uppercase text-right">
-                      {certificate.date}
-                    </span>
-                  </div>
-                  <h3 className="font-heading text-lg text-text-primary mb-2">
-                    {certificate.title}
-                  </h3>
-                  <p className="text-text-secondary text-sm mb-5">
-                    {certificate.issuer}
-                  </p>
-                  {certificate.credentialUrl && (
-                    <a
-                      href={certificate.credentialUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="mt-auto inline-flex items-center gap-2 text-gold hover:text-gold-light text-sm transition-colors"
-                    >
-                      Verify credential <FaExternalLinkAlt size={11} />
-                    </a>
-                  )}
-                </Card>
-              </motion.div>
-            ))}
-          </div>
+          <CertificationExplorer certifications={certifications} />
         </div>
       </section>
 

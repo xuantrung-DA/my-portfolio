@@ -341,10 +341,23 @@ export const projects = [
 
 export const honors = [
   {
-    title: "Top 100 Excellent Students",
+    title: "Academic Excellence Recognition",
     organization: "FPT University",
     year: "2025",
-    description: "Recognized among the Top 100 Excellent Students in both the Summer and Fall semesters.",
+    description:
+      "Consistently recognized for academic excellence throughout 2025.",
+    academicHighlights: [
+      {
+        label: "Top 100 Excellent Students",
+        count: "2 semesters",
+        semesters: ["Summer 2025", "Fall 2025"],
+      },
+      {
+        label: "Honor Student",
+        count: "3 semesters",
+        semesters: ["Spring 2025", "Summer 2025", "Fall 2025"],
+      },
+    ],
     type: "academic",
   },
   {
@@ -394,44 +407,150 @@ export const activities = [
 
 export const certifications = [
   {
+    title: "AI Engineer Professional Specialization",
+    issuer: "Packt",
+    date: "07/2026",
+    type: "Specialization",
+    skills: [
+      "AI Engineering",
+      "Deep Learning",
+      "AI Agents",
+      "Model Optimization",
+    ],
+    priority: 1,
+    credentialUrl:
+      "https://coursera.org/verify/specialization/6J4SFXR6XNEH",
+  },
+  {
+    title: "Gradient to Production: MLOps & Model Serving Specialization",
+    issuer: "Coursera",
+    date: "07/2026",
+    type: "Specialization",
+    skills: ["MLOps", "Model Serving", "Production AI", "Model Deployment"],
+    priority: 2,
+    credentialUrl:
+      "https://coursera.org/verify/specialization/4ZEFB8QBVQ3H",
+  },
+  {
     title: "Natural Language Processing",
     issuer: "DeepLearning.AI",
     date: "04/2026",
+    type: "Specialization",
+    skills: ["NLP", "Sequence Models", "Attention", "Transformers"],
+    priority: 3,
     credentialUrl:
       "https://www.coursera.org/account/accomplishments/specialization/1V0NB10PQJ8Z?utm_source=link&utm_medium=certificate&utm_content=cert_image&utm_campaign=sharing_cta&utm_product=s12n",
+  },
+  {
+    title: "Foundations of Model Optimization and Deep Learning",
+    issuer: "Packt",
+    date: "06/2026",
+    type: "Course",
+    skills: ["Model Optimization", "Deep Learning", "Neural Networks"],
+    priority: 4,
+    credentialUrl:
+      "https://www.coursera.org/account/accomplishments/verify/8R3ABB65M4GU",
+  },
+  {
+    title: "AI Agents and MLOps for Production-Ready AI",
+    issuer: "Packt",
+    date: "07/2026",
+    type: "Course",
+    skills: ["AI Agents", "MLOps", "Production AI", "Agent Deployment"],
+    priority: 5,
+    credentialUrl:
+      "https://www.coursera.org/account/accomplishments/verify/JPJIIRRE8UGW",
   },
   {
     title: "Neural Networks and Deep Learning",
     issuer: "DeepLearning.AI",
     date: "11/2025",
+    type: "Course",
+    skills: ["Deep Learning", "Neural Networks", "Backpropagation"],
+    priority: 6,
     credentialUrl:
       "https://www.coursera.org/account/accomplishments/verify/W5FF12EC0BE1?utm_source=link&utm_medium=certificate&utm_content=cert_image&utm_campaign=sharing_cta&utm_product=course",
+  },
+  {
+    title: "Data Science Fundamentals with Python and SQL",
+    issuer: "IBM",
+    date: "03/2025",
+    type: "Specialization",
+    skills: ["Python", "SQL", "Data Science", "Statistics", "Jupyter"],
+    priority: 7,
+    credentialUrl:
+      "https://www.coursera.org/account/accomplishments/specialization/ONF0050FPX27",
+  },
+  {
+    title: "Application Development using Microservices and Serverless",
+    issuer: "IBM",
+    date: "10/2025",
+    type: "Course",
+    skills: [
+      "Microservices",
+      "Serverless",
+      "Cloud-Native",
+      "Application Development",
+    ],
+    priority: 8,
+    credentialUrl:
+      "https://www.coursera.org/account/accomplishments/verify/5MF1R15M91CY",
   },
   {
     title: "Introduction to Containers w/ Docker, Kubernetes & OpenShift",
     issuer: "IBM",
     date: "10/2025",
+    type: "Course",
+    skills: ["Docker", "Kubernetes", "OpenShift", "Containers"],
+    priority: 9,
     credentialUrl:
       "https://www.coursera.org/account/accomplishments/verify/HLMM0JU7X2LQ?utm_source=link&utm_medium=certificate&utm_content=cert_image&utm_campaign=sharing_cta&utm_product=course",
   },
   {
+    title: "Introduction to Cloud Computing",
+    issuer: "IBM",
+    date: "09/2025",
+    type: "Course",
+    skills: ["Cloud Computing", "IaaS", "PaaS", "SaaS"],
+    priority: 10,
+    credentialUrl:
+      "https://www.coursera.org/account/accomplishments/verify/WYDPLGA8BCQA",
+  },
+  {
+    title: "Databases and SQL for Data Science with Python",
+    issuer: "IBM",
+    date: "03/2025",
+    type: "Course",
+    skills: ["SQL", "Relational Databases", "Python", "Data Analysis"],
+    honors: true,
+    priority: 11,
+    credentialUrl:
+      "https://www.coursera.org/account/accomplishments/verify/RYC5F16GL4OG",
+  },
+  {
+    title: "Software Development Lifecycle",
+    issuer: "University of Minnesota",
+    date: "05/2025",
+    type: "Specialization",
+    skills: ["Software Engineering", "SDLC", "Agile", "Lean", "Secure Software"],
+    priority: 12,
+    credentialUrl:
+      "https://www.coursera.org/account/accomplishments/specialization/WXX62A3ZD8J8",
+  },
+  {
     title: "Project Management Principles and Practices",
     issuer: "University of California, Irvine",
-    date: "11/07/2026",
+    date: "07/2026",
+    type: "Specialization",
+    skills: [
+      "Project Management",
+      "Project Planning",
+      "Risk Management",
+      "Team Leadership",
+    ],
+    priority: 13,
     credentialUrl:
       "https://coursera.org/share/ec56a968914753e9ae5ded937fceaf2b",
-  },
-  {
-    title: "Gradient to Production: MLOps & Model Serving Specialization",
-    issuer: "Coursera",
-    date: "11/07/2026",
-    credentialUrl: "https://coursera.org/verify/specialization/4ZEFB8QBVQ3H",
-  },
-  {
-    title: "AI Engineer Professional Specialization",
-    issuer: "Coursera",
-    date: "11/07/2026",
-    credentialUrl: "https://coursera.org/verify/specialization/6J4SFXR6XNEH",
   },
 ];
 
