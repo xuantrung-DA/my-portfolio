@@ -335,7 +335,7 @@ export const projects = [
     visualWidth: 1491,
     visualHeight: 1055,
     demo: "",
-    featured: true,
+    featured: false,
   },
 ];
 

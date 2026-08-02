@@ -1,21 +1,59 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import SectionTitle from "../components/ui/SectionTitle";
 import Card from "../components/ui/Card";
 import GoldButton from "../components/ui/GoldButton";
 import { projects } from "../data/portfolio";
-import { FaGithub, FaExternalLinkAlt, FaTimes, FaStar } from "react-icons/fa";
+import {
+  FaChevronLeft,
+  FaChevronRight,
+  FaGithub,
+  FaExternalLinkAlt,
+  FaTimes,
+  FaStar,
+} from "react-icons/fa";
 
 const categories = ["All", ...new Set(projects.map((p) => p.category))];
+const projectsPerPage = 3;
+const projectOrder = [4, 3, 1, 2, 5, 6];
+const projectRank = new Map(projectOrder.map((id, index) => [id, index]));
+const orderedProjects = [...projects].sort(
+  (a, b) => projectRank.get(a.id) - projectRank.get(b.id),
+);
 
 export default function ProjectsPage() {
   const [activeFilter, setActiveFilter] = useState("All");
   const [selectedProject, setSelectedProject] = useState(null);
+  const [currentPage, setCurrentPage] = useState(1);
+  const projectsGridRef = useRef(null);
 
   const filtered =
     activeFilter === "All"
-      ? projects
-      : projects.filter((p) => p.category === activeFilter);
+      ? orderedProjects
+      : orderedProjects.filter((p) => p.category === activeFilter);
+
+  const totalPages = Math.max(
+    1,
+    Math.ceil(filtered.length / projectsPerPage),
+  );
+  const pageStart = (currentPage - 1) * projectsPerPage;
+  const visibleProjects = filtered.slice(
+    pageStart,
+    pageStart + projectsPerPage,
+  );
+
+  const changePage = (page) => {
+    if (page < 1 || page > totalPages || page === currentPage) return;
+    setCurrentPage(page);
+    projectsGridRef.current?.scrollIntoView({
+      behavior: "smooth",
+      block: "start",
+    });
+  };
+
+  useEffect(() => {
+    if (currentPage > totalPages) setCurrentPage(totalPages);
+  }, [currentPage, totalPages]);
 
   useEffect(() => {
     if (!selectedProject) return undefined;
@@ -55,7 +93,10 @@ export default function ProjectsPage() {
             {categories.map((cat) => (
               <motion.button
                 key={cat}
-                onClick={() => setActiveFilter(cat)}
+                onClick={() => {
+                  setActiveFilter(cat);
+                  setCurrentPage(1);
+                }}
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
                 className={`min-h-11 px-5 sm:px-6 py-2.5 text-xs tracking-widest uppercase rounded-full border transition-all duration-300 cursor-pointer ${
@@ -70,9 +111,13 @@ export default function ProjectsPage() {
           </div>
 
           {/* Project Grid */}
-          <motion.div layout className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+          <motion.div
+            ref={projectsGridRef}
+            layout
+            className="scroll-mt-24 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6"
+          >
             <AnimatePresence mode="popLayout">
-              {filtered.map((project) => (
+              {visibleProjects.map((project) => (
                 <motion.div
                   key={project.id}
                   layout
@@ -210,6 +255,52 @@ export default function ProjectsPage() {
               ))}
             </AnimatePresence>
           </motion.div>
+
+          {totalPages > 1 && (
+            <nav
+              className="mt-10 flex flex-wrap items-center justify-center gap-2"
+              aria-label="Project pages"
+            >
+              <button
+                type="button"
+                onClick={() => changePage(currentPage - 1)}
+                disabled={currentPage === 1}
+                aria-label="Previous project page"
+                className="flex min-h-11 min-w-11 cursor-pointer items-center justify-center rounded-lg border border-border text-text-secondary transition-colors hover:border-gold/30 hover:text-gold disabled:cursor-not-allowed disabled:opacity-35"
+              >
+                <FaChevronLeft size={12} />
+              </button>
+
+              {Array.from({ length: totalPages }, (_, index) => index + 1).map(
+                (page) => (
+                  <button
+                    key={page}
+                    type="button"
+                    onClick={() => changePage(page)}
+                    aria-label={`Project page ${page}`}
+                    aria-current={currentPage === page ? "page" : undefined}
+                    className={`min-h-11 min-w-11 cursor-pointer rounded-lg border text-sm transition-colors ${
+                      currentPage === page
+                        ? "border-gold bg-gold/15 text-gold"
+                        : "border-border text-text-secondary hover:border-gold/30 hover:text-gold"
+                    }`}
+                  >
+                    {page}
+                  </button>
+                ),
+              )}
+
+              <button
+                type="button"
+                onClick={() => changePage(currentPage + 1)}
+                disabled={currentPage === totalPages}
+                aria-label="Next project page"
+                className="flex min-h-11 min-w-11 cursor-pointer items-center justify-center rounded-lg border border-border text-text-secondary transition-colors hover:border-gold/30 hover:text-gold disabled:cursor-not-allowed disabled:opacity-35"
+              >
+                <FaChevronRight size={12} />
+              </button>
+            </nav>
+          )}
         </div>
       </section>
 
