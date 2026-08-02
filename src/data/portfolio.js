@@ -108,7 +108,7 @@ export const projects = [
     role: "Sole Developer · Second Author",
     period: "06/2026",
     teamSize: 2,
-    status: "Under Review at SIMC 2026",
+    status: "Accepted at SIMC 2026 · Springer LNEE",
     description:
       "Developed an end-to-end multimodal framework for bearing Remaining Useful Life prediction, combining wavelet-based vibration features with thermal degradation signals through cross-attention and GRU-based temporal modeling.",
     highlights: [
