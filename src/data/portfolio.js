@@ -343,9 +343,9 @@ export const honors = [
   {
     title: "Academic Excellence Recognition",
     organization: "FPT University",
-    year: "2025",
+    year: "2024–2025",
     description:
-      "Consistently recognized for academic excellence throughout 2025.",
+      "Consistently recognized for academic excellence across the 2024–2025 academic year.",
     academicHighlights: [
       {
         label: "Top 100 Excellent Students",
@@ -355,7 +355,7 @@ export const honors = [
       {
         label: "Honor Student",
         count: "3 semesters",
-        semesters: ["Spring 2025", "Summer 2025", "Fall 2025"],
+        semesters: ["Summer 2024", "Fall 2024", "Spring 2025"],
       },
     ],
     type: "academic",
