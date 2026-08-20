@@ -127,12 +127,11 @@ export default function HonorsPage() {
                       >
                         {typeIcons[honor.type] || typeIcons.default}
                       </div>
-                      <div className="text-right">
+                      <div className="flex flex-col items-end text-right">
                         <span className="text-gold text-sm font-semibold">
                           {honor.year}
                         </span>
-                        <br />
-                        <span className="text-text-muted text-xs tracking-widest uppercase">
+                        <span className="mt-1 text-text-muted text-xs tracking-widest uppercase">
                           {typeLabels[honor.type] || "Award"}
                         </span>
                         {honor.status && (
