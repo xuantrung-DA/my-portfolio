@@ -302,7 +302,7 @@ export const projects = [
     role: "First Author · Model Architecture & Evaluation",
     period: "04/2026 – 06/2026",
     teamSize: 3,
-    status: "Under Review at ICARCV 2026",
+    status: "Accepted at ICARCV 2026 · IEEE",
     description:
       "Proposed and evaluated AQB-FAS, a split-computing Face Anti-Spoofing framework that converts facial inputs into fixed-bitrate latent representations, balancing presentation-attack detection performance with edge-to-server communication efficiency.",
     highlights: [
@@ -384,6 +384,50 @@ export const honors = [
     doi: "10.1007/978-981-95-6111-7_13",
     credentialUrl:
       "https://link.springer.com/chapter/10.1007/978-981-95-6111-7_13",
+    type: "research",
+  },
+  {
+    title: "Accepted Paper — Springer LNEE",
+    organization: "SIMC 2026 · Springer LNEE · SCOPUS-indexed",
+    year: "2026",
+    description:
+      '“A Multimodal Framework for Bearing Remaining Useful Life Prediction Using Wavelet Cross-Attention GRU.”',
+    authors: "Anh Minh Phan; Xuan Trung Nguyen; Le Phu Nguyen",
+    acceptedDate: "2 August 2026",
+    paperId: "1571301735",
+    status: "Accepted",
+    credentialUrl: "https://www.simc-conf.org/home",
+    credentialLabel: "SIMC 2026",
+    type: "research",
+  },
+  {
+    title: "Accepted Paper — IEEE ICARCV 2026",
+    organization: "ICARCV 2026 · IEEE · IEEE Xplore / EI Compendex",
+    year: "2026",
+    description:
+      '“Attribute-Guided Quantized Bottleneck Representation for Bandwidth-Efficient Split-Computing Face Anti-Spoofing.”',
+    authors:
+      "Xuan Trung Nguyen; Vy Kiet Trinh; Thanh Phat Nguyen; Ha Anh Vu",
+    acceptedDate: "19 August 2026",
+    paperId: "233",
+    status: "Accepted as Contributed Paper",
+    credentialUrl: "https://www.carvs-icarcv.org/",
+    credentialLabel: "ICARCV 2026",
+    type: "research",
+  },
+  {
+    title: "Accepted Paper — IEEE ICARCV 2026",
+    organization: "ICARCV 2026 · IEEE · IEEE Xplore / EI Compendex",
+    year: "2026",
+    description:
+      '“CounterFail-Edge: Compact Black-Box Verification of Robotic Manipulation from Before–After Images and Instructions.”',
+    authors:
+      "Hoai My Nguyen; Xuan Trung Nguyen; Anh Minh Phan; Nguyen Minh Phong Pham; Ha Anh Vu",
+    acceptedDate: "19 August 2026",
+    paperId: "232",
+    status: "Accepted as Contributed Paper",
+    credentialUrl: "https://www.carvs-icarcv.org/",
+    credentialLabel: "ICARCV 2026",
     type: "research",
   },
 ];

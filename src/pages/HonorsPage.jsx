@@ -1,3 +1,4 @@
+import { useRef, useState } from "react";
 import { motion } from "framer-motion";
 import SectionTitle from "../components/ui/SectionTitle";
 import Card from "../components/ui/Card";
@@ -10,7 +11,11 @@ import {
   FaBookOpen,
   FaExternalLinkAlt,
   FaStar,
+  FaChevronLeft,
+  FaChevronRight,
 } from "react-icons/fa";
+
+const honorsPerPage = 3;
 
 const typeIcons = {
   competition: <FaTrophy size={24} />,
@@ -32,6 +37,21 @@ const typeLabels = {
 };
 
 export default function HonorsPage() {
+  const [currentPage, setCurrentPage] = useState(1);
+  const honorsGridRef = useRef(null);
+  const totalPages = Math.max(1, Math.ceil(honors.length / honorsPerPage));
+  const pageStart = (currentPage - 1) * honorsPerPage;
+  const visibleHonors = honors.slice(pageStart, pageStart + honorsPerPage);
+
+  const changePage = (page) => {
+    if (page < 1 || page > totalPages || page === currentPage) return;
+    setCurrentPage(page);
+    honorsGridRef.current?.scrollIntoView({
+      behavior: "smooth",
+      block: "start",
+    });
+  };
+
   return (
     <div id="honors" className="scroll-mt-16 sm:scroll-mt-20">
       {/* Header */}
@@ -53,7 +73,7 @@ export default function HonorsPage() {
             {[
               { label: "Recognitions", value: honors.length },
               {
-                label: "Published Papers",
+                label: "Research Papers",
                 value: honors.filter((h) => h.type === "research").length,
               },
               {
@@ -77,10 +97,13 @@ export default function HonorsPage() {
       {/* Awards Grid */}
       <section className="py-16 sm:py-20 lg:py-24">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
-            {honors.map((honor, i) => (
+          <div
+            ref={honorsGridRef}
+            className="grid scroll-mt-24 grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-3"
+          >
+            {visibleHonors.map((honor, i) => (
               <motion.div
-                key={i}
+                key={`${honor.title}-${honor.description}`}
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
@@ -112,6 +135,11 @@ export default function HonorsPage() {
                         <span className="text-text-muted text-xs tracking-widest uppercase">
                           {typeLabels[honor.type] || "Award"}
                         </span>
+                        {honor.status && (
+                          <span className="mt-2 inline-flex rounded-full border border-emerald-500/30 bg-emerald-500/10 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-wider text-emerald-400">
+                            {honor.status}
+                          </span>
+                        )}
                       </div>
                     </div>
 
@@ -177,6 +205,18 @@ export default function HonorsPage() {
                       </p>
                     )}
 
+                    {honor.acceptedDate && (
+                      <p className="text-text-muted text-xs mt-2">
+                        Acceptance notification: {honor.acceptedDate}
+                      </p>
+                    )}
+
+                    {honor.paperId && (
+                      <p className="text-text-muted text-xs mt-2">
+                        Paper ID: {honor.paperId}
+                      </p>
+                    )}
+
                     {honor.credentialUrl && (
                       <a
                         href={honor.credentialUrl}
@@ -184,7 +224,10 @@ export default function HonorsPage() {
                         rel="noopener noreferrer"
                         className="mt-5 inline-flex items-center gap-2 text-gold hover:text-gold-light text-sm transition-colors break-all"
                       >
-                        DOI: {honor.doi} <FaExternalLinkAlt size={11} className="shrink-0" />
+                        {honor.doi
+                          ? `DOI: ${honor.doi}`
+                          : honor.credentialLabel || "Conference"}
+                        <FaExternalLinkAlt size={11} className="shrink-0" />
                       </a>
                     )}
                   </div>
@@ -192,6 +235,52 @@ export default function HonorsPage() {
               </motion.div>
             ))}
           </div>
+
+          {totalPages > 1 && (
+            <nav
+              className="mt-10 flex flex-wrap items-center justify-center gap-2"
+              aria-label="Honor and research credential pages"
+            >
+              <button
+                type="button"
+                onClick={() => changePage(currentPage - 1)}
+                disabled={currentPage === 1}
+                aria-label="Previous honor and research credential page"
+                className="flex min-h-11 min-w-11 cursor-pointer items-center justify-center rounded-lg border border-border text-text-secondary transition-colors hover:border-gold/30 hover:text-gold disabled:cursor-not-allowed disabled:opacity-35"
+              >
+                <FaChevronLeft size={12} />
+              </button>
+
+              {Array.from({ length: totalPages }, (_, index) => index + 1).map(
+                (page) => (
+                  <button
+                    key={page}
+                    type="button"
+                    onClick={() => changePage(page)}
+                    aria-label={`Honor and research credential page ${page}`}
+                    aria-current={currentPage === page ? "page" : undefined}
+                    className={`min-h-11 min-w-11 cursor-pointer rounded-lg border text-sm transition-colors ${
+                      currentPage === page
+                        ? "border-gold bg-gold/15 text-gold"
+                        : "border-border text-text-secondary hover:border-gold/30 hover:text-gold"
+                    }`}
+                  >
+                    {page}
+                  </button>
+                ),
+              )}
+
+              <button
+                type="button"
+                onClick={() => changePage(currentPage + 1)}
+                disabled={currentPage === totalPages}
+                aria-label="Next honor and research credential page"
+                className="flex min-h-11 min-w-11 cursor-pointer items-center justify-center rounded-lg border border-border text-text-secondary transition-colors hover:border-gold/30 hover:text-gold disabled:cursor-not-allowed disabled:opacity-35"
+              >
+                <FaChevronRight size={12} />
+              </button>
+            </nav>
+          )}
         </div>
       </section>
 
