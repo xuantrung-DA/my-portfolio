@@ -1,327 +1,181 @@
-import { useRef, useState } from "react";
-import { motion } from "framer-motion";
-import SectionTitle from "../components/ui/SectionTitle";
-import Card from "../components/ui/Card";
-import CertificationExplorer from "../components/certifications/CertificationExplorer";
-import { honors, certifications, personalInfo } from "../data/portfolio";
 import {
-  FaTrophy,
+  FaArrowUpRightFromSquare,
+  FaCertificate,
   FaMedal,
-  FaAward,
-  FaBookOpen,
-  FaExternalLinkAlt,
-  FaStar,
-  FaChevronLeft,
-  FaChevronRight,
-} from "react-icons/fa";
-
-const honorsPerPage = 3;
-
-const typeIcons = {
-  competition: <FaTrophy size={24} />,
-  academic: <FaMedal size={24} />,
-  research: <FaBookOpen size={24} />,
-  default: <FaAward size={24} />,
-};
-
-const typeColors = {
-  competition: "from-amber-500/20 to-yellow-600/20 border-amber-500/30",
-  academic: "from-gold/20 to-gold-dark/20 border-gold/30",
-  research: "from-emerald-500/20 to-green-600/20 border-emerald-500/30",
-};
-
-const typeLabels = {
-  competition: "Competition",
-  academic: "Academic",
-  research: "Research",
-};
+} from "react-icons/fa6";
+import Card from "../components/ui/Card";
+import Reveal from "../components/ui/Reveal";
+import SectionTitle from "../components/ui/SectionTitle";
+import { certifications, honors } from "../data/portfolio";
 
 export default function HonorsPage() {
-  const [currentPage, setCurrentPage] = useState(1);
-  const honorsGridRef = useRef(null);
-  const totalPages = Math.max(1, Math.ceil(honors.length / honorsPerPage));
-  const pageStart = (currentPage - 1) * honorsPerPage;
-  const visibleHonors = honors.slice(pageStart, pageStart + honorsPerPage);
-
-  const changePage = (page) => {
-    if (page < 1 || page > totalPages || page === currentPage) return;
-    setCurrentPage(page);
-    honorsGridRef.current?.scrollIntoView({
-      behavior: "smooth",
-      block: "start",
-    });
-  };
+  const research = honors.filter((honor) => honor.type === "research");
+  const academic = honors.find((honor) => honor.type === "academic");
+  const topStudent = academic?.academicHighlights?.find((highlight) =>
+    highlight.label.includes("Top 100"),
+  );
+  const sortedCertifications = [...certifications].sort(
+    (a, b) => a.priority - b.priority,
+  );
+  const featuredCredentials = sortedCertifications.slice(0, 6);
+  const archivedCredentials = sortedCertifications.slice(6);
 
   return (
-    <div id="honors" className="scroll-mt-16 sm:scroll-mt-20">
-      {/* Header */}
-      <section className="relative py-16 sm:py-20 lg:py-24 bg-bg-secondary overflow-hidden">
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(201,168,76,0.06)_0%,transparent_60%)]" />
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
-          <SectionTitle
-            title="Honors & Research Credentials"
-            subtitle="Verified academic recognition, peer-reviewed publications, and professional certifications."
-          />
+    <section id="research" className="section-block section-block--alt">
+      <div className="site-shell">
+        <SectionTitle
+          index="04"
+          eyebrow="Research & recognition"
+          title="Published ideas, verified outcomes."
+          subtitle="Peer-reviewed and accepted work across edge AI, computer vision, digital twins, and model optimization."
+        />
 
-          {/* Stats row */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.3 }}
-            className="grid grid-cols-1 min-[360px]:grid-cols-3 gap-5 sm:gap-8 max-w-2xl mx-auto mt-8"
-          >
-            {[
-              { label: "Recognitions", value: honors.length },
-              {
-                label: "Research Papers",
-                value: honors.filter((h) => h.type === "research").length,
-              },
-              {
-                label: "Certificates",
-                value: certifications.length,
-              },
-            ].map((stat) => (
-              <div key={stat.label} className="text-center">
-                <div className="text-2xl font-heading font-bold gold-gradient-text">
-                  {stat.value}
-                </div>
-                <div className="text-text-muted text-xs tracking-widest uppercase mt-1">
-                  {stat.label}
-                </div>
+        <div className="research-list">
+          {research.map((paper, index) => (
+            <Reveal
+              as="article"
+              className="research-row"
+              delay={index * 35}
+              key={`${paper.title}-${paper.description}`}
+            >
+              <p className="research-year">{paper.year}</p>
+              <div className="research-title">
+                <h3>{paper.description.replace(/[“”]/g, "")}</h3>
+                {paper.authors && <p>{paper.authors}</p>}
+                <span className="status-badge">
+                  {paper.status || (paper.publishedDate ? "Published" : "Research")}
+                </span>
               </div>
-            ))}
-          </motion.div>
+              <div className="research-venue">
+                <span>Conference</span>
+                <p>{paper.organization}</p>
+              </div>
+              {paper.credentialUrl && (
+                <a
+                  className="research-link"
+                  href={paper.credentialUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={`Open ${paper.title}`}
+                >
+                  <FaArrowUpRightFromSquare size={13} />
+                </a>
+              )}
+            </Reveal>
+          ))}
         </div>
-      </section>
 
-      {/* Awards Grid */}
-      <section className="py-16 sm:py-20 lg:py-24">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div
-            ref={honorsGridRef}
-            className="grid scroll-mt-24 grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-3"
-          >
-            {visibleHonors.map((honor, i) => (
-              <motion.div
-                key={`${honor.title}-${honor.description}`}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: i * 0.1 }}
-              >
-                <Card gold className="!p-0 overflow-hidden h-full flex flex-col">
-                  {/* Top accent bar */}
+        {academic && (
+          <Reveal delay={50}>
+            <Card className="recognition-strip">
+              <div className="recognition-copy">
+                <span className="recognition-emblem">
+                  <FaMedal size={24} aria-hidden="true" />
+                </span>
+                <p className="eyebrow">Academic track record</p>
+                <h3>Five honor semesters. Two Top 100 finishes.</h3>
+                <p className="recognition-description">
+                  {academic.description}
+                </p>
+                <span className="recognition-school">
+                  {academic.organization} · {academic.year}
+                </span>
+              </div>
+
+              <div className="recognition-dashboard">
+                <div className="recognition-primary-stat">
+                  <div>
+                    <strong>{academic.honorSemesters}</strong>
+                    <span>/ {academic.completedSemesters} semesters</span>
+                  </div>
+                  <p>Honor Student recognition</p>
                   <div
-                    className={`h-1 bg-gradient-to-r ${
-                      typeColors[honor.type] || typeColors.academic
-                    }`}
-                  />
-
-                  <div className="p-6 flex-1 flex flex-col">
-                    {/* Icon & Year */}
-                    <div className="flex items-start justify-between mb-4">
-                      <div
-                        className={`w-14 h-14 rounded-xl bg-gradient-to-br ${
-                          typeColors[honor.type] || typeColors.academic
-                        } flex items-center justify-center text-gold`}
-                      >
-                        {typeIcons[honor.type] || typeIcons.default}
-                      </div>
-                      <div className="flex flex-col items-end text-right">
-                        <span className="text-gold text-sm font-semibold">
-                          {honor.year}
-                        </span>
-                        <span className="mt-1 text-text-muted text-xs tracking-widest uppercase">
-                          {typeLabels[honor.type] || "Award"}
-                        </span>
-                        {honor.status && (
-                          <span className="mt-2 inline-flex rounded-full border border-emerald-500/30 bg-emerald-500/10 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-wider text-emerald-400">
-                            {honor.status}
-                          </span>
-                        )}
-                      </div>
-                    </div>
-
-                    {/* Title */}
-                    <h3 className="font-heading text-xl text-text-primary mb-2">
-                      {honor.title}
-                    </h3>
-
-                    {/* Organization */}
-                    <p className="text-gold-dark text-sm mb-3">
-                      {honor.organization}
-                    </p>
-
-                    {/* Description */}
-                    <p className="text-text-secondary text-sm leading-relaxed flex-1">
-                      {honor.description}
-                    </p>
-
-                    {honor.academicHighlights?.length > 0 && (
-                      <div className="mt-5 space-y-3">
-                        {honor.academicHighlights.map((highlight) => (
-                          <div
-                            key={highlight.label}
-                            className="rounded-lg border border-border bg-bg-primary/35 p-3.5"
-                          >
-                            <div className="flex flex-wrap items-center justify-between gap-2">
-                              <div className="flex items-center gap-2 text-sm font-medium text-text-primary">
-                                <FaStar
-                                  size={11}
-                                  className="shrink-0 text-gold"
-                                  aria-hidden="true"
-                                />
-                                {highlight.label}
-                              </div>
-                              <span className="text-[10px] uppercase tracking-widest text-gold">
-                                {highlight.count}
-                              </span>
-                            </div>
-                            <div className="mt-3 flex flex-wrap gap-1.5">
-                              {highlight.semesters.map((semester) => (
-                                <span
-                                  key={semester}
-                                  className="rounded-md border border-gold/15 bg-gold/5 px-2 py-1 text-[10px] text-text-secondary"
-                                >
-                                  {semester}
-                                </span>
-                              ))}
-                            </div>
-                          </div>
-                        ))}
-                      </div>
-                    )}
-
-                    {honor.authors && (
-                      <p className="text-text-muted text-xs leading-relaxed mt-4">
-                        Authors: {honor.authors}
-                      </p>
-                    )}
-
-                    {honor.publishedDate && (
-                      <p className="text-text-muted text-xs mt-2">
-                        Published: {honor.publishedDate}
-                      </p>
-                    )}
-
-                    {honor.acceptedDate && (
-                      <p className="text-text-muted text-xs mt-2">
-                        Acceptance notification: {honor.acceptedDate}
-                      </p>
-                    )}
-
-                    {honor.paperId && (
-                      <p className="text-text-muted text-xs mt-2">
-                        Paper ID: {honor.paperId}
-                      </p>
-                    )}
-
-                    {honor.credentialUrl && (
-                      <a
-                        href={honor.credentialUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="mt-5 inline-flex items-center gap-2 text-gold hover:text-gold-light text-sm transition-colors break-all"
-                      >
-                        {honor.doi
-                          ? `DOI: ${honor.doi}`
-                          : honor.credentialLabel || "Conference"}
-                        <FaExternalLinkAlt size={11} className="shrink-0" />
-                      </a>
+                    className="semester-track"
+                    aria-label={`${academic.honorSemesters} honor semesters out of ${academic.completedSemesters} completed semesters`}
+                  >
+                    {Array.from({ length: academic.completedSemesters }).map(
+                      (_, index) => (
+                        <span
+                          className={
+                            index < academic.honorSemesters ? "is-honor" : ""
+                          }
+                          key={`semester-${index + 1}`}
+                        />
+                      ),
                     )}
                   </div>
-                </Card>
-              </motion.div>
-            ))}
-          </div>
+                </div>
 
-          {totalPages > 1 && (
-            <nav
-              className="mt-10 flex flex-wrap items-center justify-center gap-2"
-              aria-label="Honor and research credential pages"
-            >
-              <button
-                type="button"
-                onClick={() => changePage(currentPage - 1)}
-                disabled={currentPage === 1}
-                aria-label="Previous honor and research credential page"
-                className="flex min-h-11 min-w-11 cursor-pointer items-center justify-center rounded-lg border border-border text-text-secondary transition-colors hover:border-gold/30 hover:text-gold disabled:cursor-not-allowed disabled:opacity-35"
-              >
-                <FaChevronLeft size={12} />
-              </button>
+                <div className="recognition-mini-grid">
+                  <div className="recognition-mini-stat">
+                    <span>Current GPA</span>
+                    <strong>{academic.gpa}</strong>
+                    <p>Artificial Intelligence · FPT University</p>
+                  </div>
+                  <div className="recognition-mini-stat">
+                    <span>University ranking</span>
+                    <strong>Top 100 ×2</strong>
+                    <p>{topStudent?.semesters.join(" · ")}</p>
+                  </div>
+                </div>
+              </div>
+            </Card>
+          </Reveal>
+        )}
 
-              {Array.from({ length: totalPages }, (_, index) => index + 1).map(
-                (page) => (
-                  <button
-                    key={page}
-                    type="button"
-                    onClick={() => changePage(page)}
-                    aria-label={`Honor and research credential page ${page}`}
-                    aria-current={currentPage === page ? "page" : undefined}
-                    className={`min-h-11 min-w-11 cursor-pointer rounded-lg border text-sm transition-colors ${
-                      currentPage === page
-                        ? "border-gold bg-gold/15 text-gold"
-                        : "border-border text-text-secondary hover:border-gold/30 hover:text-gold"
-                    }`}
+        <Reveal className="credentials-heading">
+          <p className="eyebrow">Continuous learning</p>
+          <h3>Selected credentials</h3>
+        </Reveal>
+
+        <div className="credential-grid">
+          {featuredCredentials.map((certificate, index) => (
+            <Reveal key={certificate.title} delay={(index % 3) * 35}>
+              <Card as="article" className="credential-card" interactive>
+                <div className="credential-card__top">
+                  <FaCertificate size={17} aria-hidden="true" />
+                  <span>{certificate.date}</span>
+                </div>
+                <h4>{certificate.title}</h4>
+                <p>
+                  {certificate.issuer} · {certificate.type}
+                </p>
+                {certificate.credentialUrl && (
+                  <a
+                    href={certificate.credentialUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
                   >
-                    {page}
-                  </button>
-                ),
-              )}
-
-              <button
-                type="button"
-                onClick={() => changePage(currentPage + 1)}
-                disabled={currentPage === totalPages}
-                aria-label="Next honor and research credential page"
-                className="flex min-h-11 min-w-11 cursor-pointer items-center justify-center rounded-lg border border-border text-text-secondary transition-colors hover:border-gold/30 hover:text-gold disabled:cursor-not-allowed disabled:opacity-35"
-              >
-                <FaChevronRight size={12} />
-              </button>
-            </nav>
-          )}
+                    Verify credential <FaArrowUpRightFromSquare size={10} />
+                  </a>
+                )}
+              </Card>
+            </Reveal>
+          ))}
         </div>
-      </section>
 
-      {/* Certifications */}
-      <section className="py-16 sm:py-20 lg:py-24 bg-bg-secondary">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <SectionTitle
-            title="Certifications"
-            subtitle="Continued learning across deep learning, AI engineering, and production MLOps."
-          />
-          <CertificationExplorer certifications={certifications} />
-        </div>
-      </section>
-
-      {/* CTA */}
-      <section className="py-16 sm:py-20 lg:py-24">
-        <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="gold-border-frame p-6 sm:p-10 lg:p-12 rounded-sm"
-          >
-            <FaTrophy className="text-gold mx-auto mb-6" size={40} />
-            <h3 className="font-heading text-2xl text-text-primary mb-4">
-              Considering Me for an AI Role?
-            </h3>
-            <p className="text-text-secondary mb-8">
-              My CV summarizes the experience, projects, publications, and technical
-              skills most relevant to AI Engineer and Applied AI opportunities.
-            </p>
-            <a
-              href={personalInfo.cvUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-8 py-3.5 text-sm font-semibold tracking-widest uppercase rounded-lg bg-gradient-to-r from-gold to-gold-dark text-on-gold hover:shadow-[0_0_30px_rgba(201,168,76,0.3)] transition-all duration-300"
-            >
-              Review My CV
-            </a>
-          </motion.div>
-        </div>
-      </section>
-    </div>
+        {archivedCredentials.length > 0 && (
+          <details className="credential-archive">
+            <summary>
+              View {archivedCredentials.length} additional credentials
+            </summary>
+            <div className="credential-archive__grid">
+              {archivedCredentials.map((certificate) => (
+                <a
+                  className="credential-archive__row"
+                  href={certificate.credentialUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  key={certificate.title}
+                >
+                  <span>{certificate.title}</span>
+                  <span>{certificate.date}</span>
+                </a>
+              ))}
+            </div>
+          </details>
+        )}
+      </div>
+    </section>
   );
 }

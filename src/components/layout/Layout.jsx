@@ -3,9 +3,12 @@ import Footer from "./Footer";
 
 export default function Layout({ children }) {
   return (
-    <div className="min-h-screen flex flex-col bg-bg-primary">
+    <div>
+      <a className="skip-link" href="#main-content">
+        Skip to content
+      </a>
       <Navbar />
-      <main className="flex-1 pt-16 sm:pt-20">{children}</main>
+      <main id="main-content">{children}</main>
       <Footer />
     </div>
   );

@@ -1,475 +1,369 @@
 import { useEffect, useRef, useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import SectionTitle from "../components/ui/SectionTitle";
+import {
+  FaArrowRight,
+  FaExpand,
+  FaGithub,
+  FaUpRightFromSquare,
+  FaXmark,
+} from "react-icons/fa6";
 import Card from "../components/ui/Card";
 import GoldButton from "../components/ui/GoldButton";
+import Reveal from "../components/ui/Reveal";
 import { projects } from "../data/portfolio";
-import {
-  FaChevronLeft,
-  FaChevronRight,
-  FaGithub,
-  FaExternalLinkAlt,
-  FaTimes,
-  FaStar,
-} from "react-icons/fa";
 
-const categories = ["All", ...new Set(projects.map((p) => p.category))];
-const projectsPerPage = 3;
-const projectOrder = [4, 3, 1, 2, 5, 6];
-const projectRank = new Map(projectOrder.map((id, index) => [id, index]));
-const orderedProjects = [...projects].sort(
-  (a, b) => projectRank.get(a.id) - projectRank.get(b.id),
-);
+const flagshipOrder = [6, 5, 1];
 
-export default function ProjectsPage() {
-  const [activeFilter, setActiveFilter] = useState("All");
-  const [selectedProject, setSelectedProject] = useState(null);
-  const [currentPage, setCurrentPage] = useState(1);
-  const projectsGridRef = useRef(null);
+const projectEvidence = {
+  1: [
+    { value: "16.75", label: "RMSE on S2" },
+    { value: "15.40", label: "MAE on S2" },
+    { value: "5.52", label: "PHM score" },
+  ],
+  2: [
+    { value: "12.99%", label: "overall WER" },
+    { value: "8.37%", label: "clean WER" },
+    { value: "24.31%", label: "WER at 0 dB" },
+  ],
+  4: [
+    { value: "96.85%", label: "FAS accuracy" },
+    { value: "3.16%", label: "ACER" },
+    { value: "ONNX", label: "deployment format" },
+  ],
+  6: [
+    { value: "2,352×", label: "payload compression" },
+    { value: "97.01%", label: "accuracy" },
+    { value: "9.17 ms", label: "edge encoder" },
+  ],
+  5: [
+    { value: "0.523 ms", label: "router p95" },
+    { value: "91.90%", label: "balanced accuracy" },
+    { value: "412–465", label: "TensorRT FPS" },
+  ],
+};
 
-  const filtered =
-    activeFilter === "All"
-      ? orderedProjects
-      : orderedProjects.filter((p) => p.category === activeFilter);
-
-  const totalPages = Math.max(
-    1,
-    Math.ceil(filtered.length / projectsPerPage),
-  );
-  const pageStart = (currentPage - 1) * projectsPerPage;
-  const visibleProjects = filtered.slice(
-    pageStart,
-    pageStart + projectsPerPage,
-  );
-
-  const changePage = (page) => {
-    if (page < 1 || page > totalPages || page === currentPage) return;
-    setCurrentPage(page);
-    projectsGridRef.current?.scrollIntoView({
-      behavior: "smooth",
-      block: "start",
-    });
-  };
-
-  useEffect(() => {
-    if (currentPage > totalPages) setCurrentPage(totalPages);
-  }, [currentPage, totalPages]);
-
-  useEffect(() => {
-    if (!selectedProject) return undefined;
-
-    const previousOverflow = document.body.style.overflow;
-    const handleKeyDown = (event) => {
-      if (event.key === "Escape") setSelectedProject(null);
-    };
-
-    document.body.style.overflow = "hidden";
-    window.addEventListener("keydown", handleKeyDown);
-
-    return () => {
-      document.body.style.overflow = previousOverflow;
-      window.removeEventListener("keydown", handleKeyDown);
-    };
-  }, [selectedProject]);
+function ProjectImpact({ project }) {
+  const evidence = projectEvidence[project.id];
+  if (!evidence) return null;
 
   return (
-    <div id="projects" className="scroll-mt-16 sm:scroll-mt-20">
-      {/* Header */}
-      <section className="relative py-16 sm:py-20 lg:py-24 bg-bg-secondary overflow-hidden">
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(201,168,76,0.05)_0%,transparent_60%)]" />
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
-          <SectionTitle
-            title="Projects"
-            subtitle="Selected work demonstrating my approach to AI engineering, evaluation, and production-oriented development."
-          />
-        </div>
-      </section>
-
-      {/* Filter & Grid */}
-      <section className="py-16 sm:py-20 lg:py-24">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          {/* Filter Tabs */}
-          <div className="flex flex-wrap justify-center gap-3 mb-10 sm:mb-16">
-            {categories.map((cat) => (
-              <motion.button
-                key={cat}
-                onClick={() => {
-                  setActiveFilter(cat);
-                  setCurrentPage(1);
-                }}
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className={`min-h-11 px-5 sm:px-6 py-2.5 text-xs tracking-widest uppercase rounded-full border transition-all duration-300 cursor-pointer ${
-                  activeFilter === cat
-                    ? "bg-gold/15 border-gold text-gold shadow-[0_0_15px_rgba(201,168,76,0.15)]"
-                    : "border-border text-text-secondary hover:border-gold/30 hover:text-text-primary"
-                }`}
-              >
-                {cat}
-              </motion.button>
-            ))}
-          </div>
-
-          {/* Project Grid */}
-          <motion.div
-            ref={projectsGridRef}
-            layout
-            className="scroll-mt-24 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6"
+    <section className="dialog-impact" aria-label="Measured project outcomes">
+      <p className="eyebrow">Evidence snapshot</p>
+      <div className="dialog-impact__grid">
+        {evidence.map((metric, index) => (
+          <div
+            className="dialog-impact__metric"
+            key={metric.label}
+            style={{ "--impact-index": index }}
           >
-            <AnimatePresence mode="popLayout">
-              {visibleProjects.map((project) => (
-                <motion.div
-                  key={project.id}
-                  layout
-                  initial={{ opacity: 0, scale: 0.9 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 0.9 }}
-                  transition={{ duration: 0.4 }}
+            <span className="dialog-impact__signal" aria-hidden="true" />
+            <strong>{metric.value}</strong>
+            <span>{metric.label}</span>
+          </div>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+function ProjectDialog({ project, onDismiss }) {
+  const dialogRef = useRef(null);
+
+  useEffect(() => {
+    const dialog = dialogRef.current;
+    if (!dialog || dialog.open) return;
+    dialog.showModal();
+  }, []);
+
+  const closeDialog = () => {
+    const dialog = dialogRef.current;
+    if (dialog?.open) dialog.close();
+  };
+
+  return (
+    <dialog
+      ref={dialogRef}
+      className="project-dialog"
+      aria-labelledby={`project-title-${project.id}`}
+      onClose={onDismiss}
+      onCancel={(event) => {
+        event.preventDefault();
+        closeDialog();
+      }}
+      onClick={(event) => {
+        if (event.target === event.currentTarget) closeDialog();
+      }}
+    >
+      <button
+        type="button"
+        className="icon-button dialog-close"
+        onClick={closeDialog}
+        aria-label="Close project details"
+        autoFocus
+      >
+        <FaXmark />
+      </button>
+
+      <div className="dialog-body">
+        <p className="dialog-kicker">
+          {project.category} · {project.status}
+        </p>
+        <h2 id={`project-title-${project.id}`}>{project.title}</h2>
+        <p className="dialog-summary">{project.description}</p>
+
+        <dl className="dialog-meta">
+          <div>
+            <dt>Role</dt>
+            <dd>{project.role}</dd>
+          </div>
+          <div>
+            <dt>Period</dt>
+            <dd>{project.period}</dd>
+          </div>
+          <div>
+            <dt>Team</dt>
+            <dd>{project.teamSize || "Independent"}</dd>
+          </div>
+          <div>
+            <dt>Focus</dt>
+            <dd>{project.category}</dd>
+          </div>
+        </dl>
+
+        <ProjectImpact project={project} />
+
+        {project.visualImage && (
+          <figure
+            className={`dialog-visual ${project.visualTheme === "dark" ? "project-feature__visual--dark" : ""}`}
+          >
+            <img
+              src={project.visualImage}
+              alt={project.visualAlt}
+              width={project.visualWidth}
+              height={project.visualHeight}
+              loading="lazy"
+              decoding="async"
+            />
+            <figcaption>{project.visualCaption}</figcaption>
+          </figure>
+        )}
+
+        <div className="dialog-columns">
+          <Reveal className="dialog-contribution" once={false}>
+            <h3>Contribution map</h3>
+            <ol className="contribution-map">
+              {project.highlights?.map((highlight, index) => (
+                <li
+                  key={highlight}
+                  style={{ "--contribution-index": index }}
                 >
-                  <Card
-                    gold
-                    className="!p-0 overflow-hidden group cursor-pointer h-full flex flex-col"
-                  >
-                    {/* Project Thumbnail */}
-                    <div
-                      className="relative h-48 bg-bg-tertiary overflow-hidden"
-                      onClick={() => setSelectedProject(project)}
-                    >
-                      {project.visualImage ? (
-                        <img
-                          src={project.visualImage}
-                          alt={project.visualAlt}
-                          width={project.visualWidth}
-                          height={project.visualHeight}
-                          loading="lazy"
-                          decoding="async"
-                          className={`h-full w-full object-contain p-2 ${
-                            project.visualTheme === "dark"
-                              ? "bg-bg-primary"
-                              : "bg-white"
-                          }`}
-                        />
-                      ) : (
-                        <>
-                          <div className="absolute inset-0 bg-gradient-to-br from-gold/5 to-transparent" />
-                          <div className="absolute inset-0 flex items-center justify-center">
-                            <span className="font-heading text-5xl text-gold/10 group-hover:text-gold/20 transition-colors duration-500">
-                              {project.title.charAt(0)}
-                            </span>
-                          </div>
-                        </>
-                      )}
-                      {project.featured && (
-                        <div className="absolute top-3 right-3 flex items-center gap-1 px-3 py-1 rounded-full bg-gold/20 border border-gold/30 text-gold text-xs">
-                          <FaStar size={10} />
-                          Featured
-                        </div>
-                      )}
-                      {/* Hover overlay */}
-                      <div className="absolute inset-0 bg-bg-primary/80 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                        <span className="text-gold text-sm tracking-widest uppercase">
-                          View Details
-                        </span>
-                      </div>
-                    </div>
-
-                    {/* Content */}
-                    <div className="p-6 flex-1 flex flex-col" onClick={() => setSelectedProject(project)}>
-                      <div className="text-gold text-xs tracking-widest uppercase mb-2">
-                        {project.category}
-                      </div>
-                      <h3 className="font-heading text-xl text-text-primary mb-2 group-hover:text-gold transition-colors">
-                        {project.title}
-                      </h3>
-                      <p className="text-text-muted text-xs mb-3">
-                        {project.role} · {project.period}
-                      </p>
-                      {project.status && (
-                        <div className="mb-3">
-                          <span className="inline-flex rounded-full border border-gold/25 bg-gold/10 px-2.5 py-1 text-[11px] text-gold">
-                            {project.status}
-                          </span>
-                        </div>
-                      )}
-                      <p className="text-text-secondary text-sm leading-relaxed mb-4 flex-1 line-clamp-3">
-                        {project.description}
-                      </p>
-
-                      {/* Tags */}
-                      <div className="flex flex-wrap gap-2 mb-4">
-                        {project.tags.slice(0, 3).map((tag) => (
-                          <span
-                            key={tag}
-                            className="text-xs px-2.5 py-1 rounded bg-bg-tertiary text-text-muted border border-border"
-                          >
-                            {tag}
-                          </span>
-                        ))}
-                        {project.tags.length > 3 && (
-                          <span className="text-xs px-2.5 py-1 rounded bg-bg-tertiary text-text-muted border border-border">
-                            +{project.tags.length - 3}
-                          </span>
-                        )}
-                      </div>
-
-                      {/* Links */}
-                      <div className="flex gap-3 mt-auto">
-                        {project.github && (
-                          <a
-                            href={project.github}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            onClick={(e) => e.stopPropagation()}
-                            className="flex items-center gap-2 text-text-secondary hover:text-gold text-xs transition-colors"
-                          >
-                            <FaGithub size={14} /> GitHub
-                          </a>
-                        )}
-                        {project.demo && (
-                          <a
-                            href={project.demo}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            onClick={(e) => e.stopPropagation()}
-                            className="flex items-center gap-2 text-text-secondary hover:text-gold text-xs transition-colors"
-                          >
-                            <FaExternalLinkAlt size={12} /> Demo
-                          </a>
-                        )}
-                        {project.researchUrl && (
-                          <a
-                            href={project.researchUrl}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            onClick={(e) => e.stopPropagation()}
-                            className="flex items-center gap-2 text-text-secondary hover:text-gold text-xs transition-colors"
-                          >
-                            <FaExternalLinkAlt size={12} />
-                            {project.researchLabel || "Research"}
-                          </a>
-                        )}
-                      </div>
-                    </div>
-                  </Card>
-                </motion.div>
+                  <span className="contribution-node" aria-hidden="true">
+                    {String(index + 1).padStart(2, "0")}
+                  </span>
+                  <p>{highlight}</p>
+                </li>
               ))}
-            </AnimatePresence>
-          </motion.div>
+            </ol>
+          </Reveal>
+          <div>
+            <h3>Stack</h3>
+            <div className="tag-list">
+              {project.tags.map((tag) => (
+                <span className="tag" key={tag}>
+                  {tag}
+                </span>
+              ))}
+            </div>
+          </div>
+        </div>
 
-          {totalPages > 1 && (
-            <nav
-              className="mt-10 flex flex-wrap items-center justify-center gap-2"
-              aria-label="Project pages"
+        <div className="dialog-actions">
+          {project.github && (
+            <GoldButton
+              href={project.github}
+              variant="secondary"
+              icon={<FaGithub />}
             >
-              <button
-                type="button"
-                onClick={() => changePage(currentPage - 1)}
-                disabled={currentPage === 1}
-                aria-label="Previous project page"
-                className="flex min-h-11 min-w-11 cursor-pointer items-center justify-center rounded-lg border border-border text-text-secondary transition-colors hover:border-gold/30 hover:text-gold disabled:cursor-not-allowed disabled:opacity-35"
-              >
-                <FaChevronLeft size={12} />
-              </button>
-
-              {Array.from({ length: totalPages }, (_, index) => index + 1).map(
-                (page) => (
-                  <button
-                    key={page}
-                    type="button"
-                    onClick={() => changePage(page)}
-                    aria-label={`Project page ${page}`}
-                    aria-current={currentPage === page ? "page" : undefined}
-                    className={`min-h-11 min-w-11 cursor-pointer rounded-lg border text-sm transition-colors ${
-                      currentPage === page
-                        ? "border-gold bg-gold/15 text-gold"
-                        : "border-border text-text-secondary hover:border-gold/30 hover:text-gold"
-                    }`}
-                  >
-                    {page}
-                  </button>
-                ),
-              )}
-
-              <button
-                type="button"
-                onClick={() => changePage(currentPage + 1)}
-                disabled={currentPage === totalPages}
-                aria-label="Next project page"
-                className="flex min-h-11 min-w-11 cursor-pointer items-center justify-center rounded-lg border border-border text-text-secondary transition-colors hover:border-gold/30 hover:text-gold disabled:cursor-not-allowed disabled:opacity-35"
-              >
-                <FaChevronRight size={12} />
-              </button>
-            </nav>
+              View repository
+            </GoldButton>
+          )}
+          {project.researchUrl && (
+            <GoldButton
+              href={project.researchUrl}
+              variant="secondary"
+              icon={<FaUpRightFromSquare />}
+            >
+              {project.researchLabel || "Research"}
+            </GoldButton>
+          )}
+          {project.demo && (
+            <GoldButton href={project.demo} icon={<FaUpRightFromSquare />}>
+              Live demo
+            </GoldButton>
           )}
         </div>
-      </section>
+      </div>
+    </dialog>
+  );
+}
 
-      {/* Project Detail Modal */}
-      <AnimatePresence>
-        {selectedProject && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm"
-            onClick={() => setSelectedProject(null)}
-          >
-            <motion.div
-              initial={{ opacity: 0, scale: 0.9, y: 30 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.9, y: 30 }}
-              transition={{ duration: 0.3 }}
-              className="glass-card rounded-2xl max-w-5xl w-full max-h-[90svh] overflow-y-auto p-5 sm:p-8 relative"
-              onClick={(e) => e.stopPropagation()}
+export default function ProjectsPage() {
+  const [selectedProject, setSelectedProject] = useState(null);
+  const flagshipProjects = flagshipOrder
+    .map((id) => projects.find((project) => project.id === id))
+    .filter(Boolean);
+  const archiveProjects = projects.filter(
+    (project) => !flagshipOrder.includes(project.id),
+  );
+
+  return (
+    <section id="work" className="section-block">
+      <div className="site-shell">
+        <Reveal className="work-intro">
+          <div>
+            <p className="eyebrow">01 / Selected work</p>
+            <h2>Systems with evidence, not just demos.</h2>
+          </div>
+          <p className="work-intro__copy">
+            A focused selection spanning edge AI, multi-domain vision, speech,
+            and predictive maintenance — with ownership, constraints, and
+            outcomes made explicit.
+          </p>
+        </Reveal>
+
+        <div className="featured-work">
+          {flagshipProjects.map((project, index) => (
+            <Reveal
+              key={project.id}
+              className={`project-reveal project-reveal--${index % 2 ? "right" : "left"}`}
+              delay={index * 70}
+              once={false}
             >
-              {/* Close button */}
-              <button
-                onClick={() => setSelectedProject(null)}
-                aria-label="Close project details"
-                className="absolute top-4 right-4 w-10 h-10 rounded-lg bg-bg-tertiary border border-border flex items-center justify-center text-text-secondary hover:text-gold hover:border-gold/30 transition-all cursor-pointer"
-              >
-                <FaTimes />
-              </button>
-
-              {/* Category */}
-              <div className="text-gold text-xs tracking-widest uppercase mb-3">
-                {selectedProject.category}
-              </div>
-
-              {/* Title */}
-              <h2 className="font-heading text-2xl sm:text-3xl text-text-primary mb-2 pr-10">
-                {selectedProject.title}
-              </h2>
-
-              {/* Project metadata */}
-              <dl className="grid grid-cols-1 sm:grid-cols-2 gap-3 my-5">
-                <div className="rounded-lg border border-border bg-bg-tertiary/60 px-4 py-3">
-                  <dt className="text-[10px] uppercase tracking-widest text-text-muted">
-                    Role
-                  </dt>
-                  <dd className="mt-1 text-sm text-text-primary">
-                    {selectedProject.role}
-                  </dd>
-                </div>
-                <div className="rounded-lg border border-border bg-bg-tertiary/60 px-4 py-3">
-                  <dt className="text-[10px] uppercase tracking-widest text-text-muted">
-                    Period
-                  </dt>
-                  <dd className="mt-1 text-sm text-text-primary">
-                    {selectedProject.period}
-                  </dd>
-                </div>
-                {selectedProject.teamSize && (
-                  <div className="rounded-lg border border-border bg-bg-tertiary/60 px-4 py-3">
-                    <dt className="text-[10px] uppercase tracking-widest text-text-muted">
-                      Team size
-                    </dt>
-                    <dd className="mt-1 text-sm text-text-primary">
-                      {selectedProject.teamSize}
-                    </dd>
+              <Card as="article" className="project-feature" interactive>
+                <button
+                  type="button"
+                  className="project-card-hitbox"
+                  onClick={() => setSelectedProject(project)}
+                  aria-label={`Open case study: ${project.title}`}
+                />
+                <div className="project-feature__content">
+                  <div className="project-feature__topline">
+                    <span className="project-feature__number">
+                      0{index + 1}
+                    </span>
+                    <span>{project.category}</span>
                   </div>
-                )}
-                {selectedProject.status && (
-                  <div className="rounded-lg border border-gold/20 bg-gold/5 px-4 py-3">
-                    <dt className="text-[10px] uppercase tracking-widest text-text-muted">
-                      Status
-                    </dt>
-                    <dd className="mt-1 text-sm text-gold">
-                      {selectedProject.status}
-                    </dd>
+
+                  <h3>{project.title}</h3>
+                  <p className="project-feature__description">
+                    {project.description}
+                  </p>
+
+                  <div className="project-feature__metrics">
+                    {projectEvidence[project.id].map((metric) => (
+                      <div className="project-metric" key={metric.label}>
+                        <strong>{metric.value}</strong>
+                        <span>{metric.label}</span>
+                      </div>
+                    ))}
                   </div>
-                )}
-              </dl>
 
-              {/* Description */}
-              <p className="text-text-secondary leading-relaxed mb-6">
-                {selectedProject.description}
-              </p>
+                  <div className="project-feature__actions">
+                    <GoldButton
+                      onClick={() => setSelectedProject(project)}
+                      variant="secondary"
+                      icon={<FaArrowRight />}
+                    >
+                      Review case study
+                    </GoldButton>
+                    {project.github && (
+                      <GoldButton
+                        href={project.github}
+                        variant="ghost"
+                        icon={<FaGithub />}
+                      >
+                        GitHub
+                      </GoldButton>
+                    )}
+                  </div>
+                </div>
 
-              {selectedProject.visualImage && (
-                <figure
-                  className={`mb-7 overflow-hidden rounded-xl border border-border ${
-                    selectedProject.visualTheme === "dark"
-                      ? "bg-bg-primary"
-                      : "bg-white"
-                  }`}
+                <div
+                  className={`project-feature__visual ${project.visualTheme === "dark" ? "" : "project-feature__visual--light"}`}
                 >
-                  <a
-                    href={selectedProject.visualImage}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    title="Open the full-size project visual"
+                  <img
+                    src={project.visualImage}
+                    alt={project.visualAlt}
+                    width={project.visualWidth}
+                    height={project.visualHeight}
+                    loading="lazy"
+                    decoding="async"
+                  />
+                  <button
+                    type="button"
+                    className="project-open"
+                    onClick={() => setSelectedProject(project)}
                   >
-                    <img
-                      src={selectedProject.visualImage}
-                      alt={selectedProject.visualAlt}
-                      width={selectedProject.visualWidth}
-                      height={selectedProject.visualHeight}
-                      loading="lazy"
-                      decoding="async"
-                      className="h-auto w-full object-contain"
-                    />
-                  </a>
-                  <figcaption className="border-t border-border bg-bg-tertiary px-4 py-3 text-center text-xs text-text-secondary">
-                    {selectedProject.visualCaption} — open image for full-size
-                    view
-                  </figcaption>
-                </figure>
-              )}
+                    <FaExpand aria-hidden="true" /> Open details
+                  </button>
+                </div>
+              </Card>
+            </Reveal>
+          ))}
+        </div>
 
-              {selectedProject.highlights?.length > 0 && (
-                <ul className="text-text-secondary text-sm leading-relaxed mb-6 space-y-2 list-disc pl-5">
-                  {selectedProject.highlights.map((highlight) => (
-                    <li key={highlight}>{highlight}</li>
-                  ))}
-                </ul>
-              )}
+        <div className="archive-heading">
+          <h3>More experiments & research</h3>
+          <span>{archiveProjects.length} additional projects</span>
+        </div>
 
-              {/* Tags */}
-              <div className="flex flex-wrap gap-2 mb-8">
-                {selectedProject.tags.map((tag) => (
-                  <span
-                    key={tag}
-                    className="text-xs px-3 py-1.5 rounded-full bg-gold/10 text-gold border border-gold/20"
-                  >
-                    {tag}
-                  </span>
-                ))}
-              </div>
+        <div className="project-archive">
+          {archiveProjects.map((project, index) => (
+            <Reveal
+              key={project.id}
+              className="archive-project-reveal"
+              delay={index * 70}
+              once={false}
+            >
+              <Card as="article" className="project-card" interactive>
+                <button
+                  type="button"
+                  className="project-card-hitbox"
+                  onClick={() => setSelectedProject(project)}
+                  aria-label={`Open project details: ${project.title}`}
+                />
+                <div className="project-card__visual">
+                  <img
+                    src={project.visualImage}
+                    alt=""
+                    width={project.visualWidth}
+                    height={project.visualHeight}
+                    loading="lazy"
+                    decoding="async"
+                  />
+                </div>
+                <p className="project-card__meta">{project.category}</p>
+                <h4>{project.title}</h4>
+                <p>{project.description}</p>
+                <button
+                  type="button"
+                  className="text-button"
+                  onClick={() => setSelectedProject(project)}
+                >
+                  View engineering details <FaArrowRight aria-hidden="true" />
+                </button>
+              </Card>
+            </Reveal>
+          ))}
+        </div>
+      </div>
 
-              {/* Action buttons */}
-              <div className="flex flex-wrap gap-4">
-                {selectedProject.github && (
-                  <GoldButton
-                    href={selectedProject.github}
-                    variant="outline"
-                    icon={<FaGithub />}
-                  >
-                    View Code
-                  </GoldButton>
-                )}
-                {selectedProject.demo && (
-                  <GoldButton
-                    href={selectedProject.demo}
-                    icon={<FaExternalLinkAlt />}
-                  >
-                    Live Demo
-                  </GoldButton>
-                )}
-                {selectedProject.researchUrl && (
-                  <GoldButton
-                    href={selectedProject.researchUrl}
-                    variant="outline"
-                    icon={<FaExternalLinkAlt />}
-                  >
-                    {selectedProject.researchLabel || "Research"}
-                  </GoldButton>
-                )}
-              </div>
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </div>
+      {selectedProject && (
+        <ProjectDialog
+          key={selectedProject.id}
+          project={selectedProject}
+          onDismiss={() => setSelectedProject(null)}
+        />
+      )}
+    </section>
   );
 }

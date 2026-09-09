@@ -1,30 +1,24 @@
-import { motion } from "framer-motion";
+import Reveal from "./Reveal";
 
-export default function SectionTitle({ title, subtitle, align = "center" }) {
-  const alignClass = align === "center" ? "text-center" : "text-left";
+export default function SectionTitle({
+  eyebrow,
+  title,
+  subtitle,
+  align = "left",
+  index,
+}) {
+  const alignClass = align === "center" ? "section-heading--center" : "";
 
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 30 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-50px" }}
-      transition={{ duration: 0.6 }}
-      className={`mb-10 sm:mb-12 lg:mb-16 ${alignClass}`}
-    >
-      <h2 className="font-heading text-3xl sm:text-4xl md:text-5xl font-bold text-text-primary mb-4 break-words">
-        {title}
-      </h2>
-      {/* Gold ornament line */}
-      <div className={`flex items-center gap-3 mt-4 ${align === "center" ? "justify-center" : ""}`}>
-        <div className="h-px w-12 bg-gradient-to-r from-transparent to-gold" />
-        <div className="w-2 h-2 rotate-45 bg-gold" />
-        <div className="h-px w-12 bg-gradient-to-l from-transparent to-gold" />
+    <Reveal className={`section-heading ${alignClass}`}>
+      <div className="section-heading__meta">
+        {index && <span className="section-index">{index}</span>}
+        {eyebrow && <p className="eyebrow">{eyebrow}</p>}
       </div>
+      <h2>{title}</h2>
       {subtitle && (
-        <p className="text-text-secondary mt-6 max-w-2xl mx-auto text-base sm:text-lg leading-relaxed">
-          {subtitle}
-        </p>
+        <p className="section-heading__subtitle">{subtitle}</p>
       )}
-    </motion.div>
+    </Reveal>
   );
 }

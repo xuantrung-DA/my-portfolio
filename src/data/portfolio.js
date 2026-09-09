@@ -19,7 +19,7 @@ export const personalInfo = {
   portfolioLocation: "Ho Chi Minh City",
   targetRoles: ["AI Engineer", "Applied AI Engineer"],
   availability:
-    "Open to AI Engineer opportunities — Internship & Part-time",
+    "Open to AI Engineer opportunities — Fresher & Full-time",
   expectedGraduation: "June 2027",
   email: "nxt276651@gmail.com",
   phone: "0785656734",
@@ -32,8 +32,8 @@ export const personalInfo = {
 
 export const stats = [
   { label: "Current GPA", value: "3.75/4.0" },
-  { label: "Projects", value: "6" },
-  { label: "Published Papers", value: "2" },
+  { label: "Projects", value: "5" },
+  { label: "Publications & Manuscripts", value: "6" },
   { label: "Expected Graduation", value: "06/2027" },
 ];
 
@@ -42,17 +42,23 @@ export const experience = [
     role: "AI Engineer Intern",
     company: "ECE Technology Co., Ltd.",
     period: "01/2026 – 04/2026",
-    project: "AI FOR ECOM",
+    project: "AI for E-Commerce Platform (MVP v1)",
     description:
-      "Built AI and data services for e-commerce analytics, market intelligence, and internal automation workflows.",
+      "Developed the applied-AI layer for an e-commerce MVP, from product segmentation and market intelligence to a deployed microservice.",
     responsibilities: [
-      "Built a product performance classification module using MiniBatch K-Means with RFM features.",
-      "Designed 30-day performance and rule-based velocity labels for product movement analysis.",
-      "Built an LLM-powered market intelligence workflow using SerpAPI and Gemini API.",
-      "Automated SQL Server-to-PostgreSQL ETL pipelines and developed FastAPI services.",
-      "Containerized services with Docker and deployed API services on AWS EC2.",
+      "Built an RFM-based product segmentation module using Mini-Batch K-Means, with 7-day sales velocity and 30-day performance labels.",
+      "Developed a Gemini and SerpAPI workflow for market research, trend summarization, and structured business recommendations.",
+      "Built FastAPI endpoints backed by PostgreSQL, then Dockerized and deployed the AI microservice to AWS EC2.",
     ],
-    highlights: ["MiniBatch K-Means", "FastAPI", "Docker", "AWS EC2"],
+    highlights: [
+      "Mini-Batch K-Means",
+      "Gemini",
+      "SerpAPI",
+      "FastAPI",
+      "PostgreSQL",
+      "Docker",
+      "AWS EC2",
+    ],
   },
 ];
 
@@ -180,44 +186,6 @@ export const projects = [
     featured: false,
   },
   {
-    id: 3,
-    title: "AI Career Intelligence Agent",
-    role: "Sole Developer",
-    period: "07/2026 – Present",
-    teamSize: 1,
-    status: "In Development",
-    description:
-      "Building an AI-powered career analysis agent that compares a candidate's CV with job requirements, identifies skill gaps, and generates actionable development plans while serving as an experimentation platform for agentic workflows and token-efficient CV analysis.",
-    highlights: [
-      "Designed a LangGraph workflow with conditional routing based on the candidate's CV–JD match and identified skill gaps.",
-      "Built CV parsing, skill extraction, deterministic Career Fit scoring, project recommendations, a 14-day roadmap, and interview-question generation.",
-      "Experimenting with different CV skill-filtering strategies to reduce unnecessary token usage while preserving relevant candidate information.",
-      "Using GPT-5 with LangChain and LangGraph to improve practical skills in LLM orchestration and agentic system design.",
-      "Developed a FastAPI backend and React dashboard for uploading CVs and reviewing analysis results.",
-    ],
-    tags: [
-      "LangGraph",
-      "LangChain",
-      "GPT-5",
-      "FastAPI",
-      "React",
-      "PyMuPDF",
-    ],
-    category: "Agentic AI",
-    github: "https://github.com/xuantrung-DA/AI-CAREER-AGENT",
-    visualImage:
-      "/images/projects/ai-career-agent-langgraph-pipeline.webp",
-    visualAlt:
-      "AI Career Intelligence Agent pipeline from CV and job description inputs through context optimization, skill extraction, deterministic matching, conditional LangGraph routing, and the React results dashboard",
-    visualCaption:
-      "LangGraph career-analysis workflow with deterministic scoring and conditional planning",
-    visualWidth: 1672,
-    visualHeight: 941,
-    visualTheme: "dark",
-    demo: "",
-    featured: true,
-  },
-  {
     id: 4,
     title: "Secure Login System — Face Anti-Spoofing Module",
     role: "Project Leader · Sole FAS Developer",
@@ -261,7 +229,7 @@ export const projects = [
     role: "Data & Detection Engineer",
     period: "05/2026 – 07/2026",
     teamSize: 4,
-    status: "Completed · Extension in Progress",
+    status: "Submitted to RIVF 2026",
     description:
       "Contributed to a four-member team developing a learned conditional-routing system that selects a specialized object detector for clean, synthetic low-light, or real low-light UAV imagery, with a focus on robust small-object detection.",
     highlights: [
@@ -302,7 +270,7 @@ export const projects = [
     role: "First Author · Model Architecture & Evaluation",
     period: "04/2026 – 06/2026",
     teamSize: 3,
-    status: "Accepted at ICARCV 2026 · IEEE",
+    status: "Submitted to RIVF 2026",
     description:
       "Proposed and evaluated AQB-FAS, a split-computing Face Anti-Spoofing framework that converts facial inputs into fixed-bitrate latent representations, balancing presentation-attack detection performance with edge-to-server communication efficiency.",
     highlights: [
@@ -324,8 +292,8 @@ export const projects = [
     ],
     category: "Computer Vision",
     github: "https://github.com/xuantrung-DA/Paper-2026",
-    researchUrl: "https://www.carvs-icarcv.org/",
-    researchLabel: "ICARCV 2026",
+    researchUrl: "",
+    researchLabel: "RIVF 2026",
     visualImage:
       "/images/projects/aqb-fas-architecture.webp",
     visualAlt:
@@ -343,9 +311,12 @@ export const honors = [
   {
     title: "Academic Excellence Recognition",
     organization: "FPT University",
-    year: "2024–2025",
+    year: "2023–2026",
     description:
-      "Consistently recognized for academic excellence across the 2024–2025 academic year.",
+      "Earned Honor Student recognition in five of seven completed semesters, including two Top 100 Excellent Student semesters.",
+    completedSemesters: 7,
+    honorSemesters: 5,
+    gpa: "3.75/4.0",
     academicHighlights: [
       {
         label: "Top 100 Excellent Students",
@@ -354,8 +325,14 @@ export const honors = [
       },
       {
         label: "Honor Student",
-        count: "3 semesters",
-        semesters: ["Summer 2024", "Fall 2024", "Spring 2025"],
+        count: "5 semesters",
+        semesters: [
+          "Summer 2024",
+          "Fall 2024",
+          "Spring 2025",
+          "Summer 2025",
+          "Fall 2025",
+        ],
       },
     ],
     type: "academic",
@@ -387,8 +364,25 @@ export const honors = [
     type: "research",
   },
   {
+    title: "Accepted Paper — IEEE ICARCV 2026",
+    organization:
+      "ICARCV 2026 · 19th International Conference on Control, Automation, Robotics and Vision",
+    year: "2026",
+    description:
+      '“CounterFail-Edge: Compact Black-Box Verification of Robotic Manipulation from Before–After Images and Instructions.”',
+    authors:
+      "Hoai My Nguyen; Xuan Trung Nguyen; Anh Minh Phan; Nguyen Minh Phong Pham; Ha Anh Vu",
+    acceptedDate: "19 August 2026",
+    paperId: "232",
+    status: "Accepted",
+    credentialUrl: "https://www.carvs-icarcv.org/",
+    credentialLabel: "ICARCV 2026",
+    type: "research",
+  },
+  {
     title: "Accepted Paper — Springer LNEE",
-    organization: "SIMC 2026 · Springer LNEE · SCOPUS-indexed",
+    organization:
+      "SIMC 2026 · Special Thematic Symposium of EIDT 2026 · Springer LNEE",
     year: "2026",
     description:
       '“A Multimodal Framework for Bearing Remaining Useful Life Prediction Using Wavelet Cross-Attention GRU.”',
@@ -401,33 +395,31 @@ export const honors = [
     type: "research",
   },
   {
-    title: "Accepted Paper — IEEE ICARCV 2026",
-    organization: "ICARCV 2026 · IEEE · IEEE Xplore / EI Compendex",
+    title: "Submitted Manuscript — RIVF 2026",
+    organization:
+      "RIVF 2026 · 20th International Conference on Computing and Communication Technologies",
     year: "2026",
     description:
-      '“Attribute-Guided Quantized Bottleneck Representation for Bandwidth-Efficient Split-Computing Face Anti-Spoofing.”',
+      '“Attribute-Guided Quantized Bottlenecks for Bandwidth-Efficient Split-Computing Face Anti-Spoofing.”',
     authors:
       "Xuan Trung Nguyen; Vy Kiet Trinh; Thanh Phat Nguyen; Ha Anh Vu",
-    acceptedDate: "19 August 2026",
-    paperId: "233",
-    status: "Accepted as Contributed Paper",
-    credentialUrl: "https://www.carvs-icarcv.org/",
-    credentialLabel: "ICARCV 2026",
+    status: "Submitted",
+    credentialUrl: "https://rivf2026.org/registration.html",
+    credentialLabel: "RIVF 2026",
     type: "research",
   },
   {
-    title: "Accepted Paper — IEEE ICARCV 2026",
-    organization: "ICARCV 2026 · IEEE · IEEE Xplore / EI Compendex",
+    title: "Submitted Manuscript — RIVF 2026",
+    organization:
+      "RIVF 2026 · 20th International Conference on Computing and Communication Technologies",
     year: "2026",
     description:
-      '“CounterFail-Edge: Compact Black-Box Verification of Robotic Manipulation from Before–After Images and Instructions.”',
+      '“Lightweight Conditional Routing for Multi-Domain Object Detection in Low-Light UAV Imagery.”',
     authors:
       "Hoai My Nguyen; Xuan Trung Nguyen; Anh Minh Phan; Nguyen Minh Phong Pham; Ha Anh Vu",
-    acceptedDate: "19 August 2026",
-    paperId: "232",
-    status: "Accepted as Contributed Paper",
-    credentialUrl: "https://www.carvs-icarcv.org/",
-    credentialLabel: "ICARCV 2026",
+    status: "Submitted",
+    credentialUrl: "https://rivf2026.org/registration.html",
+    credentialLabel: "RIVF 2026",
     type: "research",
   },
 ];
@@ -600,9 +592,9 @@ export const certifications = [
 
 export const navLinks = [
   { label: "Home", path: "#home" },
+  { label: "Work", path: "#work" },
+  { label: "Experience", path: "#experience" },
+  { label: "Capabilities", path: "#capabilities" },
+  { label: "Research", path: "#research" },
   { label: "About", path: "#about" },
-  { label: "Skills", path: "#skills" },
-  { label: "Projects", path: "#projects" },
-  { label: "Honors", path: "#honors" },
-  { label: "Contact", path: "#contact" },
 ];
