@@ -1,0 +1,136 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1800" height="640" viewBox="0 0 1800 640" role="img" aria-labelledby="title description">
+  <title id="title">TraceVision evidence-grounded video search architecture</title>
+  <desc id="description">A local video is indexed with object tracking, speech transcription, and visual embeddings. A bilingual question is planned and retrieved against persisted evidence, then routed to a structured answer or selected-frame VLM inference before producing a cited answer.</desc>
+  <defs>
+    <pattern id="grid" width="36" height="36" patternUnits="userSpaceOnUse">
+      <path d="M 36 0 L 0 0 0 36" fill="none" stroke="#7a1328" stroke-opacity="0.035" stroke-width="1"/>
+    </pattern>
+    <linearGradient id="index-panel" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#fffaf1"/>
+      <stop offset="1" stop-color="#f6ecdc"/>
+    </linearGradient>
+    <linearGradient id="cited-panel" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#7a1328"/>
+      <stop offset="1" stop-color="#5d0d1e"/>
+    </linearGradient>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto" markerUnits="strokeWidth">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#725f52"/>
+    </marker>
+    <marker id="arrow-wine" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto" markerUnits="strokeWidth">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#7a1328"/>
+    </marker>
+  </defs>
+
+  <rect width="1800" height="640" fill="#ffffff"/>
+  <rect width="1800" height="640" fill="url(#grid)"/>
+
+  <g font-family="Arial, Helvetica, sans-serif">
+    <text x="42" y="42" fill="#7a1328" font-family="Consolas, monospace" font-size="17" font-weight="700" letter-spacing="1.3">01 / INDEX ONCE</text>
+
+    <g>
+      <rect x="40" y="68" width="258" height="164" rx="18" fill="url(#index-panel)" stroke="#cdb894" stroke-width="1.5"/>
+      <rect x="62" y="87" width="60" height="24" rx="12" fill="#4f6788" fill-opacity="0.1"/>
+      <text x="77" y="104" fill="#4f6788" font-family="Consolas, monospace" font-size="11" font-weight="700">LOCAL</text>
+      <text x="62" y="145" fill="#281f1a" font-size="25" font-weight="750">Video source</text>
+      <text x="62" y="179" fill="#66564b" font-size="17">Frames + audio</text>
+      <text x="62" y="208" fill="#725f52" font-family="Consolas, monospace" font-size="12">CONTENT FINGERPRINT</text>
+    </g>
+
+    <path d="M 298 150 H 334" fill="none" stroke="#725f52" stroke-width="2" marker-end="url(#arrow)"/>
+
+    <g>
+      <rect x="346" y="68" width="512" height="164" rx="18" fill="url(#index-panel)" stroke="#cdb894" stroke-width="1.5"/>
+      <text x="371" y="106" fill="#281f1a" font-size="23" font-weight="750">Cached multimodal indexing</text>
+      <text x="371" y="131" fill="#725f52" font-family="Consolas, monospace" font-size="11">STAGE-LEVEL · DEPENDENCY-AWARE</text>
+
+      <rect x="371" y="154" width="142" height="54" rx="10" fill="#eee0cc"/>
+      <circle cx="391" cy="181" r="5" fill="#7a1328"/>
+      <text x="405" y="177" fill="#281f1a" font-size="15" font-weight="700">YOLO11n</text>
+      <text x="405" y="196" fill="#725f52" font-size="11">detect + track</text>
+
+      <rect x="527" y="154" width="142" height="54" rx="10" fill="#eee0cc"/>
+      <circle cx="547" cy="181" r="5" fill="#365b82"/>
+      <text x="561" y="177" fill="#281f1a" font-size="15" font-weight="700">Whisper</text>
+      <text x="561" y="196" fill="#725f52" font-size="11">speech → text</text>
+
+      <rect x="683" y="154" width="150" height="54" rx="10" fill="#eee0cc"/>
+      <circle cx="703" cy="181" r="5" fill="#a62b46"/>
+      <text x="717" y="177" fill="#281f1a" font-size="15" font-weight="700">OpenCLIP</text>
+      <text x="717" y="196" fill="#725f52" font-size="11">visual vectors</text>
+    </g>
+
+    <path d="M 858 150 H 894" fill="none" stroke="#725f52" stroke-width="2" marker-end="url(#arrow)"/>
+
+    <g>
+      <rect x="906" y="68" width="852" height="164" rx="18" fill="#fffaf1" stroke="#7a1328" stroke-opacity="0.65" stroke-width="1.5"/>
+      <text x="934" y="119" fill="#281f1a" font-size="26" font-weight="750">Persistent evidence index</text>
+      <text x="934" y="158" fill="#66564b" font-size="19">SQLite records + FAISS / NumPy vectors</text>
+      <text x="934" y="194" fill="#725f52" font-size="16">Evidence IDs · timestamps · provenance</text>
+      <rect x="1538" y="91" width="184" height="36" rx="18" fill="#7a1328" fill-opacity="0.08"/>
+      <text x="1563" y="114" fill="#7a1328" font-family="Consolas, monospace" font-size="12" font-weight="700">REUSABLE STATE</text>
+    </g>
+
+    <path d="M 1328 232 V 272 H 575 V 327" fill="none" stroke="#725f52" stroke-width="2" marker-end="url(#arrow)"/>
+
+    <text x="42" y="318" fill="#7a1328" font-family="Consolas, monospace" font-size="17" font-weight="700" letter-spacing="1.3">02 / INVESTIGATE</text>
+
+    <g>
+      <rect x="40" y="344" width="258" height="180" rx="18" fill="#fffaf1" stroke="#cdb894" stroke-width="1.5"/>
+      <text x="62" y="389" fill="#281f1a" font-size="25" font-weight="750">User question</text>
+      <text x="62" y="425" fill="#66564b" font-size="18">English / Vietnamese</text>
+      <text x="62" y="462" fill="#725f52" font-size="15">Intent · entities</text>
+      <text x="62" y="489" fill="#725f52" font-size="15">Attributes · time window</text>
+    </g>
+
+    <path d="M 298 434 H 334" fill="none" stroke="#725f52" stroke-width="2" marker-end="url(#arrow)"/>
+
+    <g>
+      <rect x="346" y="344" width="452" height="180" rx="18" fill="#fffaf1" stroke="#cdb894" stroke-width="1.5"/>
+      <text x="372" y="389" fill="#281f1a" font-size="25" font-weight="750">Plan + retrieve</text>
+      <text x="372" y="425" fill="#66564b" font-size="18">Rule-based QueryPlan</text>
+      <text x="372" y="461" fill="#725f52" font-size="15">Structured · transcript · visual search</text>
+      <text x="372" y="493" fill="#365b82" font-family="Consolas, monospace" font-size="11" font-weight="700">BOUNDED CANDIDATE INTERVALS</text>
+    </g>
+
+    <path d="M 798 434 H 834" fill="none" stroke="#725f52" stroke-width="2" marker-end="url(#arrow)"/>
+
+    <g>
+      <path d="M 942 344 L 1036 434 L 942 524 L 848 434 Z" fill="#fff6e9" stroke="#7a1328" stroke-width="2"/>
+      <text x="942" y="418" text-anchor="middle" fill="#281f1a" font-size="20" font-weight="750">Evidence</text>
+      <text x="942" y="443" text-anchor="middle" fill="#281f1a" font-size="20" font-weight="750">sufficient?</text>
+      <text x="942" y="475" text-anchor="middle" fill="#7a1328" font-family="Consolas, monospace" font-size="10" font-weight="700">HEURISTIC ROUTER</text>
+    </g>
+
+    <path d="M 1036 400 H 1068 V 377 H 1092" fill="none" stroke="#365b82" stroke-width="2" marker-end="url(#arrow)"/>
+    <text x="1048" y="386" fill="#365b82" font-family="Consolas, monospace" font-size="11" font-weight="700">YES</text>
+
+    <g>
+      <rect x="1104" y="326" width="282" height="112" rx="16" fill="#eef3f7" stroke="#365b82" stroke-width="1.5"/>
+      <text x="1128" y="370" fill="#281f1a" font-size="22" font-weight="750">Structured answer</text>
+      <text x="1128" y="403" fill="#66564b" font-size="16">From indexed evidence</text>
+    </g>
+
+    <path d="M 1036 468 H 1068 V 505 H 1092" fill="none" stroke="#7a1328" stroke-width="2" marker-end="url(#arrow-wine)"/>
+    <text x="1049" y="491" fill="#7a1328" font-family="Consolas, monospace" font-size="11" font-weight="700">NO</text>
+
+    <g>
+      <rect x="1104" y="462" width="282" height="112" rx="16" fill="#f8edf0" stroke="#7a1328" stroke-width="1.5"/>
+      <text x="1128" y="505" fill="#281f1a" font-size="21" font-weight="750">Selected frames → VLM</text>
+      <text x="1128" y="539" fill="#66564b" font-size="16">Optional external inference</text>
+    </g>
+
+    <path d="M 1386 382 H 1420 V 416 H 1450" fill="none" stroke="#725f52" stroke-width="2" marker-end="url(#arrow)"/>
+    <path d="M 1386 518 H 1420 V 470 H 1450" fill="none" stroke="#725f52" stroke-width="2" marker-end="url(#arrow)"/>
+
+    <g>
+      <rect x="1462" y="362" width="296" height="164" rx="18" fill="url(#cited-panel)"/>
+      <text x="1490" y="409" fill="#fffaf1" font-size="25" font-weight="800">Cited answer</text>
+      <text x="1490" y="447" fill="#f0ddd1" font-size="17">Timestamped citations</text>
+      <text x="1490" y="480" fill="#f0ddd1" font-size="17">Evidence IDs</text>
+      <text x="1490" y="513" fill="#f0bd69" font-size="15">Routing diagnostics</text>
+    </g>
+
+    <line x1="40" y1="604" x2="1758" y2="604" stroke="#cdb894"/>
+    <text x="40" y="628" fill="#725f52" font-family="Consolas, monospace" font-size="11">LOCAL INDEX · RETRIEVE BEFORE INFERENCE · CITE THE EVIDENCE</text>
+  </g>
+</svg>

@@ -2,51 +2,67 @@ import {
   FaBrain,
   FaCode,
   FaDiagramProject,
-  FaRocket,
   FaServer,
   FaUsers,
 } from "react-icons/fa6";
 import Card from "../components/ui/Card";
 import Reveal from "../components/ui/Reveal";
 import SectionTitle from "../components/ui/SectionTitle";
-import { skills } from "../data/portfolio";
+import { projects, skills } from "../data/portfolio";
 
 const capabilityMeta = {
-  "Programming Languages": {
+  "Programming & ML Tools": {
     icon: FaCode,
-    proof: "Python-first implementation across model research, APIs, and data workflows.",
+    proof: "Core implementation stack for model training, evaluation, data access, and vision pipelines.",
+    evidence: [
+      { id: 9, label: "DATU Offline RL" },
+      { id: 7, label: "TraceVision" },
+    ],
   },
-  "AI & Machine Learning": {
+  "AI Domains": {
     icon: FaBrain,
-    proof: "Evaluation with ablations, domain benchmarks, and leakage-aware validation.",
+    proof: "Project-backed work across vision, speech, multimodal retrieval, reinforcement learning, and time series.",
+    evidence: [
+      { id: 6, label: "AQB-FAS" },
+      { id: 9, label: "DATU Offline RL" },
+      { id: 7, label: "TraceVision" },
+    ],
   },
-  "LLM & Agentic AI": {
+  "LLM & Agentic Systems": {
     icon: FaDiagramProject,
-    proof: "Conditional LangGraph workflows backed by deterministic scoring logic.",
+    proof: "Bounded RAG, inspectable retrieval, workflow orchestration, and selective VLM inference.",
+    evidence: [
+      { id: 8, label: "Subject Knowledge Hub" },
+      { id: 7, label: "TraceVision" },
+    ],
   },
-  "Backend & Data Engineering": {
+  "Backend & Engineering": {
     icon: FaServer,
-    proof: "FastAPI services and automated SQL Server-to-PostgreSQL pipelines.",
+    proof: "FastAPI services, relational data, recoverable background jobs, caches, and containerized local stacks.",
+    evidence: [
+      { id: 8, label: "Subject Knowledge Hub" },
+      { id: 7, label: "TraceVision" },
+    ],
   },
-  "DevOps & MLOps": {
-    icon: FaRocket,
-    proof: "Docker, AWS EC2, ONNX, and TensorRT deployment-oriented delivery.",
-  },
-  "Professional Skills": {
+  "Languages & Strengths": {
     icon: FaUsers,
-    proof: "Research leadership, error analysis, and cross-functional project execution.",
+    proof: "English B2 proficiency supported by analytical thinking and structured problem solving.",
+    evidence: [
+      { id: 7, label: "Bilingual TraceVision" },
+      { id: 8, label: "Bilingual PDF RAG" },
+    ],
   },
 };
 
-export default function SkillsPage() {
+export default function SkillsPage({ onOpenProject }) {
   return (
     <section id="capabilities" className="section-block">
       <div className="site-shell">
         <SectionTitle
           index="03"
           eyebrow="Capabilities"
-          title="A practical stack, tied to shipped evidence."
-          subtitle="Tools matter when they support a sound engineering decision. These are the capabilities repeatedly used across my research and production-oriented work."
+          title="A practical stack, tied to real work."
+          subtitle="Tools matter when they support a sound engineering decision. These capabilities come from research, coursework, and deployment-oriented work."
         />
 
         <div className="capability-grid">
@@ -70,6 +86,29 @@ export default function SkillsPage() {
                         </span>
                       ))}
                     </div>
+                    {meta?.evidence?.length > 0 && (
+                      <div className="capability-evidence" aria-label="Project evidence">
+                        <span>Evidence</span>
+                        <div>
+                          {meta.evidence.map((item) => {
+                            const project = projects.find(
+                              (candidate) => candidate.id === item.id,
+                            );
+                            if (!project) return null;
+
+                            return (
+                              <button
+                                type="button"
+                                key={`${category.category}-${item.id}`}
+                                onClick={() => onOpenProject(project)}
+                              >
+                                {item.label}
+                              </button>
+                            );
+                          })}
+                        </div>
+                      </div>
+                    )}
                   </div>
                 </Card>
               </Reveal>

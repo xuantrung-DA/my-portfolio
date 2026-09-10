@@ -41,9 +41,11 @@ export default function ContactPage() {
           <div className="contact-panel__bottom">
             <div>
               <p className="contact-panel__copy">
-                I’m open to AI Engineer and Applied AI opportunities where model
-                quality, system constraints, and product impact are treated as one
-                engineering problem.
+                I’m available for part-time AI engineering opportunities through
+                June 2027 and full-time AI Engineer or Applied AI Engineer roles
+                from July 2027. My focus is evidence-grounded multimodal and RAG
+                systems, supported by computer vision, model optimization, and
+                reliable backend engineering.
               </p>
               <p className="copy-feedback" role="status" aria-live="polite">
                 {copied ? "Email copied to clipboard." : personalInfo.email}

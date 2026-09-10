@@ -25,7 +25,7 @@ export default function Navbar() {
 
     themeColor?.setAttribute(
       "content",
-      theme === "light" ? "#f2e7d4" : "#06152f",
+      theme === "light" ? "#f4ead8" : "#06152f",
     );
   }, [theme]);
 

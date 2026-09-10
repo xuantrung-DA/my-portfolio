@@ -11,39 +11,9 @@ import GoldButton from "../components/ui/GoldButton";
 import Reveal from "../components/ui/Reveal";
 import { projects } from "../data/portfolio";
 
-const flagshipOrder = [6, 5, 1];
-
-const projectEvidence = {
-  1: [
-    { value: "16.75", label: "RMSE on S2" },
-    { value: "15.40", label: "MAE on S2" },
-    { value: "5.52", label: "PHM score" },
-  ],
-  2: [
-    { value: "12.99%", label: "overall WER" },
-    { value: "8.37%", label: "clean WER" },
-    { value: "24.31%", label: "WER at 0 dB" },
-  ],
-  4: [
-    { value: "96.85%", label: "FAS accuracy" },
-    { value: "3.16%", label: "ACER" },
-    { value: "ONNX", label: "deployment format" },
-  ],
-  6: [
-    { value: "2,352×", label: "payload compression" },
-    { value: "97.01%", label: "accuracy" },
-    { value: "9.17 ms", label: "edge encoder" },
-  ],
-  5: [
-    { value: "0.523 ms", label: "router p95" },
-    { value: "91.90%", label: "balanced accuracy" },
-    { value: "412–465", label: "TensorRT FPS" },
-  ],
-};
-
 function ProjectImpact({ project }) {
-  const evidence = projectEvidence[project.id];
-  if (!evidence) return null;
+  const evidence = project.metrics;
+  if (!evidence?.length) return null;
 
   return (
     <section className="dialog-impact" aria-label="Measured project outcomes">
@@ -67,6 +37,7 @@ function ProjectImpact({ project }) {
 
 function ProjectDialog({ project, onDismiss }) {
   const dialogRef = useRef(null);
+  const [visualExpanded, setVisualExpanded] = useState(false);
 
   useEffect(() => {
     const dialog = dialogRef.current;
@@ -87,6 +58,10 @@ function ProjectDialog({ project, onDismiss }) {
       onClose={onDismiss}
       onCancel={(event) => {
         event.preventDefault();
+        if (visualExpanded) {
+          setVisualExpanded(false);
+          return;
+        }
         closeDialog();
       }}
       onClick={(event) => {
@@ -131,20 +106,65 @@ function ProjectDialog({ project, onDismiss }) {
 
         <ProjectImpact project={project} />
 
+        {project.measurementScope && (
+          <aside className="dialog-measurement-scope">
+            <p className="eyebrow">Measurement scope</p>
+            <p>{project.measurementScope}</p>
+          </aside>
+        )}
+
         {project.visualImage && (
           <figure
             className={`dialog-visual ${project.visualTheme === "dark" ? "project-feature__visual--dark" : ""}`}
           >
-            <img
-              src={project.visualImage}
-              alt={project.visualAlt}
-              width={project.visualWidth}
-              height={project.visualHeight}
-              loading="lazy"
-              decoding="async"
-            />
+            <button
+              type="button"
+              className="dialog-visual__trigger"
+              onClick={() => setVisualExpanded(true)}
+              aria-label={`Enlarge architecture visual for ${project.title}`}
+            >
+              <img
+                src={project.visualImage}
+                alt={project.visualAlt}
+                width={project.visualWidth}
+                height={project.visualHeight}
+                loading="lazy"
+                decoding="async"
+              />
+              <span><FaExpand aria-hidden="true" /> Enlarge visual</span>
+            </button>
             <figcaption>{project.visualCaption}</figcaption>
           </figure>
+        )}
+
+        {project.caseStudy && (
+          <section className="dialog-evidence" aria-labelledby={`project-evidence-${project.id}`}>
+            <div className="dialog-evidence__heading">
+              <p className="eyebrow">Case-study evidence</p>
+              <h3 id={`project-evidence-${project.id}`}>
+                Experiment design, boundaries &amp; reproducibility
+              </h3>
+            </div>
+            <dl className="dialog-evidence__grid">
+              {[
+                ["problem", "Problem & constraint"],
+                ["dataset", "Dataset & split"],
+                ["baseline", "Baselines"],
+                ["evaluation", "Measurement setup"],
+                ["tradeoffs", "Trade-off"],
+                ["limitations", "Limitations"],
+                ["engineering", "Engineering evidence"],
+                ["reproduction", "Reproduction"],
+              ].map(([key, label]) =>
+                project.caseStudy[key] ? (
+                  <div key={key}>
+                    <dt>{label}</dt>
+                    <dd>{project.caseStudy[key]}</dd>
+                  </div>
+                ) : null,
+              )}
+            </dl>
+          </section>
         )}
 
         <div className="dialog-columns">
@@ -202,18 +222,55 @@ function ProjectDialog({ project, onDismiss }) {
           )}
         </div>
       </div>
+
+      {visualExpanded && (
+        <div
+          className="image-lightbox"
+          role="dialog"
+          aria-modal="true"
+          aria-label={`Expanded architecture visual for ${project.title}`}
+          onClick={(event) => {
+            if (event.target === event.currentTarget) setVisualExpanded(false);
+          }}
+        >
+          <div className="image-lightbox__toolbar">
+            <a
+              href={project.visualImage}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Open original <FaUpRightFromSquare aria-hidden="true" />
+            </a>
+            <button
+              type="button"
+              onClick={() => setVisualExpanded(false)}
+              aria-label="Close expanded visual"
+              autoFocus
+            >
+              <FaXmark aria-hidden="true" />
+            </button>
+          </div>
+          <img
+            src={project.visualImage}
+            alt={project.visualAlt}
+            width={project.visualWidth}
+            height={project.visualHeight}
+          />
+        </div>
+      )}
     </dialog>
   );
 }
 
-export default function ProjectsPage() {
-  const [selectedProject, setSelectedProject] = useState(null);
-  const flagshipProjects = flagshipOrder
-    .map((id) => projects.find((project) => project.id === id))
-    .filter(Boolean);
-  const archiveProjects = projects.filter(
-    (project) => !flagshipOrder.includes(project.id),
-  );
+export default function ProjectsPage({ selectedProject, onSelectProject }) {
+  const flagshipProjects = projects
+    .filter((project) => project.featured)
+    .sort(
+      (a, b) =>
+        (a.featuredRank ?? Number.MAX_SAFE_INTEGER) -
+        (b.featuredRank ?? Number.MAX_SAFE_INTEGER),
+    );
+  const archiveProjects = projects.filter((project) => !project.featured);
 
   return (
     <section id="work" className="section-block">
@@ -224,8 +281,8 @@ export default function ProjectsPage() {
             <h2>Systems with evidence, not just demos.</h2>
           </div>
           <p className="work-intro__copy">
-            A focused selection spanning edge AI, multi-domain vision, speech,
-            and predictive maintenance — with ownership, constraints, and
+            A focused selection spanning edge AI, multimodal search, LLM/RAG,
+            and offline reinforcement learning — with ownership, constraints, and
             outcomes made explicit.
           </p>
         </Reveal>
@@ -242,7 +299,7 @@ export default function ProjectsPage() {
                 <button
                   type="button"
                   className="project-card-hitbox"
-                  onClick={() => setSelectedProject(project)}
+                  onClick={() => onSelectProject(project)}
                   aria-label={`Open case study: ${project.title}`}
                 />
                 <div className="project-feature__content">
@@ -253,24 +310,31 @@ export default function ProjectsPage() {
                     <span>{project.category}</span>
                   </div>
 
-                  <h3>{project.title}</h3>
+                  <div className="project-feature__headline">
+                    <h3>{project.title}</h3>
+
+                    <div
+                      className="project-feature__metrics"
+                      aria-label="Key project metrics"
+                    >
+                      {project.metrics?.map((metric) => (
+                        <div className="project-metric" key={metric.label}>
+                          <strong>{metric.value}</strong>
+                          <span>{metric.label}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+
                   <p className="project-feature__description">
                     {project.description}
                   </p>
 
-                  <div className="project-feature__metrics">
-                    {projectEvidence[project.id].map((metric) => (
-                      <div className="project-metric" key={metric.label}>
-                        <strong>{metric.value}</strong>
-                        <span>{metric.label}</span>
-                      </div>
-                    ))}
-                  </div>
-
                   <div className="project-feature__actions">
                     <GoldButton
-                      onClick={() => setSelectedProject(project)}
+                      onClick={() => onSelectProject(project)}
                       variant="secondary"
+                      className="project-feature__review"
                       icon={<FaArrowRight />}
                     >
                       Review case study
@@ -278,7 +342,8 @@ export default function ProjectsPage() {
                     {project.github && (
                       <GoldButton
                         href={project.github}
-                        variant="ghost"
+                        variant="primary"
+                        className="project-feature__github"
                         icon={<FaGithub />}
                       >
                         GitHub
@@ -301,7 +366,7 @@ export default function ProjectsPage() {
                   <button
                     type="button"
                     className="project-open"
-                    onClick={() => setSelectedProject(project)}
+                    onClick={() => onSelectProject(project)}
                   >
                     <FaExpand aria-hidden="true" /> Open details
                   </button>
@@ -328,7 +393,7 @@ export default function ProjectsPage() {
                 <button
                   type="button"
                   className="project-card-hitbox"
-                  onClick={() => setSelectedProject(project)}
+                  onClick={() => onSelectProject(project)}
                   aria-label={`Open project details: ${project.title}`}
                 />
                 <div className="project-card__visual">
@@ -344,13 +409,26 @@ export default function ProjectsPage() {
                 <p className="project-card__meta">{project.category}</p>
                 <h4>{project.title}</h4>
                 <p>{project.description}</p>
-                <button
-                  type="button"
-                  className="text-button"
-                  onClick={() => setSelectedProject(project)}
-                >
-                  View engineering details <FaArrowRight aria-hidden="true" />
-                </button>
+                <div className="project-card__actions">
+                  <GoldButton
+                    onClick={() => onSelectProject(project)}
+                    variant="secondary"
+                    className="project-card__details"
+                    icon={<FaArrowRight />}
+                  >
+                    View details
+                  </GoldButton>
+                  {project.github && (
+                    <GoldButton
+                      href={project.github}
+                      variant="primary"
+                      className="project-card__github"
+                      icon={<FaGithub />}
+                    >
+                      GitHub
+                    </GoldButton>
+                  )}
+                </div>
               </Card>
             </Reveal>
           ))}
@@ -361,7 +439,7 @@ export default function ProjectsPage() {
         <ProjectDialog
           key={selectedProject.id}
           project={selectedProject}
-          onDismiss={() => setSelectedProject(null)}
+          onDismiss={() => onSelectProject(null)}
         />
       )}
     </section>

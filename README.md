@@ -6,7 +6,7 @@ experience, and engineering capabilities through measurable evidence.
 ## Design direction
 
 - Midnight navy/amber dark mode and ivory/burgundy light mode
-- Code-native AI inference visual with restrained glass and prismatic accents
+- Code-native, project-backed AI capability map with restrained glass accents
 - Outcome-first project storytelling instead of generic technology cards
 - Responsive layouts from 320px mobile screens through wide desktop displays
 - Lightweight motion using transforms, opacity, CSS, and IntersectionObserver
@@ -24,33 +24,34 @@ experience, and engineering capabilities through measurable evidence.
 ## Local development
 
 ```bash
-npm install
+npm ci
 npm run dev
 ```
 
 Production checks:
 
 ```bash
-npm run lint
-npm run build
+npm run check
 ```
 
 ## Content and assets
 
+- Maintenance map and editing rules: `about.md`
 - Portfolio content: `src/data/portfolio.js`
 - Project visuals: `public/images/projects/`
 - Social preview artwork: `public/images/hero/`
 - Résumé: `public/cv/NguyenXuanTrung_AI_Engineer_CV.pdf`
 - Theme and responsive layout: `src/index.css`
 
-The home page prioritizes three flagship projects while keeping the remaining
+The home page prioritizes four flagship projects and keeps four additional
 projects, publications, academic recognition, and credentials accessible below.
+Every project has a shareable `/projects/<slug>` case-study URL.
 
 ## Performance approach
 
 - No video, WebGL, or continuous canvas renderer
 - No animation framework in the client bundle
-- Code-native hero diagram; WebP is reserved for social/project imagery
+- Code-native hero diagram; project visuals use optimized SVG or WebP assets
 - Lazy-loaded project and profile imagery
 - Transform/opacity-only reveal motion
 - Automatic lite mode for low-memory/low-CPU devices and Data Saver

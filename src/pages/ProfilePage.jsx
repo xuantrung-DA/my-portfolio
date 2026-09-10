@@ -31,7 +31,7 @@ export default function ProfilePage() {
             </div>
             <div className="about-fact">
               <span>Current focus</span>
-              <strong>Applied AI systems</strong>
+              <strong>{personalInfo.currentFocus}</strong>
             </div>
             <div className="about-fact">
               <span>Target roles</span>
@@ -40,6 +40,10 @@ export default function ProfilePage() {
             <div className="about-fact">
               <span>Graduation</span>
               <strong>{personalInfo.expectedGraduation}</strong>
+            </div>
+            <div className="about-fact about-fact--wide">
+              <span>Availability</span>
+              <strong>{personalInfo.availabilityDetail}</strong>
             </div>
           </div>
 

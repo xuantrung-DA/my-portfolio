@@ -14,6 +14,7 @@ export default function HonorsPage() {
   const topStudent = academic?.academicHighlights?.find((highlight) =>
     highlight.label.includes("Top 100"),
   );
+  const topStudentSemesters = topStudent?.semesters.length ?? 0;
   const sortedCertifications = [...certifications].sort(
     (a, b) => a.priority - b.priority,
   );
@@ -26,8 +27,8 @@ export default function HonorsPage() {
         <SectionTitle
           index="04"
           eyebrow="Research & recognition"
-          title="Published ideas, verified outcomes."
-          subtitle="Peer-reviewed and accepted work across edge AI, computer vision, digital twins, and model optimization."
+          title="Research progress, presented with context."
+          subtitle="Published, accepted, and submitted work across applied AI, intelligent systems, computer vision, and model optimization."
         />
 
         <div className="research-list">
@@ -42,8 +43,16 @@ export default function HonorsPage() {
               <div className="research-title">
                 <h3>{paper.description.replace(/[“”]/g, "")}</h3>
                 {paper.authors && <p>{paper.authors}</p>}
-                <span className="status-badge">
-                  {paper.status || (paper.publishedDate ? "Published" : "Research")}
+                <span
+                  className="status-badge"
+                  data-status={(
+                    paper.status ||
+                    (paper.publishedDate ? "Published" : "Research")
+                  ).toLowerCase()}
+                >
+                  {paper.statusLabel ||
+                    paper.status ||
+                    (paper.publishedDate ? "Published" : "Research")}
                 </span>
               </div>
               <div className="research-venue">
@@ -56,8 +65,9 @@ export default function HonorsPage() {
                   href={paper.credentialUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  aria-label={`Open ${paper.title}`}
+                  aria-label={`${paper.linkLabel}: ${paper.description.replace(/[“”]/g, "")}`}
                 >
+                  <span>{paper.linkLabel}</span>
                   <FaArrowUpRightFromSquare size={13} />
                 </a>
               )}
@@ -73,9 +83,12 @@ export default function HonorsPage() {
                   <FaMedal size={24} aria-hidden="true" />
                 </span>
                 <p className="eyebrow">Academic track record</p>
-                <h3>Five honor semesters. Two Top 100 finishes.</h3>
+                <h3>Top 100 across {topStudentSemesters} semesters.</h3>
                 <p className="recognition-description">
-                  {academic.description}
+                  Ranked among FPT University&apos;s Top 100 Excellent Students
+                  in {topStudent?.semesters.join(" and ")}, with Honor Student
+                  recognition across the other {academic.honorSemesters}{" "}
+                  completed semesters.
                 </p>
                 <span className="recognition-school">
                   {academic.organization} · {academic.year}
@@ -85,24 +98,33 @@ export default function HonorsPage() {
               <div className="recognition-dashboard">
                 <div className="recognition-primary-stat">
                   <div>
-                    <strong>{academic.honorSemesters}</strong>
+                    <strong>{topStudentSemesters}</strong>
                     <span>/ {academic.completedSemesters} semesters</span>
                   </div>
-                  <p>Honor Student recognition</p>
+                  <p>Top 100 Excellent Student</p>
                   <div
-                    className="semester-track"
-                    aria-label={`${academic.honorSemesters} honor semesters out of ${academic.completedSemesters} completed semesters`}
+                    className="semester-track semester-track--ranking"
+                    aria-label={`${topStudentSemesters} Top 100 Excellent Student semesters out of ${academic.completedSemesters} completed semesters`}
                   >
                     {Array.from({ length: academic.completedSemesters }).map(
                       (_, index) => (
                         <span
                           className={
-                            index < academic.honorSemesters ? "is-honor" : ""
+                            index < topStudentSemesters ? "is-top" : "is-honor"
                           }
                           key={`semester-${index + 1}`}
                         />
                       ),
                     )}
+                  </div>
+                  <div className="semester-legend" aria-hidden="true">
+                    <span>
+                      <i className="is-top" /> Top 100 ×{topStudentSemesters}
+                    </span>
+                    <span>
+                      <i className="is-honor" /> Honor Student ×
+                      {academic.honorSemesters}
+                    </span>
                   </div>
                 </div>
 
@@ -113,9 +135,14 @@ export default function HonorsPage() {
                     <p>Artificial Intelligence · FPT University</p>
                   </div>
                   <div className="recognition-mini-stat">
-                    <span>University ranking</span>
-                    <strong>Top 100 ×2</strong>
-                    <p>{topStudent?.semesters.join(" · ")}</p>
+                    <span>Honor recognition</span>
+                    <strong>
+                      {academic.honorSemesters} / {academic.completedSemesters}
+                    </strong>
+                    <p>
+                      {academic.honorSemesters} Honor Student semesters in
+                      addition to both Top 100 results
+                    </p>
                   </div>
                 </div>
               </div>
@@ -133,7 +160,7 @@ export default function HonorsPage() {
             <Reveal key={certificate.title} delay={(index % 3) * 35}>
               <Card as="article" className="credential-card" interactive>
                 <div className="credential-card__top">
-                  <FaCertificate size={17} aria-hidden="true" />
+                  <FaCertificate size={19} aria-hidden="true" />
                   <span>{certificate.date}</span>
                 </div>
                 <h4>{certificate.title}</h4>
@@ -146,7 +173,7 @@ export default function HonorsPage() {
                     target="_blank"
                     rel="noopener noreferrer"
                   >
-                    Verify credential <FaArrowUpRightFromSquare size={10} />
+                    Verify credential <FaArrowUpRightFromSquare size={12} />
                   </a>
                 )}
               </Card>
