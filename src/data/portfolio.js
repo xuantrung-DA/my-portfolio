@@ -27,7 +27,7 @@ export const personalInfo = {
   expectedGraduation: "June 2027",
   email: "nxt276651@gmail.com",
   phone: "0785656734",
-  cvUrl: "/cv/NguyenXuanTrung_AI_Engineer_CV.pdf",
+  cvUrl: "/cv/Nguyen-Xuan-Trung-AI-Engineer-CV.pdf",
   socials: {
     github: "https://github.com/xuantrung-DA",
     linkedin: "https://www.linkedin.com/in/trung-nguyen-3932b4265/",
