@@ -684,7 +684,7 @@ export const honors = [
       "Anh Minh Phan; Hoai My Nguyen; Xuan Trung Nguyen; Nguyen Minh Phong Pham; Dang Thanh Ngan Ngo",
     paperType: "Short paper",
     status: "Accepted",
-    statusLabel: "Accepted to FISAT 2026",
+    statusLabel: "Accepted at FISAT 2026",
     credentialUrl: "https://fisat.eai-conferences.org/2026/",
     linkLabel: "Conference website",
     type: "research",
