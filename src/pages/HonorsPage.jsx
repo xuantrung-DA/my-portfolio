@@ -28,7 +28,7 @@ export default function HonorsPage() {
           index="04"
           eyebrow="Research & recognition"
           title="Research progress, presented with context."
-          subtitle="Published, accepted, and submitted work across applied AI, intelligent systems, computer vision, and model optimization."
+          subtitle="Published and accepted work across applied AI, intelligent systems, computer vision, and model optimization."
         />
 
         <div className="research-list">

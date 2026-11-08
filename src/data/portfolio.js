@@ -474,7 +474,7 @@ export const projects = [
     role: "Data & Detection Engineer",
     period: "05/2026 – 07/2026",
     teamSize: 4,
-    status: "Submitted to RIVF 2026",
+    status: "Accepted at RIVF 2026",
     description:
       "Contributed to a four-member team developing a learned conditional-routing system that selects a specialized object detector for clean, synthetic low-light, or real low-light UAV imagery, with a focus on robust small-object detection.",
     metrics: [
@@ -523,7 +523,7 @@ export const projects = [
     role: "First Author · Model Architecture & Evaluation",
     period: "04/2026 – 06/2026",
     teamSize: 3,
-    status: "Submitted to RIVF 2026",
+    status: "Accepted at RIVF 2026",
     description:
       "Proposed and evaluated AQB-FAS, a split-computing Face Anti-Spoofing framework that converts facial inputs into fixed-bitrate latent representations, balancing presentation-attack detection performance with edge-to-server communication efficiency.",
     metrics: [
@@ -674,23 +674,7 @@ export const honors = [
     type: "research",
   },
   {
-    title: "Submitted Short Paper — EAI FISAT 2026",
-    organization:
-      "EAI FISAT 2026 · EAI FPT International Conference on Intelligent Systems and Advanced Technologies",
-    year: "2026",
-    description:
-      "“TinyConformalAD: A Compact TCN Autoencoder with a Split-Conformal Alarm-Scoring Interface.”",
-    authors:
-      "Anh Minh Phan; Hoai My Nguyen; Xuan Trung Nguyen; Nguyen Minh Phong Pham; Dang Thanh Ngan Ngo",
-    paperType: "Short paper",
-    status: "Accepted",
-    statusLabel: "Accepted at FISAT 2026",
-    credentialUrl: "https://fisat.eai-conferences.org/2026/",
-    linkLabel: "Conference website",
-    type: "research",
-  },
-  {
-    title: "Submitted Manuscript — RIVF 2026",
+    title: "Accepted Paper — RIVF 2026",
     organization:
       "RIVF 2026 · 20th International Conference on Computing and Communication Technologies",
     year: "2026",
@@ -698,14 +682,14 @@ export const honors = [
       '“Attribute-Guided Quantized Bottlenecks for Bandwidth-Efficient Split-Computing Face Anti-Spoofing.”',
     authors:
       "Xuan Trung Nguyen; Vy Kiet Trinh; Thanh Phat Nguyen; Ha Anh Vu",
-    status: "Submitted",
-    statusLabel: "Submitted to RIVF 2026",
+    status: "Accepted",
+    statusLabel: "Accepted at RIVF 2026",
     credentialUrl: "https://rivf2026.org/",
     linkLabel: "Conference website",
     type: "research",
   },
   {
-    title: "Submitted Manuscript — RIVF 2026",
+    title: "Accepted Paper — RIVF 2026",
     organization:
       "RIVF 2026 · 20th International Conference on Computing and Communication Technologies",
     year: "2026",
@@ -713,8 +697,8 @@ export const honors = [
       '“Lightweight Conditional Routing for Multi-Domain Object Detection in Low-Light UAV Imagery.”',
     authors:
       "Hoai My Nguyen; Xuan Trung Nguyen; Anh Minh Phan; Nguyen Minh Phong Pham; Ha Anh Vu",
-    status: "Submitted",
-    statusLabel: "Submitted to RIVF 2026",
+    status: "Accepted",
+    statusLabel: "Accepted at RIVF 2026",
     credentialUrl: "https://rivf2026.org/",
     linkLabel: "Conference website",
     type: "research",
