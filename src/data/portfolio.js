@@ -38,7 +38,7 @@ export const experience = [
   {
     role: "AI Engineer Intern",
     company: "ECE Technology Co., Ltd.",
-    period: "01/2026 – 04/2026",
+    period: "01/2026 – 05/2026",
     project: "AI for E-Commerce Platform (MVP v1)",
     description:
       "Developed the applied-AI layer for an e-commerce MVP, from product segmentation and market intelligence to a deployed microservice.",
