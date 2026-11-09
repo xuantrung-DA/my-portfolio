@@ -1,63 +1,32 @@
-# Nguyen Xuan Trung — AI Engineering Portfolio
+# Nguyễn Xuân Trung — AI Engineering Portfolio
 
-A performance-focused React portfolio presenting applied AI projects, research,
-experience, and engineering capabilities through measurable evidence.
+Personal AI portfolio rebuilt in Terracotta. The Terracotta design and one-page CV were reviewed and approved by the owner.
 
-## Design direction
+## Run locally
 
-- Midnight navy/amber dark mode and ivory/burgundy light mode
-- Code-native, project-backed AI capability map with restrained glass accents
-- Outcome-first project storytelling instead of generic technology cards
-- Responsive layouts from 320px mobile screens through wide desktop displays
-- Lightweight motion using transforms, opacity, CSS, and IntersectionObserver
-- Automatic low-power motion profile plus reduced-motion support
-
-## Stack
-
-- React 19
-- Vite 8
-- Tailwind CSS 4
-- React Icons
-- Oxlint
-- Vercel
-
-## Local development
-
-```bash
-npm ci
-npm run dev
+```powershell
+npm.cmd ci
+npm.cmd run dev
+npm.cmd run check
 ```
 
-Production checks:
+Vercel builds with `npm run build` and publishes `dist/` using the existing SPA rewrite.
 
-```bash
-npm run check
-```
+## Design
 
-## Content and assets
+Off-white `#F7F6F4`, charcoal `#26211D`, terracotta `#C07A55`. Small links and white-on-color buttons use darker `#985331` for readability. Serif headings, system sans-serif body, no external fonts or continuous decoration. Experience first, three selected projects, six research entries, education and contact. Additional projects and credentials remain available through native disclosures. Dedicated case studies use `/projects/<slug>`.
 
-- Maintenance map and editing rules: `about.md`
-- Portfolio content: `src/data/portfolio.js`
-- Project visuals: `public/images/projects/`
-- Social preview artwork: `public/images/hero/`
-- Résumé: `public/cv/NguyenXuanTrung_AI_Engineer_CV.pdf`
-- Theme and responsive layout: `src/index.css`
+## Source map
 
-The home page prioritizes four flagship projects and keeps four additional
-projects, publications, academic recognition, and credentials accessible below.
-Every project has a shareable `/projects/<slug>` case-study URL.
+- [portfolio.js](./src/data/portfolio.js): canonical profile, experience, projects, research, credentials and navigation.
+- [projectNotes.js](./src/data/projectNotes.js): selected project order and concise introductions.
+- [PortfolioPage.jsx](./src/pages/PortfolioPage.jsx): homepage sections.
+- [ProjectPage.jsx](./src/pages/ProjectPage.jsx): case-study pages.
+- [SiteLayout.jsx](./src/components/SiteLayout.jsx): header and footer.
+- [ProjectImage.jsx](./src/components/ProjectImage.jsx): image dialog.
+- [styles.css](./src/styles.css): palette, typography and responsive layouts.
+- [projects/](./public/images/projects/): existing architecture images.
+- [CV](./public/cv/Nguyen-Xuan-Trung-AI-Engineer-CV.pdf): new one-page PDF selected by the owner.
+- [mockups/](./design/mockups/): earlier design concepts.
 
-## Performance approach
-
-- No video, WebGL, or continuous canvas renderer
-- No animation framework in the client bundle
-- Code-native hero diagram; project visuals use optimized SVG or WebP assets
-- Lazy-loaded project and profile imagery
-- Transform/opacity-only reveal motion
-- Automatic lite mode for low-memory/low-CPU devices and Data Saver
-- Static reduced-motion fallback
-
-## Deployment
-
-The repository includes `vercel.json` for SPA fallback routing. Vercel can build
-the project with the default `npm run build` command and publish `dist/`.
+See [about.md](./about.md) for maintenance rules. Always distinguish individual contributions, team results and benchmark scope.

@@ -1,39 +1,18 @@
-<!doctype html>
+﻿<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <script>
-      (() => {
-        try {
-          const savedTheme = localStorage.getItem("portfolio-theme");
-          const theme = savedTheme === "light" ? "light" : "dark";
-          document.documentElement.dataset.theme = theme;
-          document.documentElement.style.colorScheme = theme;
-        } catch {
-          document.documentElement.dataset.theme = "dark";
-        }
-      })();
-    </script>
-    
-    <!-- SEO -->
-    <title>Nguyen Xuan Trung — AI Engineer</title>
-    <meta name="description" content="AI Engineer focused on evidence-grounded multimodal and RAG systems, computer vision, model optimization, and reliable backend engineering. Available part-time through June 2027 and full-time from July 2027." />
-    <meta name="keywords" content="Nguyen Xuan Trung, AI Engineer, Applied AI, Computer Vision, Multimodal AI, LLM, RAG, Offline Reinforcement Learning, Edge AI, MLOps" />
+    <title>Nguyễn Xuân Trung — AI Engineer</title>
+    <meta name="description" content="AI undergraduate at FPT University. Computer vision, document and video search projects, research and AI engineering experience. Available part-time now and full-time from July 2027." />
     <meta name="author" content="Nguyễn Xuân Trung" />
-    
-    <!-- Open Graph -->
-    <meta property="og:title" content="Nguyen Xuan Trung — AI Engineer" />
-    <meta property="og:description" content="Evidence-grounded multimodal and RAG systems backed by computer vision, model optimization, and reliable backend engineering." />
+    <meta property="og:title" content="Nguyễn Xuân Trung — AI Engineer" />
+    <meta property="og:description" content="Computer vision and LLM applications. Selected projects, research and engineering experience." />
     <meta property="og:type" content="website" />
-    <meta property="og:image" content="/images/hero/ai-systems-hero-v1-1920.webp" />
-    <meta name="twitter:card" content="summary_large_image" />
-    
-    <!-- Favicon -->
+    <meta property="og:locale" content="en_US" />
+    <meta name="twitter:card" content="summary" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    
-    <!-- Theme color -->
-    <meta name="theme-color" content="#06152f" />
+    <meta name="theme-color" content="#f7f6f4" />
   </head>
   <body>
     <div id="root"></div>

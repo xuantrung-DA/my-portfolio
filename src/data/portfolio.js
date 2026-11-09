@@ -332,7 +332,7 @@ export const projects = [
     id: 1,
     slug: "multimodal-bearing-rul-wca-gru",
     title: "Multimodal Bearing RUL Prediction with WCA-GRU",
-    role: "Sole Developer · Second Author",
+    role: "Model Developer · Second Author",
     period: "06/2026",
     teamSize: 2,
     status: "Accepted at SIMC 2026 · Springer LNEE",
@@ -344,7 +344,7 @@ export const projects = [
       { value: "5.52", label: "PHM score" },
     ],
     highlights: [
-      "Solely implemented the complete research codebase, including preprocessing, model architecture, training, and evaluation pipelines.",
+      "Developed the model architecture and implemented preprocessing, training, and evaluation pipelines for the research project.",
       "Designed a dual-encoder architecture using a 1D CNN for wavelet vibration features and an MLP for bearing-temperature features.",
       "Developed a cross-attention mechanism to condition vibration representations on thermal degradation context.",
       "Applied leakage-aware forward temporal splits and rolling-origin validation.",
@@ -682,6 +682,7 @@ export const honors = [
       '“Attribute-Guided Quantized Bottlenecks for Bandwidth-Efficient Split-Computing Face Anti-Spoofing.”',
     authors:
       "Xuan Trung Nguyen; Vy Kiet Trinh; Thanh Phat Nguyen; Ha Anh Vu",
+    acceptedDate: "25 October 2026",
     status: "Accepted",
     statusLabel: "Accepted at RIVF 2026",
     credentialUrl: "https://rivf2026.org/",
@@ -697,6 +698,7 @@ export const honors = [
       '“Lightweight Conditional Routing for Multi-Domain Object Detection in Low-Light UAV Imagery.”',
     authors:
       "Hoai My Nguyen; Xuan Trung Nguyen; Anh Minh Phan; Nguyen Minh Phong Pham; Ha Anh Vu",
+    acceptedDate: "25 October 2026",
     status: "Accepted",
     statusLabel: "Accepted at RIVF 2026",
     credentialUrl: "https://rivf2026.org/",
@@ -872,10 +874,9 @@ export const certifications = [
 ];
 
 export const navLinks = [
-  { label: "Home", path: "#home" },
-  { label: "Work", path: "#work" },
   { label: "Experience", path: "#experience" },
-  { label: "Capabilities", path: "#capabilities" },
+  { label: "Projects", path: "#work" },
   { label: "Research", path: "#research" },
   { label: "About", path: "#about" },
+  { label: "Contact", path: "#contact" },
 ];
